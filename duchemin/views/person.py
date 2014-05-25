@@ -10,13 +10,16 @@ from duchemin.renderers.custom_html_renderer import CustomHTMLRenderer
 class PersonListHTMLRenderer(CustomHTMLRenderer):
     template_name = "person/person_list.html"
 
+
 class PersonDetailHTMLRenderer(CustomHTMLRenderer):
     template_name = "person/person_detail.html"
+
 
 class PersonList(generics.ListAPIView):
     model = DCPerson
     serializer_class = DCPersonListSerializer
     renderer_classes = (JSONRenderer, PersonListHTMLRenderer)
+
 
 class PersonDetail(generics.RetrieveAPIView):
     model = DCPerson

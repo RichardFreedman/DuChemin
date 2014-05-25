@@ -1,15 +1,12 @@
 from django.shortcuts import render
 import json
 
-from django.http import HttpResponse,HttpResponseServerError
-from django.utils.timezone import utc
-from django.utils.datastructures import SortedDict
+from django.http import HttpResponse, HttpResponseServerError
 from django.conf import settings
 from django.core.paginator import EmptyPage, InvalidPage
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from duchemin.helpers.solrsearch import DCSolrSearch
-from datetime import datetime
 
 from duchemin.models.piece import DCPiece
 from duchemin.models.analysis import DCAnalysis
@@ -95,42 +92,40 @@ def discussion_callback(request):
             last_update = get_data['last_update']
             if get_data.has_key('piece_id'):
                 piece_id = get_data['piece_id']
-
-    
                 # only return the queryset of objects for this piece newer than
                 # the last id (sent from AJAX callback). This assumes a sequential
                 # addition of comments, incrementing the id every time
                 comments = DCComment.objects.filter(
-                    piece = DCPiece.objects.get(piece_id=piece_id),
-                    id__gt = last_update
+                    piece=DCPiece.objects.get(piece_id=piece_id),
+                    id__gt=last_update
                     )
 
             else:
-                    # if no piece_id was included, return everything
-                    comments = DCComment.objects.filter(id__gt = last_update)
-                    
+                # if no piece_id was included, return everything
+                comments = DCComment.objects.filter(id__gt=last_update)
+
             for comment in comments.values():
                 display_time = comment['time'].strftime("%d/%m/%y %H:%M")
                 current_piece = DCPiece.objects.get(id=comment['piece_id'])
                 comment_array.append({
-                    'id' : u"{}".format(comment['id']),
-                    'text' : u"{}".format(comment['text']),
-                    'display_time' : u"{}".format(display_time),
-                    'author' : u"{}".format(
+                    'id': u"{}".format(comment['id']),
+                    'text': u"{}".format(comment['text']),
+                    'display_time': u"{}".format(display_time),
+                    'author': u"{}".format(
                         User.objects.get(id=comment['author_id'])),
-                    'piece_id' : u"{}".format(current_piece.piece_id)
+                    'piece_id': u"{}".format(current_piece.piece_id)
                 })
             return JsonResponse(comment_array)
         else:
             return HttpResponseServerError("Missing critical GET attributes")
-        
+
     # If accessed using a POST, assume we are adding a new discussion
     elif request.method == u'POST':
         post_data = request.POST
         if post_data.has_key('piece_id') and post_data.has_key('text'):
             piece = DCPiece.objects.get(piece_id=post_data['piece_id'])
-            comment = DCComment(author = request.user,
-                piece = piece,text = post_data['text'])
+            comment = DCComment(author=request.user,
+                                piece=piece, text=post_data['text'])
             comment.save()
             return HttpResponse("OK!")
         else:

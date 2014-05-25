@@ -9,8 +9,10 @@ from duchemin.renderers.custom_html_renderer import CustomHTMLRenderer
 class AnalysisListHTMLRenderer(CustomHTMLRenderer):
     template_name = "analysis/analysis_list.html"
 
+
 class AnalysisDetailHTMLRenderer(CustomHTMLRenderer):
     template_name = "analysis/analysis_detail.html"
+
 
 class AnalysisList(generics.ListAPIView):
     model = DCAnalysis
@@ -19,6 +21,7 @@ class AnalysisList(generics.ListAPIView):
     paginate_by = 100
     paginate_by_param = 'page_size'
     max_paginate_by = 200
+
 
 class AnalysisDetail(generics.RetrieveAPIView):
     model = DCAnalysis

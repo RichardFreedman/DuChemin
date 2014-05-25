@@ -1,5 +1,6 @@
 from duchemin.models.userprofile import DCUserProfile
 
+
 def get_or_create_profile(request):
     profile = None
     user = request.user

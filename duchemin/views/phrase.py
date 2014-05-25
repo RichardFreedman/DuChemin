@@ -9,8 +9,10 @@ from duchemin.renderers.custom_html_renderer import CustomHTMLRenderer
 class PhraseListHTMLRenderer(CustomHTMLRenderer):
     template_name = "phrase/phrase_list.html"
 
+
 class PhraseDetailHTMLRenderer(CustomHTMLRenderer):
     template_name = "phrase/phrase_detail.html"
+
 
 class PhraseList(generics.ListAPIView):
     model = DCPhrase

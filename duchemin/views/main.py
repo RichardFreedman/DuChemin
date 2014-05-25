@@ -1,6 +1,6 @@
 import datetime
 from django.shortcuts import render
-from django.http import Http404, HttpResponse
+from django.http import Http404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
@@ -10,7 +10,6 @@ from duchemin.models.piece import DCPiece
 from duchemin.models.phrase import DCPhrase
 from duchemin.models.analysis import DCAnalysis
 from duchemin.models.book import DCBook
-from duchemin.models.person import DCPerson
 from duchemin.models.reconstruction import DCReconstruction
 from duchemin.models.content_block import DCContentBlock
 
