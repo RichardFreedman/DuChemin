@@ -56,19 +56,25 @@
       <div class="row-fluid">
         <div class="span12">
 
+          <!-- RF May 2014:  Add to Favorites modal now moved here, below work and computer ID.  Please check for accuracy-->
           <div class="show-heading row-fluid">
             <hgroup class="show-title page-title span8">
               <h1>{{ piece.title }}</h1>
               <h2><a href="/person/{{ piece.composer_id.person_id }}">{{ piece.composer_id.full_name }}</a></h2>
               <h3>{{ piece.piece_id }}</h3>
+              {% if is_logged_in %}
+              <h2>{% include "main/favourites/favourites.html" with is_favourite=is_favourite piece_id=piece.piece_id %}</h2>
             </hgroup>
             
+            <!-- RF May 2014:  New layout for file links.  Check file links for MEI and MP3 files.  Update models? -->
             <div class="well span4">
               <dl class="well-list account-info-list">
                 <dt>Source:</dt>
                 <dd><a href="/book/{{ piece.book_id.book_id }}">{{ piece.book_id.title }}</a></dd>
                 <dt>View:</dt>
-                <dd><a href="{{ piece.pdf_link }}" target="_blank">Complete Modern Edition</a></dd>
+                <dd><a href="{{ piece.pdf_link }}" target="_blank">Complete Modern Edition (PDF)</a> | | <a href="{{ piece.DCfile }}" target="_blank">MEI File</a></dd>
+                <dt>Listen:</dt>
+                <dd><a href="{{ piece.mp3_link }}" target="_blank">Complete Recording (MP3)</a>/</dd>
               </dl>
             </div>
           </div>
@@ -82,9 +88,11 @@
                     <th>Measures</th>
                     <th>Rhyme</th>
                     <th>Phrase</th>
+                    <!-- RF May 2014:  remove table column for display of Reconstructions 
                     {% if reconstructions %}
                     <th>Reconstructions</th>
                     {% endif %}
+                    -->
                   </tr>
                 </thead>
                 <tbody>
@@ -104,6 +112,7 @@
                     <td class="line-text">
                       {{ phrase.phrase_text }}
                     </td>
+                    <!-- RF May 2014:  remove column for selection of Reconstructions 
                     {% if reconstructions %}
                     <td>
                       <div class="btn-group">
@@ -116,6 +125,7 @@
                           <li><a href="#" class="view-phrase" phid="{{ reconstruction.piece.piece_id }}_{{ reconstruction.reconstructor.surname }}_r/{{ phrase.phrase_id }}">{{ reconstruction.reconstructor.surname }}</a></li>
                           {% endfor %}
                         </ul>
+                	-->	
                       </div>
                     </td>
                     {% endif %}
@@ -124,11 +134,12 @@
                 </tbody>
               </table>
             </div>
-
             <div id="sidebar" class="span4">
-              {% if is_logged_in %}
-              <h3>Favourites</h3>
+            <!-- RF May 2014:  Button for "Add to Favorites" now noted above, under work ID
+            {% if is_logged_in %}
+              <h3>Favorites</h3>
               {% include "main/favourites/favourites.html" with is_favourite=is_favourite piece_id=piece.piece_id %}
+              -->
               <h3>Discussion</h3>
               <div id="discussion-block"></div><br>
               <form id="comment-form">
@@ -210,4 +221,5 @@
           }
         })
       </script>
+            <!-- RF May 2014:  meiView for each piece goes below the 'table' -->
 {% endblock %}
