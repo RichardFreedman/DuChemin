@@ -37,6 +37,8 @@ if 'django.contrib.admin' in settings.INSTALLED_APPS:
         url(r'^phrases/$', PhraseList.as_view(), name="dcphrase-list"),
         url(r'^phrase/(?P<pk>[0-9]+)/$', PhraseDetail.as_view(), name="dcphrase-detail"),
 
+        url(r'^discussions/$', 'home', name='discussions'),
+
     )
 
     urlpatterns += patterns('duchemin.views.search',
