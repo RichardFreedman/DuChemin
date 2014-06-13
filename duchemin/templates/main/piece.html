@@ -159,44 +159,44 @@
           <div class="row-fluid">
             <div class="span12">
               {% if analyses %}
-              <div class="analysis-display">
-                <div class="row-fluid">
-                  <div class="span10">
-                    <h3>Observations</h3>
-                  </div>
-                  <div class="span2">
-                    {% if is_staff %}
-                      <a href="/piece/{{ piece.piece_id }}/add-observation/" class="btn btn-small btn-block">Add New Observation</a>
-                    {% endif %}
-                  </div>
-                </div> <!-- row-fluid -->
-                <div class="row-fluid">
-                  <div class="span12">
-                    <table class="table">
-                      <thead>
-                        <tr>
-                          <th>Measures</th>
-                          <th>Phrase Number</th>
-                          <th>Analyst</th>
-                          <th></th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                      {% for analysis in analyses %}
-                        <tr>
-                          <td><a href="#" class="view-analysis" anid="{{ analysis.id }}">{{ analysis.start_measure }}&ndash;{{ analysis.stop_measure }}</a></td>
-                          <td>{{ analysis.phrase_number.phrase_num }}</td>
-                          <td>{{ analysis.analyst }}</td>
-                          <td> 
-                            <a href="#" class="analyses-info-expand" target="analyses-info-{{ forloop.counter }}">Expand</a>
-                          </td>
-                        </tr>
-                        <tr id="analyses-info-{{ forloop.counter }}" class="analyses-info">
-                          <td colspan="5">{% include "analysis/analysis_extended_display_info.html" %}</td>
-                        </tr>
-                      {% endfor %}
-                      </tbody>
-                    </table>
+                <div class="analysis-display">
+                  <div class="row-fluid">
+                    <div class="span10">
+                      <h3>Observations</h3>
+                    </div>
+                    <div class="span2">
+                      {% if is_staff %}
+                        <a href="/piece/{{ piece.piece_id }}/add-observation/" class="btn btn-small btn-block">Add New Observation</a>
+                      {% endif %}
+                    </div>
+                  </div> <!-- row-fluid -->
+                  <div class="row-fluid">
+                    <div class="span12">
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th>Measures</th>
+                            <th>Phrase Number</th>
+                            <th>Analyst</th>
+                            <th></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        {% for analysis in analyses %}
+                          <tr>
+                            <td><a href="#" class="view-analysis" anid="{{ analysis.id }}">{{ analysis.start_measure }}&ndash;{{ analysis.stop_measure }}</a></td>
+                            <td>{{ analysis.phrase_number.phrase_num }}</td>
+                            <td>{{ analysis.analyst }}</td>
+                            <td> 
+                              <a href="#" class="analyses-info-expand" target="analyses-info-{{ forloop.counter }}">Expand</a>
+                            </td>
+                          </tr>
+                          <tr id="analyses-info-{{ forloop.counter }}" class="analyses-info">
+                            <td colspan="5">{% include "analysis/analysis_extended_display_info.html" %}</td>
+                          </tr>
+                        {% endfor %}
+                        </tbody>
+                      </table>
                   </div>
                 </div>
                 {% else %}
