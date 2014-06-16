@@ -149,7 +149,8 @@
           <h2><a href="/person/{{ piece.composer_id.person_id }}">{{ piece.composer_id.full_name }}</a></h2>
           <h3>{{ piece.piece_id }}</h3>
           {% if is_logged_in %}
-          <h2>{% include "main/favourites/favourites.html" with is_favourite=is_favourite piece_id=piece.piece_id %}</h2>
+            <h2>{% include "main/favourites/favourites.html" with is_favourite=is_favourite piece_id=piece.piece_id %}</h2>
+          {% endif %}
         </hgroup>
         
         <!-- RF May 2014:  New layout for file links.  Check file links for MEI and MP3 files.  Update models? -->
@@ -227,6 +228,7 @@
         {% if is_logged_in %}
           <h3>Favorites</h3>
           {% include "main/favourites/favourites.html" with is_favourite=is_favourite piece_id=piece.piece_id %}
+        {% endif %}
           -->
           <h3>Discussion</h3>
           <div id="discussion-block"></div><br>
@@ -235,11 +237,10 @@
             <input type="hidden" name="piece_id" value="{{ piece.piece_id }}"/>
             <input type="submit" name="comment-submit" value="Comment"/>
           </form>
-          {% endif %}
           
           {% if is_logged_in %}
-          <h3>Problems</h3>
-          <p>Is this record incorrect? <a href="mailto:rfreedma@haverford.edu?subject=Problem with Piece {{ piece.piece_id }}"> Notify us.</a></p>
+            <h3>Problems</h3>
+            <p>Is this record incorrect? <a href="mailto:rfreedma@haverford.edu?subject=Problem with Piece {{ piece.piece_id }}"> Notify us.</a></p>
           {% endif %}
         </div><!--/span-->
       </div>
@@ -285,15 +286,15 @@
                     {% endfor %}
                     </tbody>
                   </table>
+                </div>
               </div>
             </div>
-            {% else %}
-                {% if is_staff %}
-                  <a href="/piece/{{ piece.piece_id }}/add-observation/" class="btn btn-small btn-block">Add New Observation</a>
-                {% endif %}
-            {% endif %}
-          </div>
-        {% endif %}
+          {% else %}
+              {% if is_staff %}
+                <a href="/piece/{{ piece.piece_id }}/add-observation/" class="btn btn-small btn-block">Add New Observation</a>
+              {% endif %}
+          {% endif %}
+        </div>
       </div><!--/row-->
     </div><!--/span-->
 
