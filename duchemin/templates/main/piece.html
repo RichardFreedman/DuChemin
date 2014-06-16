@@ -51,278 +51,272 @@
     });
   </script>
 
-  <!-- this is the script for meiView (from meiView demo at http://zolaemil.github.io/meiView) -->
+
+<!-- meiView dependencies and scripts -->
+  <!--
+    Load dependencies managed by bower
+  -->
+  <script type="text/JavaScript" src="/static/js/jquery/dist/jquery.min.js"></script>
+  <script type="text/JavaScript" src="/static/js/jquery-ui/ui/minified/jquery-ui.min.js"></script>
+  <script type="text/JavaScript" src="/static/js/vexflow/build/vexflow/vexflow-min.js"></script>
+
+  <!--
+    Load dependencies that are shipped with the distribution
+  -->
+  <script type="text/JavaScript" src="/static/js/deps/Fabric-all.js"></script>
+  <script type="text/JavaScript" src="/static/js/deps/meitovexflow.min.js"></script>
+
+  <!-- Load distribution files -->
+  <script type="text/JavaScript" src="/static/js/dist/meiview.js"></script>
+  <link  rel="stylesheet" href="/static/css/dist/meiview.css"/>
+
+  <!-- Add styling -->
+  <link rel="stylesheet" href="/static/css/bootstrap.min.css" media="screen"/>
+  <script type="text/JavaScript" src="/static/js/bootstrap/bootstrap.min.js"></script>
+
+  <!--
+  <link rel="stylesheet" href="/static/css/jquery-ui/themes/pepper-grinder/jquery-ui.min.css" />
+
+  <style type="text/css">
+    .test-div {
+      margin: 10px 10px 10px 10px;
+      text-align: center;
+      padding: 1em;
+      background: white;
+    }
+
+    body {
+      background: #efefff;
+    }
+  </style>
+  -->
 
   <script type="application/javascript" language="javascript">
-    
-    $(document).ready( function(){
-      $('#sidebar').position({
-        my: 'left top',
-        at: 'right+10 top',
-        of: $('#scorediv'),
-        collision: 'none'
-      })
 
-      // hack to fix top align problem
-      var sH = $('#scorediv').height();
-      var H = Number(sH)
-      $('#sidebar').css('top', -1*H-20);
-    
-      var titleElem = $('span.title')[0];
-      $(titleElem).html('Title' <!-- Put title of work here -->);
-    
-      var xmlDoc = loadXMLDoc('xml/Title.mei' <!-- Put file path here -->);
-    
-      meiView.MEI = new MeiLib.VariantMei(xmlDoc);
-      console.log(meiView.MEI.APPs);
-      meiView.Sources = meiView.createSourceList(meiView.MEI.APPs);
-    
-      meiView.UI.fillSideBar($('#accordion'), meiView.Sources, 'meiview-sidebar');
-      $('#accordion').accordion({
-        collapsible: true,
-        heightStyle: "content",
-        active: false
-      });
-    
-      meiView.currentScore = new MeiLib.SingleVariantPathScore(meiView.MEI);
-      console.log(JSON.stringify(meiView.currentScore.variantPath))
-    
-      meiView.pages.AddPage(1, 12);
-      meiView.pages.AddPage(13, 24);  
-      meiView.pages.AddPage(25, 36);  
-      meiView.pages.AddPage(37, 48);  
-      meiView.appReplacements = {};
-      meiView.UI.fabrCanvas = meiView.UI.initCanvas('maincanvas');
-    
-      frag_pg = $.bbq.getState('pg');
-      if (frag_pg != undefined) {
-        meiView.jumpTo(frag_pg-1);
-      }
-      else meiView.nextPage();
-      meiView.UI.initSidebarHighlight();
-    })
+  $(document).ready( function(){
+
+    /**
+     * Load an MEI file from an XML document
+     */
+    var loadedXML = meiView.Util.loadXMLDoc('../../static/xml/DC1417E.xml');
+
+    /**
+     * Make sure the file will be suitable for rendering
+     */
+    var filteredXml = meiView.filterMei(loadedXML, { noSysBreak:true });
+
+    /**
+     * Make sure the MEI will be suitable for rendering
+     */
+    var meiDoc = new MeiLib.MeiDoc(filteredXml);
+
+
+    /**
+     * Define pagination by specifying pages by the
+     * first and last measures. Measure numbering is
+     * as they appear in the MEI file, that is measure/@n
+     */
+    var pagination = new meiView.Pages();
+    pagination.AddPage(1, 4);
+
+    /**
+     * Create a compact viewer.
+     */
+    var viewer = new meiView.CompactViewer({
+      maindiv: $('.viewer'),
+      MEI: meiDoc,
+      pages: pagination,
+      title: "title",
+      displayFirstPage: true,
+    });
+
+  })
   </script>
+
+  <!-- End of meiView material -->
+
 {% endblock %}
 
 
 {% block wrap %}
-      <div class="row-fluid">
-        <div class="span12">
+  <div class="row-fluid">
+    <div class="span12">
 
-          <!-- RF May 2014:  Add to Favorites modal now moved here, below work and computer ID.  Please check for accuracy-->
-          <div class="show-heading row-fluid">
-            <hgroup class="show-title page-title span8">
-              <h1>{{ piece.title }}</h1>
-              <h2><a href="/person/{{ piece.composer_id.person_id }}">{{ piece.composer_id.full_name }}</a></h2>
-              <h3>{{ piece.piece_id }}</h3>
-              {% if is_logged_in %}
-              <h2>{% include "main/favourites/favourites.html" with is_favourite=is_favourite piece_id=piece.piece_id %}</h2>
-            </hgroup>
-            
-            <!-- RF May 2014:  New layout for file links.  Check file links for MEI and MP3 files.  Update models? -->
-            <div class="well span4">
-              <dl class="well-list account-info-list">
-                <dt>Source:</dt>
-                <dd><a href="/book/{{ piece.book_id.book_id }}">{{ piece.book_id.title }}</a></dd>
-                <dt>View:</dt>
-                <dd><a href="{{ piece.pdf_link }}" target="_blank">Complete Modern Edition (PDF)</a> | | <a href="{{ piece.DCfile }}" target="_blank">MEI File</a></dd>
-                <!-- Wait till links are working
-                  <dt>Listen:</dt>
-                  // <dd><a href="{{ piece.mp3_link }}" target="_blank">Complete Recording (MP3)</a>/</dd>
-                -->
-              </dl>
-            </div>
-          </div>
-
-          <div class="row-fluid">
-            <div class="span8">
-              <table class="table table-noborders">
-                <thead>
-                  <tr>
-                    <th>Phrase Number</th>
-                    <th>Measures</th>
-                    <th>Rhyme</th>
-                    <th>Phrase</th>
-                    <!-- RF May 2014:  remove table column for display of Reconstructions 
-                    {% if reconstructions %}
-                    <th>Reconstructions</th>
-                    {% endif %}
-                    -->
-                  </tr>
-                </thead>
-                <tbody>
-                {% for phrase in phrases %}
-                  <tr>
-                    <td>{{ phrase.phrase_num }}</td>
-                    <td>
-                    {% if phrase.phrase_start %}
-                      <a href="#" class="view-phrase" phid="{{ piece.piece_id }}/{{ phrase.phrase_id }}">{{ phrase.phrase_start }}&ndash;{{ phrase.phrase_stop }}</a>
-                    {% endif %}
-                    </td>
-                    <td>
-                      {% if phrase.rhyme %}
-                        {{ phrase.rhyme }}
-                      {% endif %}
-                    </td>
-                    <td class="line-text">
-                      {{ phrase.phrase_text }}
-                    </td>
-                    <!-- RF May 2014:  remove column for selection of Reconstructions 
-                    {% if reconstructions %}
-                    <td>
-                      <div class="btn-group">
-                        <a class="btn btn-mini dropdown-toggle" data-toggle="dropdown" href="#">
-                          View
-                          <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                          {%for reconstruction in reconstructions %}
-                          <li><a href="#" class="view-phrase" phid="{{ reconstruction.piece.piece_id }}_{{ reconstruction.reconstructor.surname }}_r/{{ phrase.phrase_id }}">{{ reconstruction.reconstructor.surname }}</a></li>
-                          {% endfor %}
-                        </ul>
-                	-->	
-                      </div>
-                    </td>
-                    {% endif %}
-                  </tr>
-                {% endfor %}
-                </tbody>
-              </table>
-            </div>
-            <div id="sidebar" class="span4">
-            <!-- RF May 2014:  Button for "Add to Favorites" now noted above, under work ID
-            {% if is_logged_in %}
-              <h3>Favorites</h3>
-              {% include "main/favourites/favourites.html" with is_favourite=is_favourite piece_id=piece.piece_id %}
-              -->
-              <h3>Discussion</h3>
-              <div id="discussion-block"></div><br>
-              <form id="comment-form">
-                <input name="text" type="text"/>
-                <input type="hidden" name="piece_id" value="{{ piece.piece_id }}"/>
-                <input type="submit" name="comment-submit" value="Comment"/>
-              </form>
-              {% endif %}
-              
-              {% if is_logged_in %}
-              <h3>Problems</h3>
-              <p>Is this record incorrect? <a href="mailto:rfreedma@haverford.edu?subject=Problem with Piece {{ piece.piece_id }}"> Notify us.</a></p>
-              {% endif %}
-            </div><!--/span-->
-          </div>
-
-          <div class="row-fluid">
-            <div class="span12">
-              {% if analyses %}
-                <div class="analysis-display">
-                  <div class="row-fluid">
-                    <div class="span10">
-                      <h3>Observations</h3>
-                    </div>
-                    <div class="span2">
-                      {% if is_staff %}
-                        <a href="/piece/{{ piece.piece_id }}/add-observation/" class="btn btn-small btn-block">Add New Observation</a>
-                      {% endif %}
-                    </div>
-                  </div> <!-- row-fluid -->
-                  <div class="row-fluid">
-                    <div class="span12">
-                      <table class="table">
-                        <thead>
-                          <tr>
-                            <th>Measures</th>
-                            <th>Phrase Number</th>
-                            <th>Analyst</th>
-                            <th></th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                        {% for analysis in analyses %}
-                          <tr>
-                            <td><a href="#" class="view-analysis" anid="{{ analysis.id }}">{{ analysis.start_measure }}&ndash;{{ analysis.stop_measure }}</a></td>
-                            <td>{{ analysis.phrase_number.phrase_num }}</td>
-                            <td>{{ analysis.analyst }}</td>
-                            <td> 
-                              <a href="#" class="analyses-info-expand" target="analyses-info-{{ forloop.counter }}">Expand</a>
-                            </td>
-                          </tr>
-                          <tr id="analyses-info-{{ forloop.counter }}" class="analyses-info">
-                            <td colspan="5">{% include "analysis/analysis_extended_display_info.html" %}</td>
-                          </tr>
-                        {% endfor %}
-                        </tbody>
-                      </table>
-                  </div>
-                </div>
-                {% else %}
-                    {% if is_staff %}
-                      <a href="/piece/{{ piece.piece_id }}/add-observation/" class="btn btn-small btn-block">Add New Observation</a>
-                    {% endif %}
-                {% endif %}
-              </div>
-            {% endif %}
-          </div><!--/row-->
-        </div><!--/span-->
-      </div><!--/row-->
-      <script type="text/javascript">
-        $('.analyses-info').hide();
-        $('.analyses-info-expand').on({
-          'click': function(event) {
-            event.preventDefault();
-            tgt = "#" + $(this).attr('target');
-            $(tgt).toggle();
-            tag = $(this).text() == "Expand" ? "Collapse" : "Expand";
-            $(this).text(tag);
-            return false;
-          }
-        })
-      </script>
-            <!-- RF May 2014:  meiView for each piece goes below the 'table' -->
-
-
-<!-- Score (from meiView demo at http://zolaemil.github.io/meiView) -->
-      <div class="wrapper wrapper-style3">
-        <article id="score">
-          <div class="container">
-            <div class="row">
-              <div class="12u">
-                <div id="maindiv" style="margin: 10px 20px auto">
-                  <div id="scorediv" align="center" class="ui-widget-content">
-                    <button class="ui-widget-content ui-corner-all"onclick="meiView.prevPage()"><span class="ui-icon ui-icon-triangle-1-w"/></button>
-                    <span id="pageNumber-top" width="10">0/0</span>
-                    <button class="ui-widget-content ui-corner-all" onclick="meiView.nextPage()"><span class="ui-icon ui-icon-triangle-1-e"/></button>
-                    <div id='titlediv'><h4><span id='title' class='title' property='dc:title'></span></h4></div>
-                    <canvas class="canvas" id="maincanvas" width="780" height="700"></canvas>
-                    <button class="ui-widget-content ui-corner-all"onclick="meiView.prevPage()"><span class="ui-icon ui-icon-triangle-1-w"/></button>
-                    <span id="pageNumber-bottom" width="10">0/0</span>
-                    <button class="ui-widget-content ui-corner-all" onclick="meiView.nextPage()"><span class="ui-icon ui-icon-triangle-1-e"/></button>
-                  </div>
-                  <div id="sidebar">
-                    <div id="accordion"> 
-                    </div>
-                    <div id="legend" >
-                      <p>
-                        <ul>
-                          <li><h5>Click on the green dots to view the differences between the sources!</h5></li>
-                          <li class=".meiview-source-has-variant-on">
-                            When a  <text style="color: rgb(190,0,0)">Source is highlighted</text> it means some of its 
-                            variants are currently displayed in the score.
-                          </li>
-                          <li>
-                            When a <text style="color: rgb(185,0,0);">Variant is highlighted</text> it means that variant is currently 
-                            displayed in the score.
-                          </li>
-                        </ul>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </article>
+      <!-- RF May 2014:  Add to Favorites modal now moved here, below work and computer ID.  Please check for accuracy-->
+      <div class="show-heading row-fluid">
+        <hgroup class="show-title page-title span8">
+          <h1>{{ piece.title }}</h1>
+          <h2><a href="/person/{{ piece.composer_id.person_id }}">{{ piece.composer_id.full_name }}</a></h2>
+          <h3>{{ piece.piece_id }}</h3>
+          {% if is_logged_in %}
+          <h2>{% include "main/favourites/favourites.html" with is_favourite=is_favourite piece_id=piece.piece_id %}</h2>
+        </hgroup>
+        
+        <!-- RF May 2014:  New layout for file links.  Check file links for MEI and MP3 files.  Update models? -->
+        <div class="well span4">
+          <dl class="well-list account-info-list">
+            <dt>Source:</dt>
+            <dd><a href="/book/{{ piece.book_id.book_id }}">{{ piece.book_id.title }}</a></dd>
+            <dt>View:</dt>
+            <dd><a href="{{ piece.pdf_link }}" target="_blank">Complete Modern Edition (PDF)</a> | | <a href="{{ piece.DCfile }}" target="_blank">MEI File</a></dd>
+            <!-- Wait till links are working
+              <dt>Listen:</dt>
+              // <dd><a href="{{ piece.mp3_link }}" target="_blank">Complete Recording (MP3)</a>/</dd>
+            -->
+          </dl>
+        </div>
       </div>
 
+      <div class="row-fluid">
+        <div class="span8">
+          <table class="table table-noborders">
+            <thead>
+              <tr>
+                <th>Phrase Number</th>
+                <th>Measures</th>
+                <th>Rhyme</th>
+                <th>Phrase</th>
+                <!-- RF May 2014:  remove table column for display of Reconstructions 
+                {% if reconstructions %}
+                <th>Reconstructions</th>
+                {% endif %}
+                -->
+              </tr>
+            </thead>
+            <tbody>
+            {% for phrase in phrases %}
+              <tr>
+                <td>{{ phrase.phrase_num }}</td>
+                <td>
+                {% if phrase.phrase_start %}
+                  <a href="#" class="view-phrase" phid="{{ piece.piece_id }}/{{ phrase.phrase_id }}">{{ phrase.phrase_start }}&ndash;{{ phrase.phrase_stop }}</a>
+                {% endif %}
+                </td>
+                <td>
+                  {% if phrase.rhyme %}
+                    {{ phrase.rhyme }}
+                  {% endif %}
+                </td>
+                <td class="line-text">
+                  {{ phrase.phrase_text }}
+                </td>
+                <!-- RF May 2014:  remove column for selection of Reconstructions 
+                {% if reconstructions %}
+                <td>
+                  <div class="btn-group">
+                    <a class="btn btn-mini dropdown-toggle" data-toggle="dropdown" href="#">
+                      View
+                      <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                      {%for reconstruction in reconstructions %}
+                      <li><a href="#" class="view-phrase" phid="{{ reconstruction.piece.piece_id }}_{{ reconstruction.reconstructor.surname }}_r/{{ phrase.phrase_id }}">{{ reconstruction.reconstructor.surname }}</a></li>
+                      {% endfor %}
+                    </ul>
+            	-->	
+                  </div>
+                </td>
+                {% endif %}
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <div id="sidebar" class="span4">
+        <!-- RF May 2014:  Button for "Add to Favorites" now noted above, under work ID
+        {% if is_logged_in %}
+          <h3>Favorites</h3>
+          {% include "main/favourites/favourites.html" with is_favourite=is_favourite piece_id=piece.piece_id %}
+          -->
+          <h3>Discussion</h3>
+          <div id="discussion-block"></div><br>
+          <form id="comment-form">
+            <input name="text" type="text"/>
+            <input type="hidden" name="piece_id" value="{{ piece.piece_id }}"/>
+            <input type="submit" name="comment-submit" value="Comment"/>
+          </form>
+          {% endif %}
+          
+          {% if is_logged_in %}
+          <h3>Problems</h3>
+          <p>Is this record incorrect? <a href="mailto:rfreedma@haverford.edu?subject=Problem with Piece {{ piece.piece_id }}"> Notify us.</a></p>
+          {% endif %}
+        </div><!--/span-->
+      </div>
+
+      <div class="row-fluid">
+        <div class="span12">
+          {% if analyses %}
+            <div class="analysis-display">
+              <div class="row-fluid">
+                <div class="span10">
+                  <h3>Observations</h3>
+                </div>
+                <div class="span2">
+                  {% if is_staff %}
+                    <a href="/piece/{{ piece.piece_id }}/add-observation/" class="btn btn-small btn-block">Add New Observation</a>
+                  {% endif %}
+                </div>
+              </div> <!-- row-fluid -->
+              <div class="row-fluid">
+                <div class="span12">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Measures</th>
+                        <th>Phrase Number</th>
+                        <th>Analyst</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {% for analysis in analyses %}
+                      <tr>
+                        <td><a href="#" class="view-analysis" anid="{{ analysis.id }}">{{ analysis.start_measure }}&ndash;{{ analysis.stop_measure }}</a></td>
+                        <td>{{ analysis.phrase_number.phrase_num }}</td>
+                        <td>{{ analysis.analyst }}</td>
+                        <td> 
+                          <a href="#" class="analyses-info-expand" target="analyses-info-{{ forloop.counter }}">Expand</a>
+                        </td>
+                      </tr>
+                      <tr id="analyses-info-{{ forloop.counter }}" class="analyses-info">
+                        <td colspan="5">{% include "analysis/analysis_extended_display_info.html" %}</td>
+                      </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+              </div>
+            </div>
+            {% else %}
+                {% if is_staff %}
+                  <a href="/piece/{{ piece.piece_id }}/add-observation/" class="btn btn-small btn-block">Add New Observation</a>
+                {% endif %}
+            {% endif %}
+          </div>
+        {% endif %}
+      </div><!--/row-->
+    </div><!--/span-->
+
+    <div class="test-div">
+      <!-- Element to contain the viewer. -->
+      <div class="viewer"></div>
+    </div>
+
+  </div><!--/row-->
+
+  <script type="text/javascript">
+    $('.analyses-info').hide();
+    $('.analyses-info-expand').on({
+      'click': function(event) {
+        event.preventDefault();
+        tgt = "#" + $(this).attr('target');
+        $(tgt).toggle();
+        tag = $(this).text() == "Expand" ? "Collapse" : "Expand";
+        $(this).text(tag);
+        return false;
+      }
+    })
+  </script>
 
 
 {% endblock %}
