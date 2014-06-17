@@ -64,6 +64,8 @@ class Migration(SchemaMigration):
             ('print_concordances', self.gf('django.db.models.fields.CharField')(max_length=128, null=True, blank=True)),
             ('ms_concordances', self.gf('django.db.models.fields.CharField')(max_length=128, null=True, blank=True)),
             ('pdf_link', self.gf('django.db.models.fields.URLField')(max_length=255, null=True, blank=True)),
+            ('mei_link', self.gf('django.db.models.fields.URLField')(max_length=255, null=True, blank=True)),
+            ('audio_link', self.gf('django.db.models.fields.URLField')(max_length=255, null=True, blank=True)),
         ))
         db.send_create_signal('duchemin', ['DCPiece'])
 
@@ -387,6 +389,8 @@ class Migration(SchemaMigration):
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'ms_concordances': ('django.db.models.fields.CharField', [], {'max_length': '128', 'null': 'True', 'blank': 'True'}),
             'pdf_link': ('django.db.models.fields.URLField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
+            'mei_link': ('django.db.models.fields.URLField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
+            'audio_link': ('django.db.models.fields.URLField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
             'piece_id': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '16', 'db_index': 'True'}),
             'print_concordances': ('django.db.models.fields.CharField', [], {'max_length': '128', 'null': 'True', 'blank': 'True'}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '64', 'null': 'True', 'blank': 'True'})

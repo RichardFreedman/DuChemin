@@ -22,8 +22,9 @@ class DCPiece(models.Model):
     forces = models.CharField(max_length=16, blank=True, null=True)
     print_concordances = models.CharField(max_length=128, blank=True, null=True)
     ms_concordances = models.CharField(max_length=128, blank=True, null=True)
-    pdf_link = models.URLField(max_length=255, blank=True, null=True)
-    attachments = models.ManyToManyField(DCFile, blank=True, null=True)
+    pdf_file = models.CharField(max_length=255, blank=True, null=True)
+    mei_file = models.CharField(max_length=255, blank=True, null=True)
+    audio_file = models.CharField(max_length=255, blank=True, null=True)
 
     def __unicode__(self):
         return u"{0}".format(self.title)
@@ -59,6 +60,8 @@ def solr_index(sender, instance, created, **kwargs):
         'title': piece.title,
         'composer': composer_name,
         'pdf_link': piece.pdf_link
+        'mei_link': piece.mei_link
+        'audio_link': piece.audio_link
     }
     solrconn.add(**d)
     solrconn.commit()
