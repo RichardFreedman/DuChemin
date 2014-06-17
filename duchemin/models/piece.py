@@ -22,9 +22,9 @@ class DCPiece(models.Model):
     forces = models.CharField(max_length=16, blank=True, null=True)
     print_concordances = models.CharField(max_length=128, blank=True, null=True)
     ms_concordances = models.CharField(max_length=128, blank=True, null=True)
-    pdf_file = models.CharField(max_length=255, blank=True, null=True)
-    mei_file = models.CharField(max_length=255, blank=True, null=True)
-    audio_file = models.CharField(max_length=255, blank=True, null=True)
+    pdf_link = models.CharField(max_length=255, blank=True, null=True)
+    mei_link = models.CharField(max_length=255, blank=True, null=True)
+    audio_link = models.CharField(max_length=255, blank=True, null=True)
 
     def __unicode__(self):
         return u"{0}".format(self.title)

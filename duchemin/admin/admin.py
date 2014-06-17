@@ -102,12 +102,13 @@ class DCBookAdmin(admin.ModelAdmin):
     search_fields = ['title']
     actions = [export_as_csv_action("Export as CSV", fields=MODEL_FIELDS)]
 
-
-class DCFilePieceInline(admin.TabularInline):
-    model = DCPiece.attachments.through
-    can_delete = True,
-    verbose_name = "File"
-    verbose_name_plural = "Files"
+# # Include only if "attachments" instead of "mei_file"
+# 
+# class DCFilePieceInline(admin.TabularInline):
+#     model = DCPiece.attachments.through
+#     can_delete = True
+#     verbose_name = "File"
+#     verbose_name_plural = "Files"
 
 
 class DCPieceAdmin(admin.ModelAdmin):
@@ -122,9 +123,9 @@ class DCPieceAdmin(admin.ModelAdmin):
             "print_concordances",
             "ms_concordances"
         )
-    inlines = (
-        DCFilePieceInline,
-    )
+#     inlines = (
+#         DCFilePieceInline,
+#     )
     search_fields = ('book_id__title', 'title', 'print_concordances', 'ms_concordances')
     list_display = ('title','book_id', 'book_position', 'composer_id', 'composer_src', 'forces', 'print_concordances', 'ms_concordances')
     ordering = ('book_id__id', 'book_position')
