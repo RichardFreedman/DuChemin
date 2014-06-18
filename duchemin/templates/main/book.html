@@ -23,10 +23,10 @@
             <dd>{{ book.date }}</dd>
             <dt>Volumes</dt>
             <dd>{{ book.volumes }}</dd>
-            <dt>Partbook S-T</dt>
+            <dt>Partbook (superius, tenor)</dt>
             <dd>{{ book.part_st_id }}</dd>
-            <dt>Partbook S-B</dt>
-            <dd>{{ book.part_sb_id }}</dd>
+            <dt>Partbook (contratenor, bassus)</dt>
+            <dd>{{ book.part_cb_id }}</dd>
             <dt>Number of Compositions</dt>
             <dd>{{ book.num_compositions }}</dd>
             <dt>Number of Pages</dt>
@@ -35,8 +35,8 @@
             <dd>{{ book.location }}</dd>
             <dt>RISM #</dt>
             <dd>{{ book.rism }}</dd>
-            <dt>CESR Facsimile</dt>
-            <dd>{{ book.cesr }}</dd>
+            <dt>CESR</dt>
+            <dd><a href="{{ book.cesr }}">Link to facsimile</a></dd>
         </dl>
         {% if book.remarks %}
         <p>{{ book.remarks }}</p>

@@ -17,12 +17,12 @@ class DCBook(models.Model):
     date = models.CharField(max_length=64, blank=True, null=True)
     volumes = models.CharField(max_length=64, blank=True, null=True)
     part_st_id = models.CharField(max_length=16, blank=True, null=True)
-    part_sb_id = models.CharField(max_length=16, blank=True, null=True)
+    part_cb_id = models.CharField(max_length=16, blank=True, null=True)
     num_compositions = models.CharField(max_length=16, blank=True, null=True)
     num_pages = models.CharField(max_length=16, blank=True, null=True)
     location = models.CharField(max_length=16, blank=True, null=True)
     rism = models.CharField(max_length=16, blank=True, null=True)
-    cesr = models.CharField(max_length=16, blank=True, null=True)
+    cesr = models.CharField(max_length=255, blank=True, null=True)
     remarks = models.CharField(max_length=128, blank=True, null=True)
 
     def __str__(self):
