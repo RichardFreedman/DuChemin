@@ -3,6 +3,7 @@ from duchemin.models import DCPiece
 
 import sys
 
+
 class Command(BaseCommand):
     help = "Fills in the MEI and audio urls"
 
@@ -15,6 +16,5 @@ class Command(BaseCommand):
                 piece.audio_link = MP3_PATH + piece.piece_id + '.mp3'
                 piece.save()
             except:
-            	e = str(sys.exc_info())
+                e = str(sys.exc_info())
                 self.stdout.write('%s\n' % e, ending='')
-
