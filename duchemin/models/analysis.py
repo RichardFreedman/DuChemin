@@ -19,7 +19,7 @@ class DCAnalysis(models.Model):
     phrase_number = models.ForeignKey(DCPhrase, to_field='phrase_id', db_index=True, related_name="phrases")
     start_measure = models.IntegerField(blank=True, null=True)
     stop_measure = models.IntegerField(blank=True, null=True)
-    cadence = models.CharField(max_length=16, blank=True, null=True)
+    is_cadence = models.BooleanField()
     cadence_kind = models.CharField(max_length=64, blank=True, null=True)
     cadence_alter = models.CharField(max_length=64, blank=True, null=True)
     cadence_role_cantz = models.CharField(max_length=16, blank=True, null=True)
@@ -90,11 +90,6 @@ def solr_index(sender, instance, created, **kwargs):
     else:
         contributor_name = u"{0}".format(analysis.analyst.surname)
 
-    if analysis.cadence in ("Yes", "True"):
-        cadence = True
-    else:
-        cadence = False
-
     if analysis.cadence_alter:
         cadence_alter = [x.strip() for x in analysis.cadence_alter.split(",")]
     else:
@@ -119,7 +114,7 @@ def solr_index(sender, instance, created, **kwargs):
         'phrase_number': analysis.phrase_number.phrase_num,
         'start_measure': analysis.start_measure,
         'stop_measure': analysis.stop_measure,
-        'is_cadence': cadence,
+        'is_cadence': analysis.is_cadence,
         'cadence_kind': analysis.cadence_kind,
         'cadence_alter': cadence_alter,
         'cadence_role_cantz': analysis.cadence_role_cantz,
