@@ -27,15 +27,18 @@ function startCommentFeed(piece_id){
                     // Isn't there any way to get the full name, such as
                     // `item.author.first_name + item.author.last_name` ?
                     // I thought item.author was of the User model.
+                    // If user profiles ever get a page (for instance,
+                    // if Users are linked to People) then they should
+                    // be linked here.
 
                     // Also, I surrounded the comments in a <p> element,
                     // which should be fine. Without it, the margins are
                     // terrible. Another way to do it might be to modify
                     // the CSS to add margin to .comment blocks.
+
                     var comment = '<div class="comment"><div class="author">' +
                         "<h4><a href='/piece/" + item.piece_id + "'>" +
-                        item.piece_id + "</a> &bull; <a href='/person/" +
-                        item.author + "'>" + item.author + 
+                        item.piece_id + "</a> &bull; " + item.author + 
                         "</a> &bull; " + item.display_time + '</h4></div>' +
                         '<div class="text"><p>' + parseCommentTags(item.text) +
                         '</p></div></div>';
