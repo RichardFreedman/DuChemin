@@ -13,6 +13,9 @@ from duchemin.models.analysis import DCAnalysis
 from duchemin.models.reconstruction import DCReconstruction
 from duchemin.models.comment import DCComment
 
+# MJW 2014-06-20: Can someone verify that this is safe?
+from django.views.decorators.csrf import ensure_csrf_cookie
+
 
 class JsonResponse(HttpResponse):
     def __init__(self, content, content_type='application/json', status=None):

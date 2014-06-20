@@ -207,6 +207,7 @@
             <div id="discussion-block"></div>
             <br />
             <form id="comment-form">
+              {% csrf_token %}
               <input name="text" type="text"/>
               <input type="hidden" name="piece_id" value="{{ piece.piece_id }}"/>
               <input type="submit" name="comment-submit" value="Comment"/>
