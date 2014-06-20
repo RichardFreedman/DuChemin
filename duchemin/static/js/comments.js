@@ -24,13 +24,21 @@ function startCommentFeed(piece_id){
             dataType: 'json',
             success: function (json) {
                 $.each(json, function(i,item) {
+                    // Isn't there any way to get the full name, such as
+                    // `item.author.first_name + item.author.last_name` ?
+                    // I thought item.author was of the User model.
 
-                    //TODO: Make this prettier
-                    var comment = '<div class="comment">' + '<div class="author">'
-                        + "[<a href='/piece/" + item.piece_id + "'>#" + item.piece_id +'</a>] '
-                        + item.author + ": " + item.display_time + '</div>'
-                        + '<div class="text">' + parseCommentTags(item.text)
-                        + '</div>';
+                    // Also, I surrounded the comments in a <p> element,
+                    // which should be fine. Without it, the margins are
+                    // terrible. Another way to do it might be to modify
+                    // the CSS to add margin to .comment blocks.
+                    var comment = '<div class="comment"><div class="author">' +
+                        "<h4><a href='/piece/" + item.piece_id + "'>" +
+                        item.piece_id + "</a> &bull; <a href='/person/" +
+                        item.author + "'>" + item.author + 
+                        "</a> &bull; " + item.display_time + '</h4></div>' +
+                        '<div class="text"><p>' + parseCommentTags(item.text) +
+                        '</p></div></div>';
 
                     $('#discussion-block').prepend(comment);
                     // Update the last fetched item ID each refresh to reduce return
