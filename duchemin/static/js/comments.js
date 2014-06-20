@@ -52,6 +52,10 @@ function startCommentFeed(piece_id){
         setTimeout(updateAllComments, timeout);
     }
     
+    // Logic to get and display comments for a single piece
+    // NOTE: This may not continuously update. But at least
+    // when a comment is submitted, that comment shows for
+    // the user. And comments are properly filtered by piece.
     function updatePieceComments(piece_id) {
         $.ajax({
             type: "GET",
@@ -64,16 +68,18 @@ function startCommentFeed(piece_id){
             dataType: 'json',
             success: function (json) {
                 $.each(json, function(i,item) {
+                    if (piece_id == item.piece_id) {
+                        var comment = '<div class="comment"><div class="author">' +
+                            "<h4>" + item.author + 
+                            "</a> &bull; " + item.display_time + '</h4></div>' +
+                            '<div class="text"><p>' + parseCommentTags(item.text) +
+                            '</p></div></div>';
 
-                    //TODO: Make this prettier
-                    var comment = '<div class="comment"><div class="author">'
-                        + item.author + ": " + item.display_time
-                        + '</div><div class="text">' + parseCommentTags(item.text)
-                        + '</div>';
+                        $('#discussion-block').prepend(comment);
 
-                    $('#discussion-block').prepend(comment);
-                    // Update the last fetched item ID each refresh to reduce return
-                    last_update = item.id;
+                        // Update the last fetched item ID each refresh to reduce return
+                        last_update = item.id;
+                    }
                 });
             },
         });
@@ -114,6 +120,7 @@ function attachCommentsAction () {
         	url: "/discussion/",
         	data: form.serialize()
         });
+        $( "#comment-form" ).reset()
         event.preventDefault();
     });
 }
