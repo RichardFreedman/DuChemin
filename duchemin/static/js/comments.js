@@ -92,7 +92,9 @@ function startCommentFeed(piece_id){
             
             // @username replaced with link to profile page
             word = word.replace(/^@(.+)/gi,"<a href='/person/$1/'>@$1</a>");
-            // #piece replaced with link to piece page
+            // DCxxxx replaced with link to piece page
+            word = word.replace(/^#?DC(.+)/gi,"<a href='/piece/DC$1/'>DC$1</a>");
+            // #piece replaced with link to piece page (just in case)
             word = word.replace(/^#(.+)/gi,"<a href='/piece/$1/'>#$1</a>");
             
             if (i != 0 ){ return_text = return_text + " "; }
