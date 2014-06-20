@@ -1,5 +1,5 @@
 {% if is_favourite %}
-<a class="favourites-link" href="/favourite/piece/{{ piece_id }}?remove"><i class="icon-star-empty"></i> Remove from Favourites</a>
+<a class="favourites-link" href="/favourite/piece/{{ piece_id }}?remove"><i class="icon-star"></i> Remove from Favourites</a>
 {% else %}
-<a class="favourites-link" href="/favourite/piece/{{ piece_id }}?add"><i class="icon-star"></i> Add to Favorites</a>
+<a class="favourites-link" href="/favourite/piece/{{ piece_id }}?add"><i class="icon-star-empty"></i> Add to Favorites</a>
 {% endif %}

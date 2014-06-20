@@ -9,11 +9,11 @@ var attachFavouritesAction = function() {
                     if (data['action'] == 'remove') {
                         $(this).empty();
                         $(this).attr('href', "/favourite/" + data['content'] + "?add");
-                        $(this).append('<i class="icon-star"></i> Add to Favorites');
+                        $(this).append('<i class="icon-star-empty"></i> Add to Favorites');
                     } else {
                         $(this).empty();
                         $(this).attr('href', "/favourite/" + data['content'] + "?remove");
-                        $(this).append('<i class="icon-star-empty"></i> Remove from Favourites');
+                        $(this).append('<i class="icon-star"></i> Remove from Favourites');
                     }
                 }
             });
