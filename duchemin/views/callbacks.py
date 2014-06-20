@@ -105,7 +105,7 @@ def discussion_callback(request):
                 comments = DCComment.objects.filter(id__gt=last_update)
 
             for comment in comments.values():
-                display_time = comment['time'].strftime("%d/%m/%y %H:%M")
+                display_time = comment['time'].strftime("%Y-%m-%d, %H:%M")
                 current_piece = DCPiece.objects.get(id=comment['piece_id'])
                 comment_array.append({
                     'id': u"{}".format(comment['id']),
@@ -119,7 +119,7 @@ def discussion_callback(request):
         else:
             return HttpResponseServerError("Missing critical GET attributes")
 
-    # If accessed using a POST, assume we are adding a new discussion
+    # If accessed using a POST, assume we are adding a new comment
     elif request.method == u'POST':
         post_data = request.POST
         if post_data.has_key('piece_id') and post_data.has_key('text'):
