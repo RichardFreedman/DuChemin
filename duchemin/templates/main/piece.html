@@ -118,7 +118,7 @@
      * as they appear in the MEI file, that is measure/@n
      */
     var pagination = new meiView.Pages();
-    pagination.AddPage(1, 4);
+    // pagination.AddPage(1, 4);
 
     /**
      * Create a compact viewer.
@@ -126,7 +126,10 @@
     var viewer = new meiView.CompactViewer({
       maindiv: $('.viewer'),
       MEI: meiDoc,
-      pages: pagination,
+      pages: new meiView.Pages({
+        length: $(meiDoc.rich_score).find('measure').length,
+        mpp: 4,
+      }),
       title: "{{ piece.title }}",
       displayFirstPage: true,
     });
