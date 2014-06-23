@@ -215,7 +215,7 @@
             <h3>Add your voice</h3>
             <form id="comment-form">
               {% csrf_token %}
-              <input name="text" type="text"/>
+              <textarea form="comment-form" name="text"></textarea>
               <input type="hidden" name="piece_id" value="{{ piece.piece_id }}"/>
               <input type="submit" name="comment-submit" value="Comment"/>
             </form>
