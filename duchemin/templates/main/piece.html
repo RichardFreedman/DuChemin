@@ -7,8 +7,10 @@
   <script src="{{ STATIC_URL }}js/notation.js"></script>
   <script src="{{ STATIC_URL }}js/favourites.js"></script>
   <script type="text/javascript" src="{{ STATIC_URL }}js/comments.js"></script>
+  <!--
   <script type="text/javascript" src="http://vm-duchemin.haverford.edu:8080/assets/scripts/libs/vexflow-free.js"></script>
   <script type="text/javascript" src="http://vm-duchemin.haverford.edu:8080/assets/scripts/libs/meitovexflow.js"></script>
+  -->
   <script type="text/javascript">
   
     // CSRF Token Protection lifted from Django documentation. Consider moving to main template
@@ -152,12 +154,14 @@
           <hgroup class="show-title page-title span12">
             <h1>{{ piece.title }}</h1>
             <h2><a href="/person/{{ piece.composer_id.person_id }}">{{ piece.composer_id.full_name }}</a></h2>
-            <h3>{{ piece.piece_id }}{% if is_logged_in %}
-              {% include "main/favourites/favourites.html" with is_favourite=is_favourite piece_id=piece.piece_id %}</h3>
+            <h3>{{ piece.piece_id }}</h3>
+            {% if is_logged_in %}
+              <h3>
+                {% include "main/favourites/favourites.html" with is_favourite=is_favourite piece_id=piece.piece_id %}
+              </h3>
             {% endif %}
           </hgroup>
-          <div class="span12">
-            <h3>Text</h3>
+          <div class="row-fluid">
             <table class="table table-noborders">
               <thead>
                 <tr>
@@ -218,7 +222,7 @@
             
             {% if is_logged_in %}
               <h3>Problems</h3>
-              <p>Is this record incorrect? <a href="mailto:rfreedma@haverford.edu?subject=Problem with Piece {{ piece.piece_id }}"> Notify us.</a></p>
+              <p>Is this record incorrect? <a href="mailto:rfreedma@haverford.edu?subject=Problem with Piece {{ piece.piece_id }}">Notify us.</a></p>
             {% endif %}
           </div>
         </div><!--/span-->
@@ -234,7 +238,7 @@
                 </div>
                 <div class="span2">
                   {% if is_staff %}
-                    <a href="/piece/{{ piece.piece_id }}/add-observation/" class="btn btn-small btn-block">Add New Observation</a>
+                    <a href="/piece/{{ piece.piece_id }}/add-observation/" class="btn btn-small btn-block">Add Observation</a>
                   {% endif %}
                 </div>
               </div> <!-- row-fluid -->
@@ -283,12 +287,12 @@
           {% endif %}
         </div>
       </div><!--/row-->
-    </div><!--/span-->
 
-    <div class="span12">
-      <!-- Element to contain the viewer. -->
-      <div class="viewer"></div>
-    </div>
+      <div class="row-fluid">
+        <!-- Element to contain the viewer. -->
+        <div class="viewer"></div>
+      </div>
+    </div><!--/span-->
 
   </div><!--/row-->
 
