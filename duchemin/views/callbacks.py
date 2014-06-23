@@ -105,6 +105,10 @@ def discussion_callback(request):
                 comments = DCComment.objects.filter(id__gt=last_update)
 
             for comment in comments.values():
+                # If the following date/time format is changed, the logic in
+                # static/js/comments.js must be changed! That file relies
+                # on this text representation to get a comment's date in
+                # the form of a JavaScript date object.
                 display_time = comment['time'].strftime("%Y-%m-%d, %H:%M")
                 current_piece = DCPiece.objects.get(id=comment['piece_id'])
                 comment_array.append({
