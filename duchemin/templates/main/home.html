@@ -20,16 +20,7 @@
       <div class="span10"><image src="{% static 'image/duchemins.png' %}" alt="music" hspace="16" vspace="16"></div>
       <!-- RF 6/14:  This is the Most Recent Discussion block.  Will need logic to display ONLY the most recent post.  And LINK to Piece for work under discussion -->
       <div class="span10">
-        <h1>Current Discussion</h1>
-        <h3><a href="/piece/{{ piece.piece_id }}">{{ piece.title }}</a></h3>
-        <!-- <div id="discussion-block"></div><br> -->
-        <h4 id="pieceID">DC1208</h4>
-        <h4 id="submitter1">Freedman (dd/mm/yyyy)</h4>
-        <p id="contribution1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur convallis vehicula tellus non scelerisque.</p>
-      </div>
-      <div class="span10">
-        <!-- RF 6/14:  This is block for ALL discussions, listed by descending order by date -->
-        <h2>Other Recent Discussions</h2>
+        <h2>Recent Discussions</h2>
         <div id="discussion-block"></div>
       </div>
     </div>
