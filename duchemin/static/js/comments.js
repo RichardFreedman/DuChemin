@@ -4,6 +4,11 @@ function startCommentFeed(piece_id){
     // First fetch has id 0, so it gets everything
     var last_update = 0;
     var timeout = 2000;
+
+    // Can't show EVERY comment on home page
+    // This is the number of previous days' comments to show
+    var days_to_show = 30;
+    var MILLISECONDS_IN_DAY = 86400000
     
     // Check to see if the helper function was called with a piece_id or not
     if (piece_id != null){
@@ -43,7 +48,20 @@ function startCommentFeed(piece_id){
                         '<div class="text"><p>' + parseCommentTags(item.text) +
                         '</p></div></div>';
 
-                    $('#discussion-block').prepend(comment);
+                    // Check the date of the comment against the current date,
+                    //   and only prepend if it's a recent comment -- otherwise,
+                    //   we'd have a humongous homepage.
+                    // NOTE: item.display_time is in _Python's_ date/time format,
+                    //   and so JavaScript can't make use of its date/time functions.
+                    //   Thus we import the string into JS format using Date.parse().
+                    var today = new Date();
+                    var comment_date = Date.parse(item.display_time.replace(', ', 'T'));
+                    // This could be off by a matter of hours, depending
+                    //   on time zone, but that's not important.
+                    if (today - comment_date < days_to_show * MILLISECONDS_IN_DAY) {
+                        $('#discussion-block').prepend(comment);
+                    }
+
                     // Update the last fetched item ID each refresh to reduce return
                     last_update = item.id;
                 });
@@ -52,10 +70,10 @@ function startCommentFeed(piece_id){
         setTimeout(updateAllComments, timeout);
     }
     
-    // Logic to get and display comments for a single piece
+    // Logic to get and display comments for a single piece.
     // NOTE: This may not continuously update. But at least
-    // when a comment is submitted, that comment shows for
-    // the user. And comments are properly filtered by piece.
+    //   when a comment is submitted, that comment shows for
+    //   the user. And comments are properly filtered by piece.
     function updatePieceComments(piece_id) {
         $.ajax({
             type: "GET",
