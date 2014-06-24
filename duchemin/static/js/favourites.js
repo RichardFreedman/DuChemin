@@ -9,7 +9,7 @@ var attachFavouritesAction = function() {
                     if (data['action'] == 'remove') {
                         $(this).empty();
                         $(this).attr('href', "/favourite/" + data['content'] + "?add");
-                        $(this).append('<i class="icon-star-empty"></i> Add to Favorites');
+                        $(this).append('<i class="icon-star-empty"></i> Add to Favourites');
                     } else {
                         $(this).empty();
                         $(this).attr('href', "/favourite/" + data['content'] + "?remove");
