@@ -17,4 +17,7 @@ class DCUserProfile(models.Model):
     role = models.CharField(max_length=64, blank=True, null=True)
     person = models.ForeignKey(DCPerson, blank=True, null=True, help_text="Link this account with a DuChemin User", db_index=True, related_name="profile")
 
+    def __unicode__(self):
+        return u"{0}, {1}".format(self.user.last_name, self.user.first_name)
+
 User.profile = property(lambda u: DCUserProfile.objects.get_or_create(user=u)[0])
