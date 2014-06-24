@@ -23,7 +23,7 @@
             </tr>
             {% for person in content %}
             <tr>
-                <td><a href="{{ person.url }}">{{ person.full_name }}</a></td>
+                <td><a href="/person/{{ person.person_id }}">{{ person.full_name }}</a></td>
                 <td>{{ person.birth_date }}</td>
                 <td>{{ person.death_date }}</td>
                 <td>{{ person.active_date}}</td>
