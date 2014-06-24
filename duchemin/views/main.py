@@ -148,7 +148,7 @@ def profile(request):
     analyses = None
     reconstructions = None
     if profile.person:
-        analyses = DCAnalysis.objects.filter(analyst_id=profile.person.person_id).order_by('composition_number__title')
+        analyses = DCAnalysis.objects.filter(analyst=profile.person.person_id).order_by('composition_number__title')
         reconstructions = DCReconstruction.objects.filter(reconstructor=profile.person.person_id).order_by('piece__title')
 
     data = {
