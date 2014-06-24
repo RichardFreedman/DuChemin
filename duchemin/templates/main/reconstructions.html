@@ -15,15 +15,17 @@
             <table id="reconstructions" class="table table-striped table-bordered table-hover">
                 <thead>
                     <tr>
-                        <th>Reconstruction Title</th>
+                        <th>Piece ID</th>
+                        <th>Title</th>
                         <th>Reconstructor</th>
                     </tr>
                 </thead>
                 <tbody>
                 {% for recon in reconstructions %}
                     <tr>
-                        <td><a href="/piece/{{ recon.piece.piece_id }}">{{ recon.piece.title }}</a></td>
-                        <td><a href="/person/{{ recon.id }}">{{ recon.reconstructor.surname }}</a></td>
+                        <td><a href="/piece/{{ recon.piece.piece_id }}">{{ recon.piece.piece_id }}</a></td>
+                        <td>{{ recon.piece.title }}</td>
+                        <td><a href="/person/{{ recon.reconstructor.person_id }}">{{ recon.reconstructor }}</a></td>
                     </tr>
                 {% endfor %}
                 </tbody>
