@@ -14,6 +14,7 @@ from duchemin.models.userprofile import DCUserProfile
 from duchemin.models.file import DCFile
 from duchemin.models.content_block import DCContentBlock
 from duchemin.models.comment import DCComment
+from duchemin.models.note import DCNote
 
 
 class DCAnalysisAdmin(admin.ModelAdmin):
@@ -151,6 +152,13 @@ class DCPhraseAdmin(admin.ModelAdmin):
     change_list_template = "admin/change_list_pagination_top.html"
     actions = [export_as_csv_action("Export as CSV", fields=['phrase_id', 'piece_id', 'phrase_num', 'phrase_start', 'phrase_stop', 'phrase_text'])]
 
+
+class DCNoteAdmin(admin.ModelAdmin):
+    list_display = ['piece', 'author', 'time', 'text',]
+    ordering = ['piece', 'time',]
+    actions = [export_as_csv_action]
+
+
 class UserProfileInline(admin.StackedInline):
     model = DCUserProfile
     can_delete = False
@@ -173,3 +181,4 @@ admin.site.register(DCReconstruction, DCReconstructionAdmin)
 admin.site.register(DCFile)
 admin.site.register(DCContentBlock)
 admin.site.register(DCComment)
+admin.site.register(DCNote, DCNoteAdmin)

@@ -8,3 +8,4 @@ from duchemin.models.userprofile import *
 from duchemin.models.file import *
 from duchemin.models.content_block import *
 from duchemin.models.comment import *
+from duchemin.models.note import *
