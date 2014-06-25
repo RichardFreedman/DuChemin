@@ -10,6 +10,7 @@ from duchemin.models.piece import DCPiece
 from duchemin.models.phrase import DCPhrase
 from duchemin.models.analysis import DCAnalysis
 from duchemin.models.book import DCBook
+from duchemin.models.comment import DCComment
 from duchemin.models.reconstruction import DCReconstruction
 from duchemin.models.content_block import DCContentBlock
 
@@ -173,18 +174,27 @@ def profile(request):
 
     analyses = None
     reconstructions = None
+    discussed_pieces = []
+
     if profile.person:
-        analyses = DCAnalysis.objects.filter(analyst=profile.person.person_id).order_by('composition_number__title')
-        reconstructions = DCReconstruction.objects.filter(reconstructor=profile.person.person_id).order_by('piece__title')
+        analyses = DCAnalysis.objects.filter(analyst=profile.person.person_id).order_by('composition_number')
+        reconstructions = DCReconstruction.objects.filter(reconstructor=profile.person.person_id).order_by('piece')
+
+    comments_by_piece_id = DCComment.objects.filter(author=request.user).order_by('piece')
+    for comment in comments_by_piece_id:
+        if comment.piece not in discussed_pieces:
+            discussed_pieces.append(comment.piece)
 
     data = {
         'user': request.user,
         'profile': profile,
-        'favourited_pieces': profile.favourited_piece.iterator(),
-        'favourited_analyses': profile.favourited_analysis.iterator(),
-        'favourited_reconstructions': profile.favourited_reconstruction.iterator(),
+        'favourited_pieces': profile.favourited_piece.order_by('piece_id'),
+        'favourited_analyses': profile.favourited_analysis.order_by('piece_id'),
+        'favourited_reconstructions': profile.favourited_reconstruction.order_by('piece'),
         'my_analyses': analyses,
-        'my_reconstructions': reconstructions
+        'my_reconstructions': reconstructions,
+        'my_comments': DCComment.objects.filter(author=request.user).order_by('-time'),
+        'discussed_pieces': discussed_pieces,
     }
     return render(request, 'main/profile.html', data)
 
