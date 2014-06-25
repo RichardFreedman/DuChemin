@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% load template_dict %}
+
+{% block header %}
+  <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/themes/base/jquery-ui.css" rel="stylesheet"></link>
+  <script src="{{ STATIC_URL }}js/vendor/jquery.cookie.js"></script>
+  <script src="{{ STATIC_URL }}js/notation.js"></script>
+  <script src="{{ STATIC_URL }}js/favourites.js"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/comments.js"></script>
+  <!--
+  <script type="text/javascript" src="http://vm-duchemin.haverford.edu:8080/assets/scripts/libs/vexflow-free.js"></script>
+  <script type="text/javascript" src="http://vm-duchemin.haverford.edu:8080/assets/scripts/libs/meitovexflow.js"></script>
+  -->
+
+  <script type="text/javascript">
+  
+    // CSRF Token Protection lifted from Django documentation. Consider moving to main template
+    var csrftoken = $.cookie('csrftoken');
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+    function sameOrigin(url) {
+    // test that a given url is a same-origin URL
+    // url could be relative or scheme relative or absolute
+    var host = document.location.host; // host + port
+    var protocol = document.location.protocol;
+    var sr_origin = '//' + host;
+    var origin = protocol + sr_origin;
+    // Allow absolute or scheme relative URLs to same origin
+    return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+      (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+      // or any other URL that isn't scheme relative or absolute i.e relative.
+      !(/^(\/\/|http:|https:).*/.test(url));
+    }
+	$.ajaxSetup({
+	    beforeSend: function(xhr, settings) {
+	        if (!csrfSafeMethod(settings.type) && sameOrigin(settings.url)) {
+	            // Send the token to same-origin, relative URLs only.
+	            // Send the token only if the method warrants CSRF protection
+	            // Using the CSRFToken value acquired earlier
+	            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+	        }
+	    }
+	});
+	
+	
+    $(document).ready(function (){
+        attachAnalysisClickEvents();
+        attachPhraseClickEvents();
+        attachFavouritesAction();
+        startCommentFeed('{{piece.piece_id}}');
+        attachCommentsAction();
+    });
+  </script>
+
+{% endblock %}
+
+
+{% block wrap %}
+  <div class="row-fluid">
+    <div class="span12">
+      <div class="show-heading row-fluid">
+        <div class="span8">
+          <hgroup class="show-title page-title span12">
+            <h1>{{ piece.title }}</h1>
+            <h2>Discussion</h2>
+            <h3>{{ piece.piece_id }}{% if is_logged_in %}
+                {% include "main/favourites/favourites.html" with is_favourite=is_favourite piece_id=piece.piece_id %}
+            {% endif %}</h3>
+          </hgroup>
+          <div class="row-fluid">
+            <form id="comment-form" style="margin-top:20px;margin-bottom:10px;">
+              {% csrf_token %}
+              <textarea form="comment-form" name="text" rows="6" class="span10"></textarea>
+              <input type="hidden" name="piece_id" value="{{ piece.piece_id }}"/>
+              <input type="submit" name="comment-submit" value="Comment"/>
+            </form>
+            <div id="discussion-block">
+              <!-- This is where the comments show up. -->
+            </div>
+          </div>
+        </div>
+        
+        <div class="span4">
+          <div class="well span12">
+            <dl class="well-list account-info-list">
+              <dt>Source:</dt>
+              <dd><a href="/book/{{ piece.book_id.book_id }}">{{ piece.book_id.title }}</a></dd>
+              <dt>View:</dt>
+              <dd><a href="{{ piece.pdf_link }}" target="_blank">Complete Modern Edition (PDF)</a><br/>
+              <a href="{{ piece.mei_link }}" target="_blank">MEI File</a></dd>
+              <dt>Listen:</dt>
+              <dd><a href="{{ piece.audio_link }}" target="_blank">Complete Recording (MP3)</a></dd>
+            </dl>
+          </div>
+          <div id="sidebar" class="span12">
+            <h3><a href="/piece/{{ piece.piece_id }}/">Return to {{ piece.piece_id }}</a></h3>
+            
+            {% if is_logged_in %}
+              <h3>Problems</h3>
+              <p>Is this record incorrect? <a href="mailto:rfreedma@haverford.edu?subject=Problem with Piece {{ piece.piece_id }}">Notify us.</a></p>
+            {% endif %}
+          </div>
+        </div><!--/span-->
+      </div>
+    </div><!--/span-->
+
+  </div><!--/row-->
+
+{% endblock %}

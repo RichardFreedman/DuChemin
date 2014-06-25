@@ -17,6 +17,7 @@ if 'django.contrib.admin' in settings.INSTALLED_APPS:
     urlpatterns += patterns('duchemin.views.main',
         url(r'^$', 'home', name='home'),
         url(r'^piece/(?P<piece_id>[0-9a-zA-Z]+)/add-observation/$', 'add_observation'),
+        url(r'^piece/(?P<piece_id>[0-9a-zA-Z]+)/discussion/$', 'discussion'),
         url(r'^piece/(?P<pk>[0-9a-zA-Z]+)', 'piece', name="dcpiece-detail"),
         url(r'^pieces/$', 'pieces', name="dcpiece-list"),
 

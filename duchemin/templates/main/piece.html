@@ -209,13 +209,13 @@
               <dd><a href="{{ piece.audio_link }}" target="_blank">Complete Recording (MP3)</a></dd>
             </dl>
           </div>
-          <div id="sidebar" class="span4">
-            <h3>Discussion</h3>
+          <div id="sidebar" class="span12">
+            <h3><a href="/piece/{{ piece.piece_id }}/discussion/">Discussion</a></h3>
             <div id="discussion-block"></div>
             <h3>Add your voice</h3>
             <form id="comment-form">
               {% csrf_token %}
-              <textarea form="comment-form" name="text"></textarea>
+              <textarea form="comment-form" name="text" rows="2" class="span12"></textarea>
               <input type="hidden" name="piece_id" value="{{ piece.piece_id }}"/>
               <input type="submit" name="comment-submit" value="Comment"/>
             </form>

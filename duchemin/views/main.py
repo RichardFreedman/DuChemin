@@ -114,6 +114,32 @@ def piece(request, pk):
     return render(request, 'main/piece.html', data)
 
 
+def discussion(request, piece_id):
+    try:
+        piece = DCPiece.objects.get(piece_id=piece_id)
+    except DCPiece.DoesNotExist:
+        raise Http404
+
+    is_favourite = False
+    is_logged_in = False
+    is_staff = False
+    if request.user.is_authenticated():
+        is_logged_in = True
+        is_staff = request.user.is_staff
+        profile = request.user.profile
+        if profile.favourited_piece.filter(id=piece.id):
+            is_favourite = True
+
+    data = {
+        'piece': piece,
+        'piece_id' : piece_id,
+        'is_favourite': is_favourite,
+        'is_logged_in': is_logged_in,
+        'is_staff': is_staff
+    }
+    return render(request, 'main/discussion.html', data)
+
+
 def reconstructions(request):
     reconstructions = DCReconstruction.objects.all().order_by('piece__title', 'reconstructor__surname')
     paginator = Paginator(reconstructions, 25)
