@@ -349,14 +349,14 @@
     </div>
 
     <div class="span3"><!-- Everything on the right -->
-      <div class="well span12 pull-right">
+      <div class="well span12">
         <h3>{{ user.username }}<br />
           <a href="#" id="editpro">Edit&nbsp;Profile</a> &bull;
           <a href="#" id="logout">Log&nbsp;Out</a>
         </h3>
         <dl class="well-list account-info-list">
           <dt>Joined:</dt>
-          <dd>{{ user.date_joined }}</dd>
+          <dd>{{ user.date_joined.date }}</dd>
           <dt>Role:</dt>
           <dd>{{ user.profile.role }}</dd>
         </dl>
