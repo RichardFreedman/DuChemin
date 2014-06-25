@@ -59,7 +59,7 @@ class DCAnalysisAdmin(admin.ModelAdmin):
             "comment",
             "repeat_exact_varied"
         )
-    list_display = ["id", 'analyst', 'composition_number', 'phrase_number', 'start_measure', 'stop_measure']
+    list_display = ["id", 'analyst', 'phrase_number', 'start_measure', 'stop_measure']
     search_fields = ["id", 'analyst__surname', 'composition_number__title']
     list_filter = ('needs_review',)
     actions = [export_as_csv_action("Export as CSV", fields=MODEL_FIELDS)]
@@ -127,9 +127,10 @@ class DCPieceAdmin(admin.ModelAdmin):
 #     inlines = (
 #         DCFilePieceInline,
 #     )
-    search_fields = ('book_id__title', 'title', 'print_concordances', 'ms_concordances')
-    list_display = ('title','book_id', 'book_position', 'composer_id', 'composer_src', 'forces', 'print_concordances', 'ms_concordances')
-    ordering = ('book_id__id', 'book_position')
+    search_fields = ('piece_id', 'book_id__title', 'title', 'print_concordances', 'ms_concordances')
+    list_display = ('piece_id', 'title', 'composer_id', 'composer_src', 'forces', 'print_concordances', 'ms_concordances')
+    # Add 'book_id', 'book_position', above if these become necessary -- but for now piece_id is fine
+    ordering = ('piece_id',)
     actions = [export_as_csv_action]
 
 class DCFileReconstructionInline(admin.TabularInline):
@@ -140,17 +141,28 @@ class DCFileReconstructionInline(admin.TabularInline):
 
 
 class DCReconstructionAdmin(admin.ModelAdmin):
-    inlines = (
-        DCFileReconstructionInline,
-    )
+    list_display = ['piece', 'reconstructor',]
+    ordering = ['piece', 'reconstructor',]
     actions = [export_as_csv_action]
 
 
 class DCPhraseAdmin(admin.ModelAdmin):
-    list_display = ['phrase_id', 'piece_id', 'phrase_num', 'phrase_start', 'phrase_stop', 'phrase_text']
+    # If we want to show only piece ID, not title of piece
+    def get_piece_id(self, obj):
+        return obj.piece_id.piece_id
+    get_piece_id.short_description = 'Piece'
+
+    list_display = ['phrase_id', 'get_piece_id', 'phrase_num', 'phrase_start', 'phrase_stop', 'phrase_text']
     list_editable = ['phrase_start', 'phrase_stop']
+    ordering = ('piece_id','phrase_num',)
     change_list_template = "admin/change_list_pagination_top.html"
     actions = [export_as_csv_action("Export as CSV", fields=['phrase_id', 'piece_id', 'phrase_num', 'phrase_start', 'phrase_stop', 'phrase_text'])]
+
+
+class DCCommentAdmin(admin.ModelAdmin):
+    list_display = ['piece', 'author', 'time', 'text',]
+    ordering = ['piece', 'time',]
+    actions = [export_as_csv_action]
 
 
 class DCNoteAdmin(admin.ModelAdmin):
@@ -180,5 +192,5 @@ admin.site.register(DCPiece, DCPieceAdmin)
 admin.site.register(DCReconstruction, DCReconstructionAdmin)
 admin.site.register(DCFile)
 admin.site.register(DCContentBlock)
-admin.site.register(DCComment)
+admin.site.register(DCComment, DCCommentAdmin)
 admin.site.register(DCNote, DCNoteAdmin)

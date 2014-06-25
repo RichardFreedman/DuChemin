@@ -27,7 +27,7 @@ class DCPiece(models.Model):
     audio_link = models.CharField(max_length=255, blank=True, null=True)
 
     def __unicode__(self):
-        return u"{0}".format(self.title)
+        return u"{0}: {1}".format(self.piece_id, self.title)
 
 
 @receiver(post_save, sender=DCPiece)
