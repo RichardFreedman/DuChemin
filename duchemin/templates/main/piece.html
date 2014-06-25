@@ -49,7 +49,8 @@
         attachAnalysisClickEvents();
         attachPhraseClickEvents();
         attachFavouritesAction();
-        startCommentFeed('{{piece.piece_id}}');
+        // Second parameter: Number of days' worth of comments to show
+        startCommentFeed('{{piece.piece_id}}', 14);
         attachCommentsAction();
     });
   </script>
@@ -260,18 +261,20 @@
           <div id="sidebar" class="span12">
             <h3><a href="/piece/{{ piece.piece_id }}/discussion/">Discussion</a></h3>
             <div id="discussion-block"></div>
-            <h3>Add your voice</h3>
-            <form id="comment-form">
-              {% csrf_token %}
-              <textarea form="comment-form" name="text" rows="2" class="span12"></textarea>
-              <input type="hidden" name="piece_id" value="{{ piece.piece_id }}"/>
-              <input type="submit" name="comment-submit" value="Comment"/>
-            </form>
-            
             {% if is_logged_in %}
+              <h3>Add your voice</h3>
+              <form id="comment-form">
+                {% csrf_token %}
+                <textarea form="comment-form" name="text" rows="2" class="span12"></textarea>
+                <input type="hidden" name="piece_id" value="{{ piece.piece_id }}"/>
+                <input type="submit" name="comment-submit" value="Comment"/>
+              </form>
+            {% endif %}
+            
+            <!-- {% if is_logged_in %} -->
               <h3>Problems</h3>
               <p>Is this record incorrect? <a href="mailto:rfreedma@haverford.edu?subject=Problem with Piece {{ piece.piece_id }}">Notify us.</a></p>
-            {% endif %}
+            <!-- {% endif %} -->
           </div>
         </div><!--/span-->
       </div>

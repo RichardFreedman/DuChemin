@@ -1,24 +1,25 @@
+var MILLISECONDS_IN_DAY = 86400000
+
 // Helper function to start appropriate timeout loop for comments feed
-function startCommentFeed(piece_id){
+function startCommentFeed(piece_id, days_to_show){
 
     // First fetch has id 0, so it gets everything
     var last_update = 0;
     var timeout = 2000;
 
-    // Can't show EVERY comment on home page
-    // This is the number of previous days' comments to show
-    var days_to_show = 30;
-    var MILLISECONDS_IN_DAY = 86400000
+    // If there are no comments, we will display a message.
+    var empty = true;
+    var empty_message = "<p>No comments on this piece.</p>";
     
     // Check to see if the helper function was called with a piece_id or not
     if (piece_id != null){
-    	updatePieceComments(piece_id);
+    	updatePieceComments(piece_id, days_to_show);
     } else {
-    	updateAllComments();
+    	updateAllComments(days_to_show);
     }
 
     // Logic to handle getting and displaying all comments
-    function updateAllComments() {
+    function updateAllComments(days_to_show) {
         $.ajax({
             type: "GET",
             url: "/discussion/",
@@ -42,9 +43,9 @@ function startCommentFeed(piece_id){
                     // the CSS to add margin to .comment blocks.
 
                     var comment = '<div class="comment"><div class="author">' +
-                        "<h4><a href='/piece/" + item.piece_id + "'>" +
+                        "<h5><a href='/piece/" + item.piece_id + "'>" +
                         item.piece_id + "</a> &bull; " + item.author + 
-                        "</a> &bull; " + item.display_time + '</h4></div>' +
+                        "</a> &bull; " + item.display_time + '</h5></div>' +
                         '<div class="text"><p>' + parseCommentTags(item.text) +
                         '</p></div></div>';
 
@@ -58,13 +59,23 @@ function startCommentFeed(piece_id){
                     var comment_date = Date.parse(item.display_time.replace(', ', 'T'));
                     // This could be off by a matter of hours, depending
                     //   on time zone, but that's not important.
-                    if (today - comment_date < days_to_show * MILLISECONDS_IN_DAY) {
+                    if ((today - comment_date < days_to_show * MILLISECONDS_IN_DAY) ||
+                            !days_to_show) {
                         $('#discussion-block').prepend(comment);
-                    }
 
+                        // Since we added something, we'll set the "empty"
+                        // flag to false -- otherwise we'll display the
+                        // "no comments" message
+                        empty = false;
+                    }
                     // Update the last fetched item ID each refresh to reduce return
                     last_update = item.id;
                 });
+                if (empty) {
+                    $('#discussion-block').prepend(empty_message);
+                    // Don't print it again.
+                    empty = false;
+                }
             },
         });
         setTimeout(updateAllComments, timeout);
@@ -74,7 +85,7 @@ function startCommentFeed(piece_id){
     // NOTE: This may not continuously update. But at least
     //   when a comment is submitted, that comment shows for
     //   the user. And comments are properly filtered by piece.
-    function updatePieceComments(piece_id) {
+    function updatePieceComments(piece_id, days_to_show) {
         $.ajax({
             type: "GET",
             url: "/discussion/",
@@ -88,17 +99,40 @@ function startCommentFeed(piece_id){
                 $.each(json, function(i,item) {
                     if (piece_id == item.piece_id) {
                         var comment = '<div class="comment"><div class="author">' +
-                            "<h4>" + item.author + 
-                            "</a> &bull; " + item.display_time + '</h4></div>' +
+                            "<h5>" + item.author + 
+                            "</a> &bull; " + item.display_time + '</h5></div>' +
                             '<div class="text"><p>' + parseCommentTags(item.text) +
                             '</p></div></div>';
 
-                        $('#discussion-block').prepend(comment);
+                        // If we're in a context that limits number of comments,
+                        //   check the date of the comment against the current date,
+                        //   and only prepend if it's a recent comment -- otherwise,
+                        //   we'd have a humongous homepage.
+                        // NOTE: item.display_time is in _Python's_ date/time format,
+                        //   and so JavaScript can't make use of its date/time functions.
+                        //   Thus we import the string into JS format using Date.parse().
+                        var today = new Date();
+                        var comment_date = Date.parse(item.display_time.replace(', ', 'T'));
+                        // This could be off by a matter of hours, depending
+                        //   on time zone, but that's not important.
+                        if ((today - comment_date < days_to_show * MILLISECONDS_IN_DAY) ||
+                                !days_to_show) {
+                            $('#discussion-block').prepend(comment);
 
+                            // Since we added something, we'll set the "empty"
+                            // flag to false -- otherwise we'll display the
+                            // "no comments" message
+                            empty = false;
+                        }
                         // Update the last fetched item ID each refresh to reduce return
                         last_update = item.id;
                     }
                 });
+                if (empty) {
+                    $('#discussion-block').prepend(empty_message);
+                    // Don't print it again.
+                    empty = false;
+                }
             },
         });
         setTimeout(updatePieceComments, timeout);
