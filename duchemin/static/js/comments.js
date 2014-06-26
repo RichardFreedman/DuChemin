@@ -9,7 +9,7 @@ function startCommentFeed(piece_id, days_to_show){
 
     // If there are no comments, we will display a message.
     var empty = true;
-    var empty_message = "<p>No comments on this piece.</p>";
+    var empty_message = "<p>No recent comments.</p>";
     
     // Check to see if the helper function was called with a piece_id or not
     if (piece_id != null){
@@ -33,9 +33,6 @@ function startCommentFeed(piece_id, days_to_show){
                     // Isn't there any way to get the full name, such as
                     // `item.author.first_name + item.author.last_name` ?
                     // I thought item.author was of the User model.
-                    // If user profiles ever get a page (for instance,
-                    // if Users are linked to People) then they should
-                    // be linked here.
 
                     // Also, I surrounded the comments in a <p> element,
                     // which should be fine. Without it, the margins are
@@ -115,13 +112,17 @@ function startCommentFeed(piece_id, days_to_show){
                         var comment_date = Date.parse(item.display_time.replace(', ', 'T'));
                         // This could be off by a matter of hours, depending
                         //   on time zone, but that's not important.
-                        if ((today - comment_date < days_to_show * MILLISECONDS_IN_DAY) ||
-                                !days_to_show) {
+                        if (today - comment_date < days_to_show * MILLISECONDS_IN_DAY) {
                             $('#discussion-block').prepend(comment);
 
                             // Since we added something, we'll set the "empty"
                             // flag to false -- otherwise we'll display the
                             // "no comments" message
+                            empty = false;
+                        }
+                        else if (!days_to_show) {
+                            // If showing all comments, order them first to last
+                            $('#discussion-block').append(comment);
                             empty = false;
                         }
                         // Update the last fetched item ID each refresh to reduce return
