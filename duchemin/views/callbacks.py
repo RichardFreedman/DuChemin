@@ -78,7 +78,7 @@ def favourite_callback(request, ftype, fid):
 
 # Callback function to handle returning comments as JSON arrays
 # and add new comments using AJAX POST data
-@login_required
+# @login_required
 def discussion_callback(request):
 
     # TODO: Add csrf_token support to protect from cross-site exploits
