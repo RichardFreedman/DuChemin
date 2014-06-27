@@ -3,8 +3,13 @@ from django.conf import settings
 from duchemin.views.analysis import AnalysisList, AnalysisDetail
 from duchemin.views.person import PersonList, PersonDetail
 from duchemin.views.phrase import PhraseList, PhraseDetail
+from duchemin.views.comment import CommentList, CommentDetail
+from duchemin.views.user import UserList, UserDetail
+from duchemin.views.auth import SessionAuth, SessionStatus, SessionClose
+
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
+from rest_framework.authtoken.views import obtain_auth_token
 admin.autodiscover()
 
 urlpatterns = []
@@ -16,6 +21,10 @@ if 'django.contrib.admin' in settings.INSTALLED_APPS:
 
     urlpatterns += patterns('duchemin.views.main',
         url(r'^$', 'home', name='home'),
+        url(r'^auth/token/$', obtain_auth_token),
+        url(r'^auth/session/$', SessionAuth.as_view()),
+        url(r'^auth/status/$', SessionStatus.as_view()),
+        url(r'^auth/logout/$', SessionClose.as_view()),
         url(r'^piece/(?P<piece_id>[0-9a-zA-Z]+)/add-observation/$', 'add_observation'),
         url(r'^piece/(?P<piece_id>[0-9a-zA-Z]+)/discussion/$', 'discussion'),
         url(r'^piece/(?P<pk>[0-9a-zA-Z]+)', 'piece', name="dcpiece-detail"),
@@ -38,8 +47,11 @@ if 'django.contrib.admin' in settings.INSTALLED_APPS:
         url(r'^phrases/$', PhraseList.as_view(), name="dcphrase-list"),
         url(r'^phrase/(?P<pk>[0-9]+)/$', PhraseDetail.as_view(), name="dcphrase-detail"),
 
-        url(r'^discussions/$', 'home', name='discussions'),
+        url(r'^users/$', UserList.as_view(), name="user-list"),
+        url(r'^user/(?P<pk>[0-9]+)/$', UserDetail.as_view(), name="user-detail"),
 
+        url(r'^comments/$', CommentList.as_view(), name="dccomment-list"),
+        url(r'^comment/(?P<pk>[0-9]+)/$', CommentDetail.as_view(), name='dccomment-detail'),
     )
 
     urlpatterns += patterns('duchemin.views.search',
@@ -54,7 +66,6 @@ if 'django.contrib.admin' in settings.INSTALLED_APPS:
     urlpatterns += patterns('duchemin.views.callbacks',
         url(r'^search/results/(?P<restype>[0-9a-zA-Z]+)/$', 'result_callback'),
         url(r'^favourite/(?P<ftype>[a-zA-Z]+)/(?P<fid>[a-zA-Z0-9]+)/$', 'favourite_callback'),
-        url(r'^discussion/$', 'discussion_callback'),
     )
 
     urlpatterns += patterns('',
