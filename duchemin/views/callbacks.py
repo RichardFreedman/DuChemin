@@ -1,17 +1,15 @@
 from django.shortcuts import render
 import json
 
-from django.http import HttpResponse, HttpResponseServerError
+from django.http import HttpResponse
 from django.conf import settings
 from django.core.paginator import EmptyPage, InvalidPage
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 from duchemin.helpers.solrsearch import DCSolrSearch
 
 from duchemin.models.piece import DCPiece
 from duchemin.models.analysis import DCAnalysis
 from duchemin.models.reconstruction import DCReconstruction
-from duchemin.models.comment import DCComment
 
 
 class JsonResponse(HttpResponse):
@@ -74,66 +72,6 @@ def favourite_callback(request, ftype, fid):
         'content': ftype + "/" + fid
     }
     return JsonResponse(data)
-
-
-# Callback function to handle returning comments as JSON arrays
-# and add new comments using AJAX POST data
-# @login_required
-def discussion_callback(request):
-
-    # TODO: Add csrf_token support to protect from cross-site exploits
-
-    # assuming GET means get comments; POST means add a new one
-    if request.method == u'GET':
-        get_data = request.GET
-        if get_data.has_key('last_update'):
-            comments = ""
-            comment_array = []
-            last_update = get_data['last_update']
-            if get_data.has_key('piece_id'):
-                piece_id = get_data['piece_id']
-                # only return the queryset of objects for this piece newer than
-                # the last id (sent from AJAX callback). This assumes a sequential
-                # addition of comments, incrementing the id every time
-                comments = DCComment.objects.filter(
-                    piece=DCPiece.objects.get(piece_id=piece_id),
-                    id__gt=last_update
-                    )
-
-            else:
-                # if no piece_id was included, return everything
-                comments = DCComment.objects.filter(id__gt=last_update)
-
-            for comment in comments.values():
-                # If the following date/time format is changed, the logic in
-                # static/js/comments.js must be changed! That file relies
-                # on this text representation to get a comment's date in
-                # the form of a JavaScript date object.
-                display_time = comment['time'].strftime("%Y-%m-%d, %H:%M")
-                current_piece = DCPiece.objects.get(id=comment['piece_id'])
-                comment_array.append({
-                    'id': u"{}".format(comment['id']),
-                    'text': u"{}".format(comment['text']),
-                    'display_time': u"{}".format(display_time),
-                    'author': u"{}".format(
-                        User.objects.get(id=comment['author_id'])),
-                    'piece_id': u"{}".format(current_piece.piece_id)
-                })
-            return JsonResponse(comment_array)
-        else:
-            return HttpResponseServerError("Missing critical GET attributes")
-
-    # If accessed using a POST, assume we are adding a new comment
-    elif request.method == u'POST':
-        post_data = request.POST
-        if post_data.has_key('piece_id') and post_data.has_key('text'):
-            piece = DCPiece.objects.get(piece_id=post_data['piece_id'])
-            comment = DCComment(author=request.user,
-                                piece=piece, text=post_data['text'])
-            comment.save()
-            return HttpResponse("OK!")
-        else:
-            return HttpResponseServerError("Missing critical POST attributes")
 
 
 def result_callback(request, restype):
