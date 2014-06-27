@@ -1,16 +1,18 @@
 from django.db import models
 from django.contrib.auth.models import User
-from duchemin.models.piece import DCPiece
 
 
 class DCComment(models.Model):
-    piece = models.ForeignKey(DCPiece, related_name="comments")
+    piece = models.ForeignKey("duchemin.DCPiece", related_name="comments")
     author = models.ForeignKey(User, related_name="comments")
-    time = models.DateTimeField(auto_now=True)
+
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
     text = models.TextField()
 
     def __unicode__(self):
-        return u"{} ({} {})".format(self.piece, self.author, self.time)
+        return u"{} ({} {})".format(self.piece, self.author, self.created)
 
     class Meta:
         app_label = "duchemin"
