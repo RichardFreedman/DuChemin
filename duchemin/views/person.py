@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import generics
 from rest_framework.renderers import JSONRenderer
+from rest_framework import permissions
 
 from duchemin.serializers.person import DCPersonListSerializer, DCPersonDetailSerializer
 from duchemin.models.person import DCPerson
@@ -17,12 +18,14 @@ class PersonDetailHTMLRenderer(CustomHTMLRenderer):
 
 class PersonList(generics.ListAPIView):
     model = DCPerson
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     serializer_class = DCPersonListSerializer
     renderer_classes = (JSONRenderer, PersonListHTMLRenderer)
 
 
 class PersonDetail(generics.RetrieveAPIView):
     model = DCPerson
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     serializer_class = DCPersonDetailSerializer
     renderer_classes = (JSONRenderer, PersonDetailHTMLRenderer)
 
