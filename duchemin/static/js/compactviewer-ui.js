@@ -61,7 +61,7 @@ meiView.Inherit(meiView.CompactUI, meiView.UI, {
     var titleElem = $(this.maindiv).find('span.title')[0];
     $(titleElem).html(options.title);
 
-    this.fillSideBar($(this.maindiv).find('#accordion'), this.viewer.Sources, 'meiview-sidebar');
+    this.fillSideBar($(this.maindiv).find('#accordion'), 'meiview-sidebar');
     $(this.maindiv).find('#accordion').accordion({
       collapsible: true,
       heightStyle: "fill",
@@ -72,6 +72,8 @@ meiView.Inherit(meiView.CompactUI, meiView.UI, {
     }
 
     this.fillCritReport();
+
+    this.scale = options.scale || 1.0;
 
     this.fabrCanvas = this.initCanvas(this.canvas_id);
     this.canvasClef = $(this.maindiv).find('.clef-canvas').get();
@@ -95,7 +97,7 @@ meiView.Inherit(meiView.CompactUI, meiView.UI, {
     var minSidebarDivHeight = h3s.length * h3s.height() + minSidebarContentHeight;
 
     //150 is an ugly constant to accommodate selector panels that may pop up
-    var main_height = Math.max(this.content_dims.height + 150, minSidebarDivHeight);
+    var main_height = Math.max((this.content_dims.height + 150) * this.scale, minSidebarDivHeight);
     $(this.maindiv).find('.main-canvas-div').height(main_height);
     this.fabrCanvas.setDimensions({height: main_height});
     this.fabrCanvasClef.setDimensions({height: main_height});
@@ -165,6 +167,10 @@ meiView.Inherit(meiView.CompactUI, meiView.UI, {
     this.resizeElements();
   },
 
+  sideBarLength: function() {
+    return $(this.maindiv).find('.sidebar').find('h3.meiview-sidebar').length;
+  },
+
   sideBarOn: function () {
     return $(this.maindiv).find('.sidebar').css('display') !== 'none';
   },
@@ -180,8 +186,8 @@ meiView.Inherit(meiView.CompactUI, meiView.UI, {
     if (this.scoreImg) {
        this.fabrCanvas.remove(this.scoreImg);    
     }
-    this.scale = this.fabrCanvas.width/options.vexWidth;
-    var W = this.fabrCanvas.width;
+    this.fabrCanvas.setDimensions({width:options.vexWidth * this.scale});
+    var W = options.vexWidth * this.scale;
     var H = options.vexHeight * this.scale;
     this.scoreImg = new fabric.Image(img, {
       width:W,height:H, left:W/2, top:H/2,
@@ -291,7 +297,7 @@ meiView.Inherit(meiView.CompactUI, meiView.UI, {
     console.log('max measure width: ' + w_max.toString());
     console.log('scale: ' + options.scale.toString());
   
-    $(this.maindiv).find('.clef-canvas-div').css('width', w_max);
+    $(this.maindiv).find('.clef-canvas-div').css('width', w_max * options.scale);
     $(this.canvasClef).css('width', $(this.canvasClef).width() * options.scale);
     $(this.canvasClef).css('height', $(this.canvasClef).height() * options.scale);
 

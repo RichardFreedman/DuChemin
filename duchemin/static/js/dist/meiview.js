@@ -891,26 +891,40 @@ meiView.UI.prototype.displayMeasureNos = function() {
   $.each(rendered_measures, function(n, measure) {
     console.log('meiView.UI.prototype.displayMeasureNos() n:' + n);
     if (measure) {
-      var vexStaff = measure[1];
-      console.log('meiView.UI.prototype.displayMeasureNos() vexStaff:');      
-      console.log(vexStaff);
-      var left = (vexStaff.x + 8) * ui_scale;
-      var top = (vexStaff.y + 15) * ui_scale;
-      var text = new fabric.Text(n.toString(), {
-        fontSize: Math.round(16 * ui_scale),
-        fill: 'grey',
-        left:left, 
-        top:top, 
-        lockMovementX: true,
-        lockMovementY: true,
-        lockScalingX: true,
-        lockScalingY: true,
-        lockRotation: true,
-        hasControls: false,
-        hasBorders: false,
-      });
-      ui_canvas.add(text);
-      ui_measure_n_texts[n] = text;
+      var i, vexStaff = measure[1], skip = false;
+      for (i=0; i<vexStaff.modifiers.length; i++) {
+        var modifier = vexStaff.modifiers[i];
+
+        // TODO: Detect collision between measure number and modifier
+        // (perhaps by detecting collision with modifier.modifier_context)
+        //
+        // For now: if modifier is a volta, do not render measure number.
+        if (modifier.volta == Vex.Flow.Volta.type.BEGIN || 
+            modifier.volta == Vex.Flow.Volta.type.BEGIN_END) {
+          skip = true;
+        }
+      }
+      if (!skip) {
+        console.log('meiView.UI.prototype.displayMeasureNos() vexStaff:');      
+        console.log(vexStaff);
+        var left = (vexStaff.x + 8) * ui_scale;
+        var top = (vexStaff.y + 15) * ui_scale;
+        var text = new fabric.Text(n.toString(), {
+          fontSize: Math.round(16 * ui_scale),
+          fill: 'grey',
+          left:left, 
+          top:top, 
+          lockMovementX: true,
+          lockMovementY: true,
+          lockScalingX: true,
+          lockScalingY: true,
+          lockRotation: true,
+          hasControls: false,
+          hasBorders: false,
+        });
+        ui_canvas.add(text);
+        ui_measure_n_texts[n] = text;
+      }
     }
   });
 }
@@ -1563,7 +1577,11 @@ meiView.Inherit(meiView.CompactViewer, meiView.Viewer, {
         this.parsePages(this.MEI);
       }
     }
-    this.scoreWidth = options.width || 1200; // 1000
+    if (options.pxpMeasure) {
+      this.pxpMeasure = options.pxpMeasure;
+    } else {
+      this.scoreWidth = options.width || 1200;
+    }
     this.scoreHeight = options.height || 1000;
     this.createSourceList(this.MEI.ALTs);
     this.Reconstructors = this.createReconstructorList();
@@ -1572,6 +1590,7 @@ meiView.Inherit(meiView.CompactViewer, meiView.Viewer, {
       viewer: this_viewer,
       maindiv: options.maindiv,
       title: options.title,
+      scale: options.scale,
     });
     this.selectedReconstructors = new meiView.SelectedEditors();
     if (options.displayFirstPage) {
@@ -1594,8 +1613,20 @@ meiView.Inherit(meiView.CompactViewer, meiView.Viewer, {
       this.UI.hidePagination();
     }
 
+    if (this.UI.sideBarLength() == 0) {
+      this.UI.hideSideBar();
+    }
+
   },
 
+  getScoreWidth: function(score) {
+    if (this.pxpMeasure) {
+      var no_of_measures = $(score).find('measure').length;
+      return this.pxpMeasure * no_of_measures;
+    } else {
+      return this.scoreWidth;
+    }
+  },
 
   toggleCritRep: function() {
     if (this.UI.critRepOn()) {
@@ -1664,14 +1695,15 @@ meiView.Inherit(meiView.CompactViewer, meiView.Viewer, {
   displayCurrentPage_TwoParts: function() {
     var pageXML_ContentPart = this.getPageXML_ContentPart(this.pages.currentPage());
     var pageXML_ClefPart = this.getPageXML_ClefPart(this.pages.currentPage());
-    this.UI.renderContentPart(pageXML_ContentPart, {vexWidth:this.scoreWidth, vexHeight:this.scoreHeight});
+    this.UI.renderContentPart(pageXML_ContentPart, {vexWidth:this.getScoreWidth(pageXML_ContentPart), vexHeight:this.scoreHeight});
     this.UI.rendered_measures = MEI2VF.rendered_measures;
     this.UI.content_dims = MEI2VF.Converter.getStaffArea();
     this.UI.updateMainHeight();
     var clefoptions = {}
     clefoptions.page_margin_right = 0;
     clefoptions.page_margin_left = 10;
-    clefoptions.scale = this.UI.scale
+    clefoptions.scale = this.UI.scale;
+    clefoptions.vexHeight = this.scoreHeight;
     this.UI.renderClefPart(pageXML_ClefPart, clefoptions);
     this.UI.rendered_clefmeasures = MEI2VF.rendered_measures;
     this.UI.resizeElements();
@@ -1772,7 +1804,7 @@ meiView.Inherit(meiView.CompactUI, meiView.UI, {
     var titleElem = $(this.maindiv).find('span.title')[0];
     $(titleElem).html(options.title);
 
-    this.fillSideBar($(this.maindiv).find('#accordion'), this.viewer.Sources, 'meiview-sidebar');
+    this.fillSideBar($(this.maindiv).find('#accordion'), 'meiview-sidebar');
     $(this.maindiv).find('#accordion').accordion({
       collapsible: true,
       heightStyle: "fill",
@@ -1783,6 +1815,8 @@ meiView.Inherit(meiView.CompactUI, meiView.UI, {
     }
 
     this.fillCritReport();
+
+    this.scale = options.scale || 1.0;
 
     this.fabrCanvas = this.initCanvas(this.canvas_id);
     this.canvasClef = $(this.maindiv).find('.clef-canvas').get();
@@ -1806,7 +1840,7 @@ meiView.Inherit(meiView.CompactUI, meiView.UI, {
     var minSidebarDivHeight = h3s.length * h3s.height() + minSidebarContentHeight;
 
     //150 is an ugly constant to accommodate selector panels that may pop up
-    var main_height = Math.max(this.content_dims.height + 150, minSidebarDivHeight);
+    var main_height = Math.max((this.content_dims.height + 150) * this.scale, minSidebarDivHeight);
     $(this.maindiv).find('.main-canvas-div').height(main_height);
     this.fabrCanvas.setDimensions({height: main_height});
     this.fabrCanvasClef.setDimensions({height: main_height});
@@ -1876,6 +1910,10 @@ meiView.Inherit(meiView.CompactUI, meiView.UI, {
     this.resizeElements();
   },
 
+  sideBarLength: function() {
+    return $(this.maindiv).find('.sidebar').find('h3.meiview-sidebar').length;
+  },
+
   sideBarOn: function () {
     return $(this.maindiv).find('.sidebar').css('display') !== 'none';
   },
@@ -1891,8 +1929,8 @@ meiView.Inherit(meiView.CompactUI, meiView.UI, {
     if (this.scoreImg) {
        this.fabrCanvas.remove(this.scoreImg);    
     }
-    this.scale = this.fabrCanvas.width/options.vexWidth;
-    var W = this.fabrCanvas.width;
+    this.fabrCanvas.setDimensions({width:options.vexWidth * this.scale});
+    var W = options.vexWidth * this.scale;
     var H = options.vexHeight * this.scale;
     this.scoreImg = new fabric.Image(img, {
       width:W,height:H, left:W/2, top:H/2,
@@ -2002,7 +2040,7 @@ meiView.Inherit(meiView.CompactUI, meiView.UI, {
     console.log('max measure width: ' + w_max.toString());
     console.log('scale: ' + options.scale.toString());
   
-    $(this.maindiv).find('.clef-canvas-div').css('width', w_max);
+    $(this.maindiv).find('.clef-canvas-div').css('width', w_max * options.scale);
     $(this.canvasClef).css('width', $(this.canvasClef).width() * options.scale);
     $(this.canvasClef).css('height', $(this.canvasClef).height() * options.scale);
 
