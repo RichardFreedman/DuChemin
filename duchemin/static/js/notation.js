@@ -96,7 +96,7 @@ function ajaxRenderAnalysis(id, piece_id, start, end, phrase) {
                 pages: pagination,
                 title: "",
                 displayFirstPage: true,
-                scale: 0.85,
+                scale: 0.8,
                 pxpMeasure: 200,
             });
 

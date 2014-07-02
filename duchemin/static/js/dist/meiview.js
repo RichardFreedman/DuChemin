@@ -1593,9 +1593,6 @@ meiView.Inherit(meiView.CompactViewer, meiView.Viewer, {
       scale: options.scale,
     });
     this.selectedReconstructors = new meiView.SelectedEditors();
-    if (options.displayFirstPage) {
-      this.nextPage();
-    }
 
     if (this.mode == meiView.Mode.FULL) {
       // this.UI.showCritRep();
@@ -1615,6 +1612,10 @@ meiView.Inherit(meiView.CompactViewer, meiView.Viewer, {
 
     if (this.UI.sideBarLength() == 0) {
       this.UI.hideSideBar();
+    }
+
+    if (options.displayFirstPage) {
+      this.nextPage();
     }
 
   },
@@ -1707,11 +1708,11 @@ meiView.Inherit(meiView.CompactViewer, meiView.Viewer, {
     this.UI.renderClefPart(pageXML_ClefPart, clefoptions);
     this.UI.rendered_clefmeasures = MEI2VF.rendered_measures;
     this.UI.resizeElements();
-    this.UI.displayVoiceNames(pageXML_ClefPart, { x: clefoptions.page_margin_left + 14});
     this.UI.displayDots();
     this.UI.showTitle(this.pages.currentPageIndex === 0);
-    this.UI.fabrCanvas.calcOffset();
     this.UI.updatePageLabels(this.pages.currentPageIndex+1, this.pages.totalPages())
+    this.UI.displayVoiceNames(pageXML_ClefPart, { x: clefoptions.page_margin_left + 20});
+    this.UI.fabrCanvas.calcOffset();
   },
 
   nextPage: function(){
@@ -1794,6 +1795,8 @@ meiView.Inherit(meiView.CompactUI, meiView.UI, {
     </div>\
     '
     $(this.maindiv).append(this.base_html);
+
+    this.main_area = $(this.maindiv).find('.main-area');
     this.options.sidebar_ratio = (typeof this.options.sidebar_ratio == 'undefined') ? 0.2 : this.options.sidebar_ratio;
     this.titleDiv = $(this.maindiv).find('.titlediv');
     this.dots = {};
@@ -2047,8 +2050,8 @@ meiView.Inherit(meiView.CompactUI, meiView.UI, {
   },
   
   displayVoiceNames: function(score, base_offset) {
-    base_offset.x = (typeof base_offset.x !== 'undefined') ? base_offset.x : 0;
-    base_offset.y = (typeof base_offset.y !== 'undefined') ? base_offset.y : 10;
+    base_offset.x = (typeof base_offset.x !== 'undefined') ? base_offset.x : 10;
+    base_offset.y = (typeof base_offset.y !== 'undefined') ? base_offset.y : 20;
     var voiceNames = this.viewer.voiceNames(score);
     var this_UI = this;
     //1. Hide all voicename-divs
@@ -2066,10 +2069,14 @@ meiView.Inherit(meiView.CompactUI, meiView.UI, {
           var vexStaff = vexStaffs[staff_n];
           if (vexStaff) {
             var canvas_offset = $(this.maindiv).find('canvas.clef-canvas').offset();
+            var main_area_offset = $(this.main_area).offset();
+            var dx = canvas_offset.left - main_area_offset.left;
+            var dy = canvas_offset.top - main_area_offset.top;
             $(voicename_div).show();
-            $(voicename_div).css('top', vexStaff.y * this_UI.scale + canvas_offset.top + base_offset.y);
-            $(voicename_div).css('left', vexStaff.x * this_UI.scale + canvas_offset.left + base_offset.x);
+            $(voicename_div).css('top', (vexStaff.y + base_offset.y + dy) * this_UI.scale);
+            $(voicename_div).css('left', (vexStaff.x + base_offset.x + dx) * this_UI.scale);
             $(voicename_div).find('span').html(voiceNames[staff_n]);
+            $(voicename_div).find('span').css('font-size', (this_UI.scale * 100).toString() + '%');
           }
         }
       }
@@ -2079,7 +2086,7 @@ meiView.Inherit(meiView.CompactUI, meiView.UI, {
   getVoiceNameDiv: function() {
     var voicename_div = $(this.maindiv).find('.voicename-div.staff-n-' + staff_n);
     if (voicename_div.length === 0) {
-      $(this.maindiv).append('<div class="voicename-div staff-n-' + staff_n +'">' 
+      $(this.main_area).append('<div class="voicename-div staff-n-' + staff_n +'">'
         + '<span></span></div>');
       return $(this.maindiv).find('.voicename-div.staff-n-' + staff_n);
     } else {
