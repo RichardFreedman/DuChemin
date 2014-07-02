@@ -101,6 +101,7 @@ def piece(request, pk):
     phrases = DCPhrase.objects.filter(piece_id=pk).order_by('phrase_num')
     analyses = DCAnalysis.objects.filter(composition_number=pk).order_by('phrase_number__phrase_num', 'start_measure')
     reconstructions = DCReconstruction.objects.filter(piece=pk).order_by('piece')
+    comments = DCComment.objects.filter(piece=piece).order_by('created')
 
     data = {
         'piece': piece,
@@ -108,6 +109,7 @@ def piece(request, pk):
         'phrases': phrases,
         'analyses': analyses,
         'reconstructions': reconstructions,
+        'comments': comments,
         'is_favourite': is_favourite,
         'is_logged_in': is_logged_in,
         'is_staff': is_staff
@@ -131,12 +133,16 @@ def discussion(request, piece_id):
         if profile.favourited_piece.filter(id=piece.id):
             is_favourite = True
 
+    comments = DCComment.objects.filter(piece=piece).order_by('created')
+
     data = {
+        'user': request.user,
         'piece': piece,
         'piece_id' : piece_id,
         'is_favourite': is_favourite,
         'is_logged_in': is_logged_in,
-        'is_staff': is_staff
+        'is_staff': is_staff,
+        'comments': comments,
     }
     return render(request, 'main/discussion.html', data)
 
@@ -193,7 +199,7 @@ def profile(request):
         'favourited_reconstructions': profile.favourited_reconstruction.order_by('piece'),
         'my_analyses': analyses,
         'my_reconstructions': reconstructions,
-        'my_comments': DCComment.objects.filter(author=request.user).order_by('-time'),
+        'my_comments': DCComment.objects.filter(author=request.user).order_by('-created'),
         'discussed_pieces': discussed_pieces,
     }
     return render(request, 'main/profile.html', data)

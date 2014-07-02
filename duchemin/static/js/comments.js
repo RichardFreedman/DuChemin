@@ -1,3 +1,9 @@
+function log(msg) {
+    setTimeout(function() {
+        throw new Error(msg);
+    }, 0);
+}
+
 var MILLISECONDS_IN_DAY = 86400000
 
 // Helper function to start appropriate timeout loop for comments feed
@@ -6,30 +12,26 @@ function startCommentFeed(piece_id, days_to_show){
     // First fetch has id 0, so it gets everything
     var last_update = 0;
     var timeout = 2000;
-
-    // If there are no comments, we will display a message.
-    var empty = true;
-    var empty_message = "<p>No recent comments.</p>";
     
     // Check to see if the helper function was called with a piece_id or not
     if (piece_id != null){
-    	updatePieceComments(piece_id, days_to_show);
+        updatePieceComments(piece_id, days_to_show);
     } else {
-    	updateAllComments(days_to_show);
+        updateAllComments(days_to_show);
     }
 
     // Logic to handle getting and displaying all comments
     function updateAllComments(days_to_show) {
         $.ajax({
             type: "GET",
-            url: "/discussion/",
+            url: "/comments/",
             cache: false,
             data: {
                 'last_update': last_update,
                 },             
             dataType: 'json',
             success: function (json) {
-                $.each(json, function(i,item) {
+                $.each(json.results, function(i,item) {
                     // Isn't there any way to get the full name, such as
                     // `item.author.first_name + item.author.last_name` ?
                     // I thought item.author was of the User model.
@@ -40,9 +42,10 @@ function startCommentFeed(piece_id, days_to_show){
                     // the CSS to add margin to .comment blocks.
 
                     var comment = '<div class="comment"><div class="author">' +
-                        "<h5><a href='/piece/" + item.piece_id + "'>" +
-                        item.piece_id + "</a> &bull; " + item.author + 
-                        "</a> &bull; " + item.display_time + '</h5></div>' +
+                        "<h5><a href='/piece/" + item.piece + "'>" +
+                        item.piece + '</a> &bull; ' +
+                        item.author + 
+                        '</a> &bull; ' + item.display_time + '</h5></div>' +
                         '<div class="text"><p>' + parseCommentTags(item.text) +
                         '</p></div></div>';
 
@@ -59,33 +62,20 @@ function startCommentFeed(piece_id, days_to_show){
                     if ((today - comment_date < days_to_show * MILLISECONDS_IN_DAY) ||
                             !days_to_show) {
                         $('#discussion-block').prepend(comment);
-
-                        // Since we added something, we'll set the "empty"
-                        // flag to false -- otherwise we'll display the
-                        // "no comments" message
-                        empty = false;
                     }
                     // Update the last fetched item ID each refresh to reduce return
                     last_update = item.id;
                 });
-                if (empty) {
-                    $('#discussion-block').prepend(empty_message);
-                    // Don't print it again.
-                    empty = false;
-                }
             },
         });
         setTimeout(updateAllComments, timeout);
     }
     
     // Logic to get and display comments for a single piece.
-    // NOTE: This may not continuously update. But at least
-    //   when a comment is submitted, that comment shows for
-    //   the user. And comments are properly filtered by piece.
     function updatePieceComments(piece_id, days_to_show) {
         $.ajax({
             type: "GET",
-            url: "/discussion/",
+            url: "/comments/",
             cache: false,
             data: {
                 'piece_id': piece_id,
@@ -93,8 +83,8 @@ function startCommentFeed(piece_id, days_to_show){
                 },                    
             dataType: 'json',
             success: function (json) {
-                $.each(json, function(i,item) {
-                    if (piece_id == item.piece_id) {
+                $.each(json.results, function(i,item) {
+                    if (piece_id == item.piece) {
                         var comment = '<div class="comment"><div class="author">' +
                             "<h5>" + item.author + 
                             "</a> &bull; " + item.display_time + '</h5></div>' +
@@ -114,26 +104,15 @@ function startCommentFeed(piece_id, days_to_show){
                         //   on time zone, but that's not important.
                         if (today - comment_date < days_to_show * MILLISECONDS_IN_DAY) {
                             $('#discussion-block').prepend(comment);
-
-                            // Since we added something, we'll set the "empty"
-                            // flag to false -- otherwise we'll display the
-                            // "no comments" message
-                            empty = false;
                         }
                         else if (!days_to_show) {
                             // If showing all comments, order them first to last
                             $('#discussion-block').append(comment);
-                            empty = false;
                         }
                         // Update the last fetched item ID each refresh to reduce return
                         last_update = item.id;
                     }
                 });
-                if (empty) {
-                    $('#discussion-block').prepend(empty_message);
-                    // Don't print it again.
-                    empty = false;
-                }
             },
         });
         setTimeout(updatePieceComments, timeout);
@@ -167,13 +146,15 @@ function startCommentFeed(piece_id, days_to_show){
 // Function to override normal form submission with an AJAX form submission
 function attachCommentsAction () {
     $( "#comment-form" ).submit(function( event ){
-    	var form = $(this);
+        var form = $(this);
         $.ajax({
-        	type: "POST",
-        	url: "/discussion/",
-        	data: form.serialize()
+            type: "POST",
+            url: "/comments/",
+            data: form.serialize()
         });
         $( "#comment-form" ).reset()
+        // testing needed
+        $( "#see-comments" ).className += "in";
         event.preventDefault();
     });
 }

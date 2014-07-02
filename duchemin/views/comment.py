@@ -33,20 +33,20 @@ class CommentList(generics.ListCreateAPIView):
     max_paginate_by = 200
 
     def get_queryset(self):
-        piece_id = self.request.QUERY_PARAMS.get('piece_id')
-        last_update = self.request.QUERY_PARAMS.get('last_update')
+        piece = self.request.QUERY_PARAMS.get('piece')
+        last_update = self.request.QUERY_PARAMS.get('last_update') or 0
 
         queryset = DCComment.objects.filter(id__gt=last_update)
 
-        if piece_id:
-            queryset = queryset.filter(piece=piece_id)
+        if piece:
+            queryset = queryset.filter(piece=piece)
 
         return queryset
 
     def get(self, request, *args, **kwargs):
         last_update = request.QUERY_PARAMS.get("last_update", None)
         if not last_update:
-            return Response({'message': 'You must provide the last_update query parameter'}, status=status.HTTP_400_BAD_REQUEST)
+            last_update = 0
 
         return self.list(request, *args, **kwargs)
 
