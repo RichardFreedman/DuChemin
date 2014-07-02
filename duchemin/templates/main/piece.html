@@ -60,7 +60,8 @@
   <!--
     Load dependencies managed by bower
   -->
-  <script type="text/JavaScript" src="/static/js/jquery/dist/jquery.min.js"></script>
+  <!-- The following JavaScript line wrecks the accordion collapsing
+  <script type="text/JavaScript" src="/static/js/jquery/dist/jquery.min.js"></script> -->
   <script type="text/JavaScript" src="/static/js/jquery-ui/ui/minified/jquery-ui.min.js"></script>
   <script type="text/JavaScript" src="/static/js/vexflow/build/vexflow/vexflow-min.js"></script>
 
@@ -144,7 +145,8 @@
             {% endif %}</h3>
           </hgroup>
           <div class="row-fluid">
-            <table class="table table-noborders">
+            <h2>Text</h2>
+            <table class="table table-striped ">
               <thead>
                 <tr>
                   <th>Phrase Number</th>
@@ -191,14 +193,30 @@
               <dd><a href="{{ piece.audio_link }}" target="_blank">Complete Recording (MP3)</a></dd>
             </dl>
           </div>
+          <!-- If this column is too narrow, omit id="sidebar" -->
           <div id="sidebar" class="span12">
             <h3><a href="/piece/{{ piece.piece_id }}/discussion/">Discussion</a></h3>
-            <div id="discussion-block"></div>
+            {% if comments %}
+              <div class="accordion-group">
+                <div class="accordion-heading">
+                  <a class="accordion-toggle" id="sidebar-accordion" data-toggle="collapse" href="#see-comments">
+                    <h3>See Recent Comments<i class="icon-plus" id="toggle"></i></h3>
+                  </a>
+                </div>
+                <div id="see-comments" class="accordion-body collapse">
+                  <div class="accordion-inner">
+                    <div id="discussion-block"></div>
+                  </div>
+                </div>
+              </div>
+            {% else %}
+              <p>No recent comments.</p>
+            {% endif %}
             {% if is_logged_in %}
-              <h3>Add your voice</h3>
+              <!-- <h3>Add your voice</h3> -->
               <form id="comment-form">
                 {% csrf_token %}
-                <textarea form="comment-form" name="text" rows="2" class="span12"></textarea>
+                <textarea form="comment-form" name="text" rows="2" class="span12" style="margin-top:5px;">Type a comment here</textarea>
                 <input type="hidden" name="piece_id" value="{{ piece.piece_id }}"/>
                 <input type="submit" name="comment-submit" value="Comment"/>
               </form>
