@@ -3,26 +3,17 @@ from duchemin.models.comment import DCComment
 from duchemin.models.piece import DCPiece
 from rest_framework import serializers
 
-# class DCPieceAnalysisSerializer(serializers.HyperlinkedModelSerializer):
-#     class Meta:
-#         model = DCPiece
-
-
-# class DCPhraseAnalysisSerializer(serializers.HyperlinkedModelSerializer):
-#     class Meta:
-#         model = DCPhrase
-
-class DCUserCommentSerializer(serializers.RelatedField):
+class DCUserCommentSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         read_only = False
         model = User
         fields = ('url', 'username', 'first_name', 'last_name')
 
-class DCPieceCommentSerializer(serializers.RelatedField):
+class DCPieceCommentSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         read_only = False
         model = DCPiece
-        fields = ('piece_id')
+        fields = ('piece_id',)
 
 class DCCommentSerializer(serializers.HyperlinkedModelSerializer):
     author = DCUserCommentSerializer()
@@ -30,3 +21,4 @@ class DCCommentSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = DCComment
+        fields = ('author', 'piece', 'created', 'text',)

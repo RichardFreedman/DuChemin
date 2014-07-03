@@ -7,15 +7,15 @@ function log(msg) {
 var MILLISECONDS_IN_DAY = 86400000
 
 // Helper function to start appropriate timeout loop for comments feed
-function startCommentFeed(piece_id, days_to_show){
+function startCommentFeed(piece, days_to_show){
 
     // First fetch has id 0, so it gets everything
     var last_update = 0;
     var timeout = 2000;
     
     // Check to see if the helper function was called with a piece_id or not
-    if (piece_id != null){
-        updatePieceComments(piece_id, days_to_show);
+    if (piece != null){
+        updatePieceComments(piece, days_to_show);
     } else {
         updateAllComments(days_to_show);
     }
@@ -41,22 +41,22 @@ function startCommentFeed(piece_id, days_to_show){
                     // terrible. Another way to do it might be to modify
                     // the CSS to add margin to .comment blocks.
 
+                    // Todo: serialize userprofile so we can link to person page
+
                     var comment = '<div class="comment"><div class="author">' +
-                        "<h5><a href='/piece/" + item.piece + "'>" +
-                        item.piece + '</a> &bull; ' +
-                        item.author + 
-                        '</a> &bull; ' + item.display_time + '</h5></div>' +
+                        "<h5><a href='/piece/" + item.piece.piece_id + "'>" +
+                        item.piece.piece_id + '</a> &bull; ' +
+                        item.author.first_name + ' ' + item.author.last_name +
+                        '</a> &bull; ' + item.created.replace(/T.+$/gi,"") +
+                        '</h5></div>' +
                         '<div class="text"><p>' + parseCommentTags(item.text) +
                         '</p></div></div>';
 
                     // Check the date of the comment against the current date,
                     //   and only prepend if it's a recent comment -- otherwise,
                     //   we'd have a humongous homepage.
-                    // NOTE: item.display_time is in _Python's_ date/time format,
-                    //   and so JavaScript can't make use of its date/time functions.
-                    //   Thus we import the string into JS format using Date.parse().
                     var today = new Date();
-                    var comment_date = Date.parse(item.display_time.replace(', ', 'T'));
+                    var comment_date = item.created;
                     // This could be off by a matter of hours, depending
                     //   on time zone, but that's not important.
                     if ((today - comment_date < days_to_show * MILLISECONDS_IN_DAY) ||
@@ -72,22 +72,22 @@ function startCommentFeed(piece_id, days_to_show){
     }
     
     // Logic to get and display comments for a single piece.
-    function updatePieceComments(piece_id, days_to_show) {
+    function updatePieceComments(piece, days_to_show) {
         $.ajax({
             type: "GET",
             url: "/comments/",
             cache: false,
             data: {
-                'piece_id': piece_id,
+                'piece': piece,
                 'last_update': last_update,
                 },                    
             dataType: 'json',
             success: function (json) {
                 $.each(json.results, function(i,item) {
-                    if (piece_id == item.piece) {
+                    if (piece == item.piece) {
                         var comment = '<div class="comment"><div class="author">' +
                             "<h5>" + item.author + 
-                            "</a> &bull; " + item.display_time + '</h5></div>' +
+                            "</a> &bull; " + item.created + '</h5></div>' +
                             '<div class="text"><p>' + parseCommentTags(item.text) +
                             '</p></div></div>';
 
@@ -99,7 +99,7 @@ function startCommentFeed(piece_id, days_to_show){
                         //   and so JavaScript can't make use of its date/time functions.
                         //   Thus we import the string into JS format using Date.parse().
                         var today = new Date();
-                        var comment_date = Date.parse(item.display_time.replace(', ', 'T'));
+                        var comment_date = item.created;
                         // This could be off by a matter of hours, depending
                         //   on time zone, but that's not important.
                         if (today - comment_date < days_to_show * MILLISECONDS_IN_DAY) {

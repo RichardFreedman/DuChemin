@@ -34,21 +34,13 @@ class CommentList(generics.ListCreateAPIView):
 
     def get_queryset(self):
         piece = self.request.QUERY_PARAMS.get('piece')
-        last_update = self.request.QUERY_PARAMS.get('last_update') or 0
-
+        last_update = self.request.QUERY_PARAMS.get('last_update', 0)
         queryset = DCComment.objects.filter(id__gt=last_update)
 
         if piece:
             queryset = queryset.filter(piece=piece)
 
         return queryset
-
-    def get(self, request, *args, **kwargs):
-        last_update = request.QUERY_PARAMS.get("last_update", None)
-        if not last_update:
-            last_update = 0
-
-        return self.list(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
         piece_url = request.DATA.get('piece', None)
