@@ -42,12 +42,22 @@ function startCommentFeed(piece, days_to_show){
                     // the CSS to add margin to .comment blocks.
 
                     // Todo: serialize userprofile so we can link to person page
-
+                    var person_string;
+                    if (item.author.profile.person) {
+                        person_string = "<a href='/person/" +
+                            item.author.profile.person.person_id + "'>" +
+                            item.author.first_name + ' ' + item.author.last_name +
+                            "</a>"
+                    }
+                    else {
+                        person_string = item.author.first_name + ' ' +
+                            item.author.last_name
+                    }
                     var comment = '<div class="comment"><div class="author">' +
                         "<h5><a href='/piece/" + item.piece.piece_id + "'>" +
-                        item.piece.piece_id + '</a> &bull; ' +
-                        item.author.first_name + ' ' + item.author.last_name +
-                        '</a> &bull; ' + item.created.replace(/T.+$/gi,"") +
+                        item.piece.piece_id + "</a> &bull; " +
+                        person_string +
+                        ' &bull; ' + item.created.replace(/T.+$/gi,"") +
                         '</h5></div>' +
                         '<div class="text"><p>' + parseCommentTags(item.text) +
                         '</p></div></div>';
@@ -85,9 +95,21 @@ function startCommentFeed(piece, days_to_show){
             success: function (json) {
                 $.each(json.results, function(i,item) {
                     if (piece == item.piece) {
+                        var person_string;
+                        if (item.author.profile.person) {
+                            person_string = "<a href='/person/" +
+                                item.author.profile.person.person_id + "'>" +
+                                item.author.first_name + ' ' + item.author.last_name +
+                                "</a>"
+                        }
+                        else {
+                            person_string = item.author.first_name + ' ' +
+                                item.author.last_name
+                        }
                         var comment = '<div class="comment"><div class="author">' +
-                            "<h5>" + item.author + 
-                            "</a> &bull; " + item.created + '</h5></div>' +
+                            "<h5>" + person_string +
+                            ' &bull; ' + item.created.replace(/T.+$/gi,"") +
+                            '</h5></div>' +
                             '<div class="text"><p>' + parseCommentTags(item.text) +
                             '</p></div></div>';
 
