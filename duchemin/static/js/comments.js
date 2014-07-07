@@ -28,7 +28,7 @@ function startCommentFeed(piece, days_to_show){
             cache: false,
             data: {
                 'last_update': last_update,
-                },             
+            },             
             dataType: 'json',
             success: function (json) {
                 $.each(json.results, function(i,item) {
@@ -80,7 +80,7 @@ function startCommentFeed(piece, days_to_show){
             data: {
                 'piece': piece,
                 'last_update': last_update,
-                },                    
+            },                    
             dataType: 'json',
             success: function (json) {
                 $.each(json.results, function(i,item) {

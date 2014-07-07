@@ -58,7 +58,7 @@
                       <table class="table table-striped table-bordered table-hover">
                         <thead>
                           <tr>
-                            <th>Piece ID</th>
+                            <th>Piece&nbsp;ID</th>
                             <th>Title</th>
                             <th>Measures</th>
                             <th>Show details</th>
@@ -110,7 +110,7 @@
                       <table id="reconstructions" class="table table-striped table-bordered table-hover">
                         <thead>
                           <tr>
-                            <th>Piece ID</th>
+                            <th>Piece&nbsp;ID</th>
                             <th>Title</th>
                           </tr>
                         </thead>
@@ -144,7 +144,7 @@
                       <table class="table table-striped table-bordered table-hover">
                         <thead>
                           <tr>
-                            <th>Piece ID</th>
+                            <th>Piece&nbsp;ID</th>
                             <th>Title</th>
                             <th>Notes</th>
                             <th>Favourites</th>
@@ -155,7 +155,31 @@
                             <tr>
                               <td><a href="/piece/{{ piece.piece_id }}">{{ piece.piece_id }}</a></td>
                               <td>{{ piece.title }}</td>
-                              <td style="text-align:center;"><button class="btn btn-info">Edit Note</button></td>
+                              <td style="text-align:center;">
+                                {% if user.notes.piece_id %}
+                                  <a href="#editNote" class="btn btn-info open-EditNote" data-toggle="modal" data-target="#editNote-{{ piece.piece_id }}" data-id"{{ piece.piece_id }}" title="Add Note to {{ piece.piece_id }}">Add Note</a>
+                                {% else %}
+                                  <a href="#editNote" class="btn btn-primary open-EditNote" data-toggle="modal" data-target="#editNote-{{ piece.piece_id }}" data-id"{{ piece.piece_id }}" title="Add Note to {{ piece.piece_id }}">Add Note</a>
+                                {% endif %}
+                                <div class="modal fade" id="editNote-{{ piece.piece_id }}" tabindex="-1" role="dialog" aria-labelledby="editNote-{{ piece.piece_id }}" aria-hidden="true">
+                                  <div class="modal-dialog">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h3 class="modal-title" id="editNoteLabel">Edit Note to {{ piece.piece_id }}</h3>
+                                      </div>
+                                      <div class="modal-body">
+                                        <!-- piece.note below needs to be changed -->
+                                        <p><textarea form="note-form" name="Edit Note to {{ piece.piece_id }}" rows="6" id="note-{{ piece.piece_id }}" style="width:100%; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;">{{ piece.note }}</textarea></p>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </td>
                               <td>
                                   {% include "main/favourites/favourites.html" with is_favourite=True piece_id=piece.piece_id %}
                               </td>
@@ -186,7 +210,7 @@
                       <table id="reconstructions" class="table table-striped table-bordered table-hover">
                         <thead>
                           <tr>
-                            <th>Piece ID</th>
+                            <th>Piece&nbsp;ID</th>
                             <th>Title</th>
                             <th>Author</th>
                             <th>Notes</th>
@@ -228,7 +252,7 @@
                       <table class="table table-striped table-bordered table-hover">
                         <thead>
                           <tr>
-                            <th>Piece ID</th>
+                            <th>Piece&nbsp;ID</th>
                             <th>Title</th>
                             <th>Discussion</th>
                           </tr>
@@ -243,7 +267,7 @@
                                 {{ piece.title }}
                               </td>
                               <td>
-                                <a href="/discussion/{{ piece.piece_id }}">View Discussion</a>
+                                <a href="/{{ piece.piece_id }}/discussion">View Discussion</a>
                               </td>
                             </tr>
                           {% empty %}
@@ -271,7 +295,7 @@
                         <table id="reconstructions" class="table table-striped table-bordered table-hover">
                           <thead>
                             <tr>
-                              <th>Piece ID</th>
+                              <th>Piece&nbsp;ID</th>
                               <th>Title</th>
                               <th>Author</th>
                               <th>Discussion</th>
@@ -315,8 +339,7 @@
                       <table class="table table-striped table-bordered table-hover">
                         <thead>
                           <tr>
-                            <th>Piece ID</th>
-                            <th>Title</th>
+                            <th>Piece&nbsp;ID</th>
                             <th>Comment</th>
                           </tr>
                         </thead>
@@ -327,14 +350,11 @@
                                 <a href="/piece/{{ analysis.composition_number.piece_id }}">{{ comment.piece.piece_id }}</a>
                               </td>
                               <td>
-                                {{ comment.piece.title }}
-                              </td>
-                              <td>
                                 <a href="/piece/{{ comment.piece.piece_id }}/discussion/">{{ comment.text }}</a>
                               </td>
                             </tr>
                           {% empty %}
-                            <td colspan="3">No comments.</td>
+                            <td colspan="2">No comments.</td>
                           {% endfor %}
                         </tbody>
                       </table> 
@@ -350,9 +370,11 @@
 
     <div class="span3"><!-- Everything on the right -->
       <div class="well span12">
-        <h3>{{ user.username }}<br />
-          <a href="#" id="editpro">Edit&nbsp;Profile</a> &bull;
-          <a href="#" id="logout">Log&nbsp;Out</a>
+        <h3>{{ user.username }}
+          <!-- Edit profile functionality not yet added<br />
+            <a href="#" id="editpro">Edit&nbsp;Profile</a>
+          -->
+          &bull; <a href="#" id="logout">Log&nbsp;Out</a>
         </h3>
         <dl class="well-list account-info-list">
           <dt>Joined:</dt>
@@ -363,6 +385,11 @@
       </div>
     </div>
   </div>
+
+  <script type="text/javascript">
+    // This script saves Note data from Add/Edit Note modal
+    function attachCommentsAction () {
+  </script>
 
   <script type="text/javascript">
     // This script expands and hides analysis details
