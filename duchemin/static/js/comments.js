@@ -12,6 +12,10 @@ function startCommentFeed(piece, days_to_show){
     // First fetch has id 0, so it gets everything
     var last_update = 0;
     var timeout = 2000;
+
+    // If there are no comments, we will display a message.
+    var empty = true;
+    var empty_message = "No recent comments.";
     
     // Check to see if the helper function was called with a piece_id or not
     if (piece != null){
@@ -72,13 +76,28 @@ function startCommentFeed(piece, days_to_show){
                     if ((today - comment_date < days_to_show * MILLISECONDS_IN_DAY) ||
                             !days_to_show) {
                         $('#discussion-block').prepend(comment);
+
+                        // Since we added something, we'll set the "empty"
+                        // flag to false -- otherwise we'll display the
+                        // "no comments" message
+                        empty = false;
                     }
                     // Update the last fetched item ID each refresh to reduce return
                     last_update = item.id;
                 });
+                if (empty) {
+                    $('#discussion-block').prepend(empty_message);
+                    // Don't print it again.
+                    empty = false;
+                }
             },
         });
-        setTimeout(updateAllComments, timeout);
+        setTimeout(
+            function () {
+                updateAllComments(days_to_show);
+            },
+            timeout
+        );
     }
     
     // Logic to get and display comments for a single piece.
@@ -137,7 +156,12 @@ function startCommentFeed(piece, days_to_show){
                 });
             },
         });
-        setTimeout(updatePieceComments, timeout);
+        setTimeout(
+            function () {
+                updatePieceComments(piece, days_to_show);
+            },
+            timeout
+        );
     }
     
     function parseCommentTags(text) {
