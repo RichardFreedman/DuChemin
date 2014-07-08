@@ -66,7 +66,7 @@ function startCommentFeed(piece, days_to_show){
                     //   and only prepend if it's a recent comment -- otherwise,
                     //   we'd have a humongous homepage.
                     var today = new Date();
-                    var comment_date = item.created;
+                    var comment_date = Date.parse(item.created);
                     // This could be off by a matter of hours, depending
                     //   on time zone, but that's not important.
                     if ((today - comment_date < days_to_show * MILLISECONDS_IN_DAY) ||
