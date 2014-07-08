@@ -113,47 +113,56 @@ function startCommentFeed(piece, days_to_show){
             dataType: 'json',
             success: function (json) {
                 $.each(json.results, function(i,item) {
-                    if (piece == item.piece) {
-                        var person_string;
-                        if (item.author.profile.person) {
-                            person_string = "<a href='/person/" +
-                                item.author.profile.person.person_id + "'>" +
-                                item.author.first_name + ' ' + item.author.last_name +
-                                "</a>"
-                        }
-                        else {
-                            person_string = item.author.first_name + ' ' +
-                                item.author.last_name
-                        }
-                        var comment = '<div class="comment"><div class="author">' +
-                            "<h5>" + person_string +
-                            ' &bull; ' + item.created.replace(/T.+$/gi,"") +
-                            '</h5></div>' +
-                            '<div class="text"><p>' + parseCommentTags(item.text) +
-                            '</p></div></div>';
-
-                        // If we're in a context that limits number of comments,
-                        //   check the date of the comment against the current date,
-                        //   and only prepend if it's a recent comment -- otherwise,
-                        //   we'd have a humongous homepage.
-                        // NOTE: item.display_time is in _Python's_ date/time format,
-                        //   and so JavaScript can't make use of its date/time functions.
-                        //   Thus we import the string into JS format using Date.parse().
-                        var today = new Date();
-                        var comment_date = item.created;
-                        // This could be off by a matter of hours, depending
-                        //   on time zone, but that's not important.
-                        if (today - comment_date < days_to_show * MILLISECONDS_IN_DAY) {
-                            $('#discussion-block').prepend(comment);
-                        }
-                        else if (!days_to_show) {
-                            // If showing all comments, order them first to last
-                            $('#discussion-block').append(comment);
-                        }
-                        // Update the last fetched item ID each refresh to reduce return
-                        last_update = item.id;
+                    var person_string;
+                    if (item.author.profile.person) {
+                        person_string = "<a href='/person/" +
+                            item.author.profile.person.person_id + "'>" +
+                            item.author.first_name + ' ' + item.author.last_name +
+                            "</a>"
                     }
+                    else {
+                        person_string = item.author.first_name + ' ' +
+                            item.author.last_name
+                    }
+                    var comment = '<div class="comment"><div class="author">' +
+                        "<h5>" + person_string +
+                        ' &bull; ' + item.created.replace(/T.+$/gi,"") +
+                        '</h5></div>' +
+                        '<div class="text"><p>' + parseCommentTags(item.text) +
+                        '</p></div></div>';
+
+                    // If we're in a context that limits number of comments,
+                    //   check the date of the comment against the current date,
+                    //   and only prepend if it's a recent comment -- otherwise
+                    //   it would get too long.
+                    // NOTE: item.display_time is in _Python's_ date/time format,
+                    //   and so JavaScript can't make use of its date/time functions.
+                    //   Thus we import the string into JS format using Date.parse().
+                    var today = new Date();
+                    var comment_date = Date.parse(item.created);
+                    // This could be off by a matter of hours, depending
+                    //   on time zone, but that's not important.
+                    if (today - comment_date < days_to_show * MILLISECONDS_IN_DAY) {
+                        $('#discussion-block').append(comment);
+
+                        // Since we added something, we'll set the "empty"
+                        // flag to false -- otherwise we'll display the
+                        // "no comments" message
+                        empty = false;
+                    }
+                    else if (!days_to_show) {
+                        // If showing all comments, order them first to last
+                        $('#discussion-block').append(comment);
+                        empty = false;
+                    }
+                    // Update the last fetched item ID each refresh to reduce return
+                    last_update = item.id;
                 });
+                if (empty) {
+                    $('#discussion-block').append(empty_message);
+                    // Don't print it again.
+                    empty = false;
+                }
             },
         });
         setTimeout(
