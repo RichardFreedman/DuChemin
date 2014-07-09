@@ -43,21 +43,16 @@ class CommentList(generics.ListCreateAPIView):
         return queryset
 
     def post(self, request, *args, **kwargs):
-        piece_url = request.DATA.get('piece', None)
-        value = urlparse.urlparse(piece_url).path
+        piece_id = request.DATA.get('piece_id', None)
+        comment_text = request.DATA.get('text', None)
 
-        try:
-            p = resolve(value)
-        except:
-            return Response({"message": "Could not resolve {0} to a Piece"}, status=status.HTTP_400_BAD_REQUEST)
-
-        piece_obj = get_object_or_404(DCPiece, pk=p.kwargs.get("pk"))
+        piece_obj = get_object_or_404(DCPiece, piece_id=piece_id)
 
         current_user = User.objects.get(pk=request.user.id)
         comment = DCComment()
         comment.piece = piece_obj
         comment.author = current_user
-        comment.text = request.DATA.get('text', None)
+        comment.text = comment_text
         comment.save()
 
         serialized = DCCommentSerializer(comment).data
