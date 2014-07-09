@@ -97,6 +97,7 @@ function ajaxRenderAnalysis(id, piece_id, start, end, phrase) {
                 title: "",
                 displayFirstPage: true,
                 scale: 0.8,
+                mode: meiView.Mode.SINGLE_PAGE,
                 pxpMeasure: 200,
             });
 
