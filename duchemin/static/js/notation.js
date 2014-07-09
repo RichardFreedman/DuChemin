@@ -7,55 +7,54 @@ function log(msg) {
 function attachPhraseClickEvents() {
     $('.view-phrase').on({
         'click': function(event) {
-            $("#analysis-modal").remove();
+            var is_analysis;
+            if ($(this).data('phrasenum')) {
+                is_analysis = false;
+            }
+            else {
+                is_analysis = true;
+            }
+
+            $("#phrase-modal").remove();
             var modal = $("<div />", {
-                "id": "analysis-modal"
+                "id": "phrase-modal"
             }).appendTo("body");
 
-            $("#analysis-modal").dialog({
-                'height': 600,
-                'width': 980,
-                'modal': true,
-                'title': $(this).data('pieceid') + ', phrase ' + $(this).data('phrasenum')
-            });
-            $("<div />", {
-                "class": "analysis-modal-body"
-            }).appendTo(modal);
-            ajaxRenderAnalysis($(this).attr('phid'), $(this).data('pieceid'),
-                $(this).data('start'), $(this).data('stop'), true);
-            return false;
-        }
-    });
-}
-
-function attachAnalysisClickEvents() {
-    $('.view-analysis').on({
-        'click': function(event) {
-            $("#analysis-modal").remove();
-            var modal = $("<div />", {
-                "id": "analysis-modal"
-            }).appendTo("body");
-
-            $("#analysis-modal").dialog({
-                'height': 600,
-                'width': 980,
-                'modal': true,
-                'title': ($(this).data('pieceid') + ', measures ' +
+            // Distinguish between Phrase and Analysis slices
+            var title_string;
+            if (is_analysis) {
+                title_string = ($(this).data('pieceid') + ', measures ' +
                     $(this).data('start') + '–' + $(this).data('stop'))
+            }
+            else {
+                title_string = $(this).data('pieceid') + ', phrase ' +
+                    $(this).data('phrasenum')
+            }
+
+            $("#phrase-modal").dialog({
+                'height': 520,
+                'width': 980,
+                'modal': true,
+                'title': title_string,
             });
             $("<div />", {
-                "class": "analysis-modal-body"
+                "class": "phrase-modal-body"
             }).appendTo(modal);
-            ajaxRenderAnalysis($(this).attr('anid'), $(this).data('pieceid'),
-                $(this).data('start'), $(this).data('stop'), false);
+
+            ajaxRenderPhrase($(this).attr((is_analysis ? 'anid' : 'phid')),
+                $(this).data('pieceid'),
+                $(this).data('start'),
+                $(this).data('stop'),
+                is_analysis
+            );
             return false;
         }
     });
 }
 
-function ajaxRenderAnalysis(id, piece_id, start, end, phrase) {
+function ajaxRenderPhrase(id, piece_id, start, end, is_analysis) {
     $.ajax({
-        url: (phrase ? '/data/phrase/' : '/data/analysis/')  + id,
+        url: (is_analysis ? '/data/analysis/' : '/data/phrase/') + id,
         dataType: 'json',
         success: function(data, status, xhr) {
             var loadedXML = meiView.Util.loadXMLDoc('/static/xml/' + piece_id + '.xml');
@@ -91,7 +90,7 @@ function ajaxRenderAnalysis(id, piece_id, start, end, phrase) {
             */
 
             var modal_viewer = new meiView.CompactViewer({
-                maindiv: $('.analysis-modal-body'),
+                maindiv: $('.phrase-modal-body'),
                 MEI: meiDoc,
                 pages: pagination,
                 title: "",
@@ -101,7 +100,7 @@ function ajaxRenderAnalysis(id, piece_id, start, end, phrase) {
                 pxpMeasure: 200,
             });
 
-            var modal = $("#analysis-modal");
+            var modal = $("#phrase-modal");
         }
     });
 }
