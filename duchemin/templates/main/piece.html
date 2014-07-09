@@ -196,22 +196,18 @@
           <!-- If this column is too narrow, omit id="sidebar" -->
           <div id="sidebar" class="span12">
             <h3><a href="/piece/{{ piece.piece_id }}/discussion/">Discussion</a></h3>
-            {% if comments %}
-              <div class="accordion-group">
-                <div class="accordion-heading">
-                  <a class="accordion-toggle" id="sidebar-accordion" data-toggle="collapse" href="#see-comments">
-                    <h3>See Recent Comments<i class="icon-plus" id="toggle"></i></h3>
-                  </a>
-                </div>
-                <div id="see-comments" class="accordion-body collapse">
-                  <div class="accordion-inner">
-                    <div id="discussion-block"></div>
-                  </div>
+            <div class="accordion-group">
+              <div class="accordion-heading">
+                <a class="accordion-toggle" id="sidebar-accordion" data-toggle="collapse" href="#see-comments">
+                  <h3>See Recent Comments<i class="icon-plus" id="toggle"></i></h3>
+                </a>
+              </div>
+              <div id="see-comments" class="accordion-body collapse">
+                <div class="accordion-inner">
+                  <div id="discussion-block"></div>
                 </div>
               </div>
-            {% else %}
-              <p>No recent comments.</p>
-            {% endif %}
+            </div>
             {% if is_logged_in %}
               <!-- <h3>Add your voice</h3> -->
               <form id="comment-form">
