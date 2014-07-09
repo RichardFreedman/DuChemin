@@ -207,9 +207,6 @@ function attachCommentsAction () {
             url: "/comments/",
             data: form.serialize()
         });
-        $( "#comment-form" ).reset()
-        // testing needed
-        $( "#see-comments" ).className += "in";
         event.preventDefault();
     });
 }
