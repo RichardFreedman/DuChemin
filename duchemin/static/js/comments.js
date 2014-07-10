@@ -207,6 +207,7 @@ function attachCommentsAction () {
             url: "/comments/",
             data: form.serialize()
         });
+        document.getElementById("comment-field").value = "";
         event.preventDefault();
     });
 }
