@@ -13,7 +13,8 @@ class Migration(SchemaMigration):
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('piece', self.gf('django.db.models.fields.related.ForeignKey')(related_name='notes', to=orm['duchemin.DCPiece'])),
             ('author', self.gf('django.db.models.fields.related.ForeignKey')(related_name='notes', to=orm['auth.User'])),
-            ('time', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
+            ('created', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
+            ('updated', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
             ('text', self.gf('django.db.models.fields.TextField')()),
         ))
         db.send_create_signal('duchemin', ['DCNote'])
@@ -23,12 +24,12 @@ class Migration(SchemaMigration):
 
         # Adding field 'DCComment.created'
         db.add_column(u'duchemin_dccomment', 'created',
-                      self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, default=datetime.datetime(2014, 6, 27, 0, 0), blank=True),
+                      self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, default=datetime.datetime(2014, 7, 11, 0, 0), blank=True),
                       keep_default=False)
 
         # Adding field 'DCComment.updated'
         db.add_column(u'duchemin_dccomment', 'updated',
-                      self.gf('django.db.models.fields.DateTimeField')(auto_now=True, default=datetime.datetime(2014, 6, 27, 0, 0), blank=True),
+                      self.gf('django.db.models.fields.DateTimeField')(auto_now=True, default=datetime.datetime(2014, 7, 11, 0, 0), blank=True),
                       keep_default=False)
 
 
@@ -38,7 +39,7 @@ class Migration(SchemaMigration):
 
         # Adding field 'DCComment.time'
         db.add_column(u'duchemin_dccomment', 'time',
-                      self.gf('django.db.models.fields.DateTimeField')(auto_now=True, default=datetime.datetime(2014, 6, 27, 0, 0), blank=True),
+                      self.gf('django.db.models.fields.DateTimeField')(auto_now=True, default=datetime.datetime(2014, 7, 11, 0, 0), blank=True),
                       keep_default=False)
 
         # Deleting field 'DCComment.created'
@@ -175,10 +176,11 @@ class Migration(SchemaMigration):
         'duchemin.dcnote': {
             'Meta': {'object_name': 'DCNote'},
             'author': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'notes'", 'to': u"orm['auth.User']"}),
+            'created': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'piece': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'notes'", 'to': "orm['duchemin.DCPiece']"}),
             'text': ('django.db.models.fields.TextField', [], {}),
-            'time': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'})
+            'updated': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'})
         },
         'duchemin.dcperson': {
             'Meta': {'ordering': "['surname']", 'object_name': 'DCPerson'},
