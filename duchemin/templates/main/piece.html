@@ -46,7 +46,6 @@
 	
 	
     $(document).ready(function (){
-        attachAnalysisClickEvents();
         attachPhraseClickEvents();
         attachFavouritesAction();
         // Second parameter: Number of days' worth of comments to show
@@ -109,16 +108,18 @@
     /* Make sure the MEI will be suitable for rendering */
     var meiDoc = new MeiLib.MeiDoc(filteredXml);
 
+    var pagination = new meiView.Pages({
+      length: $(meiDoc.rich_score).find('measure').length,
+      mpp: 5,
+    });
+
     /**
      * Create a compact viewer.
      */
     var viewer = new meiView.CompactViewer({
       maindiv: $('.viewer'),
       MEI: meiDoc,
-      pages: new meiView.Pages({
-        length: $(meiDoc.rich_score).find('measure').length,
-        mpp: 4,
-      }),
+      pages: pagination,
       title: "{{ piece.title }}",
       displayFirstPage: true,
       scale: 0.8,
@@ -212,7 +213,7 @@
               <!-- <h3>Add your voice</h3> -->
               <form id="comment-form">
                 {% csrf_token %}
-                <textarea form="comment-form" name="text" rows="2" class="span12" style="margin-top:5px;">Type a comment here</textarea>
+                <textarea id="comment-field" form="comment-form" name="text" rows="2" class="span12" style="margin-top:5px;">Type a comment here</textarea>
                 <input type="hidden" name="piece_id" value="{{ piece.piece_id }}"/>
                 <input type="submit" name="comment-submit" value="Comment"/>
               </form>
@@ -250,7 +251,7 @@
                           {{ analysis.phrase_number.phrase_num }}
                         </td>
                         <td>
-                          <a href="#" class="view-analysis" anid="{{ analysis.id }}" data-pieceid="{{ piece.piece_id }}" data-start="{{ analysis.start_measure }}" data-stop="{{ analysis.stop_measure }}">{{ analysis.start_measure }}&ndash;{{ analysis.stop_measure }}</a>
+                          <a href="#" class="view-phrase" anid="{{ analysis.id }}" data-pieceid="{{ piece.piece_id }}" data-start="{{ analysis.start_measure }}" data-stop="{{ analysis.stop_measure }}">{{ analysis.start_measure }}&ndash;{{ analysis.stop_measure }}</a>
                         </td>
                         <td>
                           <a href="/person/{{ analysis.analyst.person_id }}">{{ analysis.analyst }}</a>
