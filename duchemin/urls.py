@@ -4,6 +4,7 @@ from duchemin.views.analysis import AnalysisList, AnalysisDetail
 from duchemin.views.person import PersonList, PersonDetail
 from duchemin.views.phrase import PhraseList, PhraseDetail
 from duchemin.views.comment import CommentList, CommentDetail
+from duchemin.views.note import NoteList, NoteDetail
 from duchemin.views.user import UserList, UserDetail
 from duchemin.views.auth import SessionAuth, SessionStatus, SessionClose
 
@@ -52,6 +53,9 @@ if 'django.contrib.admin' in settings.INSTALLED_APPS:
 
         url(r'^comments/$', CommentList.as_view(), name="dccomment-list"),
         url(r'^comment/(?P<pk>[0-9]+)/$', CommentDetail.as_view(), name='dccomment-detail'),
+
+        url(r'^notes/$', NoteList.as_view(), name="dcnote-list"),
+        url(r'^note/(?P<pk>[a-zA-Z0-9]+)', NoteDetail.as_view(), name='dcnote-detail'),
     )
 
     urlpatterns += patterns('duchemin.views.search',
