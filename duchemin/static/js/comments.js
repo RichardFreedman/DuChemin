@@ -32,15 +32,11 @@ function startCommentFeed(piece, days_to_show){
             cache: false,
             data: {
                 'last_update': last_update,
-            },             
+            },
             dataType: 'json',
             success: function (json) {
                 $.each(json.results, function(i,item) {
-                    // Isn't there any way to get the full name, such as
-                    // `item.author.first_name + item.author.last_name` ?
-                    // I thought item.author was of the User model.
-
-                    // Also, I surrounded the comments in a <p> element,
+                    // I surrounded the comments in a <p> element,
                     // which should be fine. Without it, the margins are
                     // terrible. Another way to do it might be to modify
                     // the CSS to add margin to .comment blocks.
