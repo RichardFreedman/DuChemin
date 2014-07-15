@@ -8,6 +8,7 @@ from rest_framework.response import Response
 from django.contrib.auth.models import User
 from django.core.urlresolvers import resolve
 from django.shortcuts import get_object_or_404
+from django.http import Http404
 
 from duchemin.models.note import DCNote
 from duchemin.models.piece import DCPiece
@@ -60,6 +61,13 @@ class NoteDetail(generics.RetrieveUpdateDestroyAPIView):
     paginate_by = 100
     paginate_by_param = 'page_size'
     max_paginate_by = 200
+    slug_field="piece"
+
+    def get_object(self):
+        try:
+            return DCNote.objects.filter(piece__piece_id=self.kwargs["pk"])[0]
+        except IndexError:
+            raise Http404
 
     def get_queryset(self):
         current_user = User.objects.get(pk=self.request.user.id)
