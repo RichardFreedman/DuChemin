@@ -7,7 +7,7 @@ from rest_framework import serializers
 class DCUserNoteSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'username',)
+        fields = ('username',)
 
 
 class DCPieceNoteSerializer(serializers.HyperlinkedModelSerializer):
@@ -23,4 +23,4 @@ class DCNoteSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         read_only = False
         model = DCNote
-        fields = ('url', 'author', 'piece', 'updated', 'text',)
+        fields = ('author', 'piece', 'updated', 'text',)
