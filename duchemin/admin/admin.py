@@ -166,8 +166,8 @@ class DCCommentAdmin(admin.ModelAdmin):
 
 
 class DCNoteAdmin(admin.ModelAdmin):
-    list_display = ['piece', 'author', 'time', 'text',]
-    ordering = ['piece', 'time',]
+    list_display = ['piece', 'author', 'updated', 'text',]
+    ordering = ['author__username', 'piece',]
     actions = [export_as_csv_action]
 
 
@@ -179,6 +179,7 @@ class UserProfileInline(admin.StackedInline):
 
 class UserAdmin(UserAdmin):
     inlines = (UserProfileInline, )
+    ordering = ['username',]
 
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
