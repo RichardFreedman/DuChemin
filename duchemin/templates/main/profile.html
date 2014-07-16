@@ -1,6 +1,6 @@
 <!--  RF MAY 2014:  This file INCLUDES changes from Portier Branch.  AH:  Please review logic for My Work/My Favorites/ My Discussions -->
 {% extends "base.html" %}
-{% load hasnote %}
+{% load notetext %}
 
 {% block header %}
   <script src="/static/js/notation.js"></script>
@@ -164,10 +164,10 @@
                               <td><a href="/piece/{{ piece.piece_id }}">{{ piece.piece_id }}</a></td>
                               <td>{{ piece.title }}</td>
                               <td style="text-align:center;">
-                                {% if user|hasnote:piece %}
-                                  <a href="#" class="btn btn-info open-EditNote" data-toggle="modal" data-target="#editNote" data-pieceid="{{ piece.piece_id }}" title="Edit Note to {{ piece.piece_id }}">Edit Note</a>
+                                {% if user|notetext:piece %}
+                                  <a href="#" class="btn btn-info open-EditNote" data-toggle="modal" data-target="#editNote" data-notetext="{{ user|notetext:piece }}" data-pieceid="{{ piece.piece_id }}" title="Edit Note to {{ piece.piece_id }}">Edit Note</a>
                                 {% else %}
-                                  <a href="#" class="btn btn-primary open-EditNote" data-toggle="modal" data-target="#editNote" data-pieceid="{{ piece.piece_id }}" title="Add Note to {{ piece.piece_id }}">Add Note</a>
+                                  <a href="#" class="btn btn-primary open-EditNote" data-toggle="modal" data-target="#editNote" data-edittype="add" data-pieceid="{{ piece.piece_id }}" title="Add Note to {{ piece.piece_id }}">Add Note</a>
                                 {% endif %}
                                 <div class="modal fade" id="editNote-{{ piece.piece_id }}" tabindex="-1" role="dialog" aria-labelledby="editNote-{{ piece.piece_id }}" aria-hidden="true">
                                   <div class="modal-dialog">
