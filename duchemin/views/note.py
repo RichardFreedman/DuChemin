@@ -65,7 +65,9 @@ class NoteDetail(generics.RetrieveUpdateDestroyAPIView):
 
     def get_object(self):
         try:
-            return DCNote.objects.filter(piece__piece_id=self.kwargs["pk"])[0]
+        	# Get the most recently updated note associated with our piece_id
+            # out of the set of this user's notes
+            return DCNote.objects.filter(piece__piece_id=self.kwargs["pk"]).order_by("updated").reverse()[0]
         except IndexError:
             raise Http404
 
