@@ -1,24 +1,3 @@
-function log(msg) {
-    setTimeout(function() {
-        throw new Error(msg);
-    }, 0);
-}
-
-function attachNoteAction() {
-    $( "#note-form" ).submit(function( event ){
-        var form = $(this);
-        $.ajax({
-            type: "POST",
-            url: "/notes/",
-            data: form.serialize(),
-            success: function (json) {
-                $('#editNote').modal('hide');
-            },
-        });
-        event.preventDefault();
-    });
-}
-
 function editNoteAction() {
     $('.open-EditNote').on({
         'click': function(event) {
