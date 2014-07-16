@@ -161,6 +161,9 @@
                           </tr>
                         </thead>
                         <tbody>
+                          <form id="modal-form">
+                          	{% csrf_token %}
+                          </form>
                           {% for piece in favourited_pieces %}
                             <tr>
                               <td><a href="/piece/{{ piece.piece_id }}">{{ piece.piece_id }}</a></td>
