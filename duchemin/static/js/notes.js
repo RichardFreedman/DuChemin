@@ -86,7 +86,7 @@ function editNoteAction() {
                 "rows": "10",
                 "id": "note-form",
                 "style": "width:100%; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;",
-                "text": "", // add text here
+                "text": $(this).data('notetext'),
             }).appendTo(modal_body_p);
 
             // Modal footer div
