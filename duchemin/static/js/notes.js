@@ -4,94 +4,138 @@ function editNoteAction() {
             // Remove old modal, if any
             $("#editNote").remove();
 
-            // Title string
-            var title_text = ('Edit Note to Piece ' + $(this).data('pieceid'));
+            var pieceid = $(this).data('pieceid');
 
-            // Outer div for modal.
-            var modal = $("<div />", {
-                "id": "editNote",
-                "class": "modal fade",
-                "tabindex": "-1",
-                "role": "dialog",
-                "aria-labelledby": "editNote",
-                "aria-hidden": "true",
-            }).appendTo("body");
+            // Get CSRF token
+            var token_value = document.getElementsByName('pass').value;
 
-            // First layer div
-            var modal_dialog = $("<div />", {
-                "class": "modal-dialog",
-            }).appendTo(modal);
+            $.ajax({
+                type: "GET",
+                url: "/note/" + pieceid,
+                dataType: 'json',
+                success: function (json) {
+                    // Title string
+                    var titletext = ('Edit Note to Piece ' + pieceid);
 
-            // Second layer div
-            var modal_content = $("<div />", {
-                "class": "modal-content",
-            }).appendTo(modal_dialog);
+                    // Get CURRENT text of note -- not necessarily what
+                    // it was when template was loaded
+                    var notetext = json.text;
 
-            // Modal header div
-            var modal_header = $("<div />", {
-                "class": "modal-header",
-            }).appendTo(modal_content);
+                    // Outer div for modal.
+                    var modal = $("<div />", {
+                        "id": "editNote",
+                        "class": "modal fade",
+                        "tabindex": "-1",
+                        "role": "dialog",
+                        "aria-labelledby": "editNote",
+                        "aria-hidden": "true",
+                    }).appendTo("body");
 
-            // Modal header: button
-            var modal_header_button = $("<button />", {
-                "type": "button",
-                "class": "close",
-                "data-dismiss": "modal",
-                "aria-hidden": "true",
-                "text": "×",
-            }).appendTo(modal_header);
+                    // First layer div
+                    var modal_dialog = $("<div />", {
+                        "class": "modal-dialog",
+                    }).appendTo(modal);
 
-            // Modal header: text
-            var modal_header_text = $("<h3 />", {
-                "class": "modal-title",
-                "id": "editNoteLabel",
-                "text": title_text,
-            }).appendTo(modal_header);
+                    // Second layer div
+                    var modal_content = $("<div />", {
+                        "class": "modal-content",
+                    }).appendTo(modal_dialog);
 
-            // Modal body div
-            var modal_body = $("<div />", {
-                "class": "modal-body",
-            }).appendTo(modal_content);
+                    // Modal header div
+                    var modal_header = $("<div />", {
+                        "class": "modal-header",
+                    }).appendTo(modal_content);
 
-            // Modal body: paragraph
-            var modal_body_p = $("<p />", {
-                "id": "modal-body-p",
-            }).appendTo(modal_body);
+                    // Modal header: button
+                    var modal_header_button = $("<button />", {
+                        "type": "button",
+                        "class": "close",
+                        "data-dismiss": "modal",
+                        "aria-hidden": "true",
+                        "text": "×",
+                    }).appendTo(modal_header);
 
-            // Modal body: textarea
-            var modal_body_p_textarea = $("<textarea />", {
-                "form": "note-form",
-                "name": ("Type a Note to Piece " + $(".open-EditNote").data('pieceid')),
-                "rows": "10",
-                "id": "note-form",
-                "style": "width:100%; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;",
-                "text": $(this).data('notetext'),
-            }).appendTo(modal_body_p);
+                    // Modal header: text
+                    var modal_header_text = $("<h3 />", {
+                        "class": "modal-title",
+                        "id": "editNoteLabel",
+                        "text": titletext,
+                    }).appendTo(modal_header);
 
-            // Modal footer div
-            var modal_footer = $("<div />", {
-                "class": "modal-footer",
-            }).appendTo(modal_content);
+                    // Modal body div
+                    var modal_body = $("<div />", {
+                        "class": "modal-body",
+                    }).appendTo(modal_content);
 
-            var modal_footer_close = $("<button />", {
-                "type": "button",
-                "class": "btn btn-default",
-                "data-dismiss": "modal",
-                "text": "Close",
-            }).appendTo(modal_footer);
+                    // Modal body: paragraph
+                    var modal_body_p = $("<p />", {
+                        "id": "modal-body-p",
+                    }).appendTo(modal_body);
 
-            var modal_footer_save = $("<button />", {
-                "type": "button",
-                "class": "btn btn-primary",
-                "text": "Save changes",
-            }).appendTo(modal_footer);
+                    // Modal body: form's piece ID
+                    var modal_body_pieceid = $("<input />", {
+                        "form": "modal-form",
+                        "type": "hidden",
+                        "name": "piece_id",
+                        "value": pieceid,
+                    }).appendTo(modal_body_p);
 
-            $("#editNote").modal({
-                "backdrop": "static",
+                    // Modal body: form's textarea
+                    var modal_body_textarea = $("<textarea />", {
+                        "form": "modal-form",
+                        "name": "text",
+                        "rows": "10",
+                        "id": "note-textarea",
+                        "style": "width:100%; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;",
+                        "text": notetext,
+                    }).appendTo(modal_body_p);
+
+                    // Modal footer div
+                    var modal_footer = $("<div />", {
+                        "class": "modal-footer",
+                    }).appendTo(modal_content);
+
+                    var modal_footer_close = $("<button />", {
+                        "type": "button",
+                        "class": "btn btn-default",
+                        "data-dismiss": "modal",
+                        "text": "Close",
+                    }).appendTo(modal_footer);
+
+                    var modal_footer_save = $("<button />", {
+                        "form": "modal-form",
+                        "type": "submit",
+                        "id": "modal-save",
+                        "class": "btn btn-primary",
+                        "data-dismiss": "modal",
+                        "text": "Save changes",
+                    }).appendTo(modal_footer);
+
+                    $("#editNote").modal({
+                        "backdrop": "static",
+                    });
+
+                    $( "#modal-save" ).on({
+                        'click': function(event) {
+                            $('#modal-form').submit();
+                            event.preventDefault();
+                        }
+                    });
+
+                    $( "#modal-form" ).submit(function( event ){
+                        var form = $(this);
+                        var serdata = form.serialize();
+                        $.ajax({
+                            type: "POST",
+                            url: "/notes/",
+                            data: serdata,
+                        });
+                        event.preventDefault();
+                    });
+                },
             });
 
             return false;
         }
     });
 }
-
