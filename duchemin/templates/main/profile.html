@@ -20,10 +20,12 @@
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
-  <!-- Add styling -->
-  <link rel="stylesheet" href="/static/css/bootstrap.min.css" media="screen"/>
-  <link href="/static/css/bootstrap-responsive.min.css" rel="stylesheet"></link>
-  <script type="text/JavaScript" src="/static/js/bootstrap/bootstrap.min.js"></script>
+  <!-- Bootstrap import
+       Note: importing bootstrap.min.js in its entirety should be done with caution,
+       as that breaks the performance of the accordion collapsing!
+  -->
+  <script type="text/JavaScript" src="/static/js/bootstrap/bootstrap-modal.js"></script>
+  <script type="text/JavaScript" src="/static/js/bootstrap/bootstrap-transition.js"></script>
 
   <!--
     JAVASCRIPT FOR MEIVIEW NECESSARY
