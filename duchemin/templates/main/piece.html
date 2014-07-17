@@ -99,6 +99,11 @@
 
   $(document).ready( function(){
 
+  	/* This portion handles the unrelated problem of +/- accordion toggling */
+  	$('.accordion-group').on('show hide', function(e){
+      $(e.target).siblings('.accordion-heading').find('.accordion-toggle i').toggleClass('icon-minus icon-plus', 200);
+    });
+
     /* Load an MEI file from an XML document */
     var loadedXML = meiView.Util.loadXMLDoc('{{ piece.mei_link }}');
 
@@ -292,17 +297,6 @@
         return false;
       }
     })
-  </script>
-
-  <script type="text/javascript">
-    // This scripts toggles the plus and minus icons
-    (function($) {
-      $('document').ready( function() {
-        $('.accordion-group').on('show hide', function(e){
-          $(e.target).siblings('.accordion-heading').find('.accordion-toggle i').toggleClass('icon-minus icon-plus', 200);
-        });
-      });
-    })(jQuery);
   </script>
 
 {% endblock %}
