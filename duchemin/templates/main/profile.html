@@ -182,50 +182,55 @@
                     </div>
                   </div>
                 </div>
-              
-                <!-- Favourite reconstructions
-                (Currently deemed unnecessary)
+
                 <div class="spacerTop">
                 </div>
 
                 <div class="accordion-group">
-
+                  <!-- Comments -->
                   <div class="accordion-heading">
-                    <a class="accordion-toggle" id="sidebar-accordion" data-toggle="collapse" href="#favreconstructions-section">
-                      <h2>Reconstructions<i class="icon-plus" id="toggle"></i></h2>
+                    <a class="accordion-toggle" data-toggle="collapse" href="#mynotes-section">
+                      <h2>Comments<i class="icon-plus"></i></h2>
                     </a>
                   </div>
-                  <div id="favreconstructions-section" class="accordion-body collapse">
+                  <div id="mynotes-section" class="accordion-body collapse">
                     <div class="accordion-inner">
-                      <table id="reconstructions" class="table table-striped table-bordered table-hover">
+                      <table class="table table-striped table-bordered table-hover">
                         <thead>
                           <tr>
                             <th>Piece&nbsp;ID</th>
                             <th>Title</th>
-                            <th>Author</th>
-                            <th>Notes</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
                             <th>Favourites</th>
                           </tr>
                         </thead>
                         <tbody>
-                          {% for recon in favourited_reconstructions %}
+                          <form id="modal-form">
+                            {% csrf_token %}
+                          </form>
+                          {% for piece in pieces_with_notes %}
                             <tr>
-                              <td><a href="/piece/{{ recon.piece.piece_id }}">{{ recon.piece.piece_id }}</a></td>
-                              <td>{{ recon.piece.title }}</td>
-                              <td><a href="/person/{{ recon.reconstructor.person_id }}">{{ recon.reconstructor }}</a></td>
-                              <td style="text-align:center;"><button class="btn btn-info">Edit Note</button></td>
+                              <td><a href="/piece/{{ piece.piece_id }}">{{ piece.piece_id }}</a></td>
+                              <td>{{ piece.title }}</td>
+                              <td style="text-align:center;">
+                                <a href="#" id="button-{{ piece.piece_id }}" class="btn btn-info open-EditNote" data-toggle="modal" data-notetext="{{ user|notetext:piece }}" data-pieceid="{{ piece.piece_id }}" title="Edit Note to {{ piece.piece_id }}">Edit Note</a>
+                              </td>
+                              <td style="text-align:center;">
+                                <a href="#" id="button-{{ piece.piece_id }}" class="btn btn-info open-EditNote" data-toggle="modal" data-notetext="{{ user|notetext:piece }}" data-pieceid="{{ piece.piece_id }}" title="Edit Note to {{ piece.piece_id }}">Edit Note</a>
+                              </td>
                               <td>
                                   {% include "main/favourites/favourites.html" with is_favourite=True piece_id=piece.piece_id %}
                               </td>
                             </tr>
                           {% empty %}
-                            <td colspan="5">No reconstructions in Favourites.</td>
+                            <td colspan="5">No pieces with notes.</td>
                           {% endfor %}
                         </tbody>
-                      </table>
+                      </table> 
                     </div>
                   </div>
-                </div>(Currently deemed unnecessary) -->
+                </div>
               </div>
 
               <div class="tab-pane" id="tab3">
