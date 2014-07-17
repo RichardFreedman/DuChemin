@@ -100,7 +100,7 @@
   $(document).ready( function(){
 
     /* Load an MEI file from an XML document */
-    var loadedXML = meiView.Util.loadXMLDoc('/static/xml/{{ piece.piece_id }}.xml');
+    var loadedXML = meiView.Util.loadXMLDoc('{{ piece.mei_link }}');
 
     /* Make sure the file will be suitable for rendering */
     var filteredXml = meiView.filterMei(loadedXML, { noSysBreak:true });
