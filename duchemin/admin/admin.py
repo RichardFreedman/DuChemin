@@ -166,7 +166,7 @@ class DCCommentAdmin(admin.ModelAdmin):
 
 
 class DCNoteAdmin(admin.ModelAdmin):
-    list_display = ['piece', 'author', 'updated', 'text',]
+    list_display = ['piece', 'author', 'created', 'text',]
     ordering = ['author__username', 'piece',]
     actions = [export_as_csv_action]
 
