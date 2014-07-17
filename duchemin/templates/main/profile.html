@@ -13,6 +13,7 @@
   <script type="text/javascript">
     $(document).ready(function (){
         attachFavouritesAction();
+        submitNoteAction();
         editNoteAction();
     });
   </script>
@@ -169,9 +170,9 @@
                               <td>{{ piece.title }}</td>
                               <td style="text-align:center;">
                                 {% if user|notetext:piece %}
-                                  <a href="#" class="btn btn-info open-EditNote" data-toggle="modal" data-target="#editNote" data-notetext="{{ user|notetext:piece }}" data-pieceid="{{ piece.piece_id }}" title="Edit Note to {{ piece.piece_id }}">Edit Note</a>
+                                  <a href="#" id="button-{{ piece.piece_id }}" class="btn btn-info open-EditNote" data-toggle="modal" data-notetext="{{ user|notetext:piece }}" data-pieceid="{{ piece.piece_id }}" title="Edit Note to {{ piece.piece_id }}">Edit Note</a>
                                 {% else %}
-                                  <a href="#" class="btn btn-primary open-EditNote" data-toggle="modal" data-target="#editNote" data-edittype="add" data-pieceid="{{ piece.piece_id }}" title="Add Note to {{ piece.piece_id }}">Add Note</a>
+                                  <a href="#" id="button-{{ piece.piece_id }}" class="btn btn-primary open-EditNote" data-toggle="modal" data-edittype="add" data-pieceid="{{ piece.piece_id }}" title="Add Note to {{ piece.piece_id }}">Add Note</a>
                                 {% endif %}
                               </td>
                               <td>
