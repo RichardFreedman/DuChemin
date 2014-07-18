@@ -59,7 +59,7 @@
                                 {{ analysis.composition_number.title }}
                               </td>
                               <td>
-                                <a href="#" class="view-analysis" anid="{{ analysis.id }}">{{ analysis.start_measure }}&ndash;{{ analysis.stop_measure }}</a>
+                                <a href="#" class="view-phrase" anid="{{ analysis.id }}" data-pieceid="{{ piece.piece_id }}" data-start="{{ analysis.start_measure }}" data-stop="{{ analysis.stop_measure }}">{{ analysis.start_measure }}&ndash;{{ analysis.stop_measure }}</a>
                               </td>
                               <td> 
                                 <a href="#" class="analyses-info-expand" target="analyses-info-{{ forloop.counter }}">Expand</a>
@@ -315,6 +315,8 @@
     </div>
   </div>
 
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/themes/base/jquery-ui.css" rel="stylesheet"></link>
+
   <script type="text/javascript">
     // This script expands and hides analysis details
     $('.analyses-info').hide();
@@ -330,12 +332,14 @@
     })
   </script>
 
+  <script src="{{ STATIC_URL }}js/vendor/jquery.cookie.js"></script>
   <script src="{{ STATIC_URL }}js/notes.js"></script>
   <script src="{{ STATIC_URL }}js/notation.js"></script>
   <script src="{{ STATIC_URL }}js/favourites.js"></script>
 
   <script type="text/javascript">
     $(document).ready(function (){
+    	attachPhraseClickEvents();
         attachFavouritesAction();
         editNoteAction();
         deleteNoteAction();
@@ -353,9 +357,13 @@
   <script type="text/JavaScript" src="{{ STATIC_URL }}js/bootstrap/bootstrap-modal.js"></script>
   <script type="text/JavaScript" src="{{ STATIC_URL }}js/bootstrap/bootstrap-transition.js"></script>
 
-  <!--
-    JAVASCRIPT FOR MEIVIEW NECESSARY
-    (CANVAS ON CLICKED OBSERVATION)
-  -->
+  <!-- meiView dependencies and scripts -->
+
+  <script type="text/JavaScript" src="/static/js/vexflow/build/vexflow/vexflow-min.js"></script>
+  <script type="text/JavaScript" src="/static/js/deps/Fabric-all.js"></script>
+  <script type="text/JavaScript" src="/static/js/deps/meitovexflow.min.js"></script>
+
+  <script type="text/JavaScript" src="/static/js/dist/meiview.js"></script>
+  <link rel="stylesheet" href="/static/css/dist/meiview.css"/>
 
 {% endblock %}
