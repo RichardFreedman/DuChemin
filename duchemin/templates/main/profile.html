@@ -144,9 +144,9 @@
                               <td>{{ piece.title }}</td>
                               <td style="text-align:center;">
                                 {% if user|notetext:piece %}
-                                  <a href="#" id="button-{{ piece.piece_id }}" class="btn btn-info open-EditNote" data-toggle="modal" data-notetext="{{ user|notetext:piece }}" data-pieceid="{{ piece.piece_id }}" title="Edit Note to {{ piece.piece_id }}">Edit&nbsp;Note</a>
+                                  <a href="#" id="button-fav-{{ piece.piece_id }}" class="btn btn-info open-EditNote" data-toggle="modal" data-notetext="{{ user|notetext:piece }}" data-pieceid="{{ piece.piece_id }}" title="Edit Note to {{ piece.piece_id }}">Edit&nbsp;Note</a>
                                 {% else %}
-                                  <a href="#" id="button-{{ piece.piece_id }}" class="btn btn-primary open-EditNote" data-toggle="modal" data-edittype="add" data-pieceid="{{ piece.piece_id }}" title="Add Note to {{ piece.piece_id }}">Add&nbsp;Note</a>
+                                  <a href="#" id="button-fav-{{ piece.piece_id }}" class="btn btn-primary open-EditNote" data-toggle="modal" data-pieceid="{{ piece.piece_id }}" title="Add Note to {{ piece.piece_id }}">Add&nbsp;Note</a>
                                 {% endif %}
                               </td>
                               <td>
@@ -193,10 +193,10 @@
                               <td><a href="/piece/{{ piece.piece_id }}">{{ piece.piece_id }}</a></td>
                               <td>{{ piece.title }}</td>
                               <td style="text-align:center;">
-                                <a href="#" id="button-{{ piece.piece_id }}" class="btn btn-danger open-DeleteNote" data-toggle="modal" data-notetext="{{ user|notetext:piece }}" data-pieceid="{{ piece.piece_id }}" title="Delete Note to {{ piece.piece_id }}">Delete</a>
+                                <a href="#" class="btn btn-danger open-DeleteNote" data-toggle="modal" data-notetext="{{ user|notetext:piece }}" data-pieceid="{{ piece.piece_id }}" title="Delete Note to {{ piece.piece_id }}">Delete</a>
                               </td>
                               <td style="text-align:center;">
-                                <a href="#" id="button-{{ piece.piece_id }}" class="btn btn-info open-EditNote" data-toggle="modal" data-notetext="{{ user|notetext:piece }}" data-pieceid="{{ piece.piece_id }}" title="Edit Note to {{ piece.piece_id }}">Edit&nbsp;Note</a>
+                                <a href="#" id="button-note-{{ piece.piece_id }}" class="btn btn-info open-EditNote" data-toggle="modal" data-notetext="{{ user|notetext:piece }}" data-pieceid="{{ piece.piece_id }}" title="Edit Note to {{ piece.piece_id }}">Edit&nbsp;Note</a>
                               </td>
                               <td>
                                 {% include "main/favourites/favourites.html" with is_favourite=user|isfavourite:piece piece_id=piece.piece_id %}

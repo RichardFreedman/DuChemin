@@ -174,10 +174,10 @@ function submitNoteAction() {
 
         // If it was an Add Note button, make it now an Edit Note button
         // by removing "primary" class and changing text
-        var button = document.getElementById("button-" + pieceid);
-        button.className = "btn btn-info open-EditNote";
-        button.innerHTML = "Edit Note";
-        button.title = "Edit Note to " + pieceid;
+        var button_fav = document.getElementById("button-fav-" + pieceid);
+        button_fav.className = "btn btn-info open-EditNote";
+        button_fav.innerHTML = "Edit Note";
+        button_fav.title = "Edit Note to " + pieceid;
 
         event.preventDefault();
     });
@@ -306,6 +306,20 @@ function confirmDeleteNoteAction(pieceid, returntomodal) {
     $( "#confirm-delete" ).on({
         'click': function(event) {
             $('#modal-form').submit();
+
+            // If it was an Edit Note button, make it now an Add Note button
+            // by adding "primary" class and changing text
+            var button_fav = document.getElementById("button-fav-" + pieceid);
+            button_fav.className = "btn btn-primary open-EditNote";
+            button_fav.innerHTML = "Add Note";
+            button_fav.title = "Add Note to " + pieceid;
+
+            // And do the same if it was in the "Pieces with notes" list
+            var button_note = document.getElementById("button-note-" + pieceid);
+            button_note.className = "btn btn-primary open-EditNote";
+            button_note.innerHTML = "Add Note";
+            button_note.title = "Add Note to " + pieceid;
+
             event.preventDefault();
         }
     });
