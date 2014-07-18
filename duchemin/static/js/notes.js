@@ -10,7 +10,7 @@ function editNoteAction() {
                 success: function (json) {
                     showModalAction(pieceid, json);
                 },
-                error: function() {
+                error: function () {
                     showModalAction(pieceid);
                 }
             });
@@ -118,14 +118,18 @@ function showModalAction(pieceid, json) {
         "class": "modal-footer",
     }).appendTo(modal_content);
 
-    var modal_footer_delete = $("<button />", {
-        "type": "button",
-        "id": "modal-delete",
-        "class": "btn btn-danger pull-left",
-        "data-dismiss": "modal",
-        "text": "Delete",
-    }).appendTo(modal_footer);
+    // Only show button to delete if there was a note there in the first place
+    if (notetext != '') {
+        var modal_footer_delete = $("<button />", {
+            "type": "button",
+            "id": "modal-delete",
+            "class": "btn btn-danger pull-left",
+            "data-dismiss": "modal",
+            "text": "Delete",
+        }).appendTo(modal_footer);
+    }
 
+    // Modal footer: close
     var modal_footer_close = $("<button />", {
         "type": "button",
         "class": "btn",
@@ -133,6 +137,7 @@ function showModalAction(pieceid, json) {
         "text": "Close",
     }).appendTo(modal_footer);
 
+    // Modal footer: save
     var modal_footer_save = $("<button />", {
         "form": "modal-form",
         "type": "submit",
