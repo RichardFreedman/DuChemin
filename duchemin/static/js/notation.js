@@ -91,7 +91,7 @@ function ajaxRenderPhrase(id, mei_link, start, end, is_analysis) {
                 displayFirstPage: true,
                 scale: 0.8,
                 mode: meiView.Mode.SINGLE_PAGE,
-                pxpMeasure: 200,
+                pxpMeasure: 240,
             });
 
             var modal = $("#phrase-modal");
