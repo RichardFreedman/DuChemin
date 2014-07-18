@@ -13,6 +13,7 @@ from duchemin.models.book import DCBook
 from duchemin.models.comment import DCComment
 from duchemin.models.reconstruction import DCReconstruction
 from duchemin.models.content_block import DCContentBlock
+from duchemin.templatetags.notetext import notetext
 
 
 def home(request):
@@ -191,6 +192,11 @@ def profile(request):
         if comment.piece not in discussed_pieces:
             discussed_pieces.append(comment.piece)
 
+    pieces_with_notes = []
+    for piece in DCPiece.objects.all().order_by('piece_id'):
+    	if notetext(request.user, piece):
+    		pieces_with_notes.append(piece)
+
     data = {
         'user': request.user,
         'profile': profile,
@@ -201,6 +207,7 @@ def profile(request):
         'my_reconstructions': reconstructions,
         'my_comments': DCComment.objects.filter(author=request.user).order_by('-created'),
         'discussed_pieces': discussed_pieces,
+        'pieces_with_notes': pieces_with_notes,
     }
     return render(request, 'main/profile.html', data)
 
