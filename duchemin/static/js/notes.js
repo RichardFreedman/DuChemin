@@ -305,6 +305,7 @@ function confirmDeleteNoteAction(pieceid, returntomodal) {
 
     $( "#confirm-delete" ).on({
         'click': function(event) {
+            $('#modal-form').submit();
             event.preventDefault();
         }
     });
