@@ -149,7 +149,7 @@
                   <!-- Favourite Pieces -->
                   <div class="accordion-heading">
                     <a class="accordion-toggle" data-toggle="collapse" href="#favpieces-section">
-                      <h2>Pieces<i class="icon-minus"></i></h2>
+                      <h2>Pieces in Favourites<i class="icon-minus"></i></h2>
                     </a>
                   </div>
                   <div id="favpieces-section" class="accordion-body in collapse">
@@ -173,9 +173,9 @@
                               <td>{{ piece.title }}</td>
                               <td style="text-align:center;">
                                 {% if user|notetext:piece %}
-                                  <a href="#" id="button-{{ piece.piece_id }}" class="btn btn-info open-EditNote" data-toggle="modal" data-notetext="{{ user|notetext:piece }}" data-pieceid="{{ piece.piece_id }}" title="Edit Note to {{ piece.piece_id }}">Edit Note</a>
+                                  <a href="#" id="button-{{ piece.piece_id }}" class="btn btn-info open-EditNote" data-toggle="modal" data-notetext="{{ user|notetext:piece }}" data-pieceid="{{ piece.piece_id }}" title="Edit Note to {{ piece.piece_id }}">Edit&nbsp;Note</a>
                                 {% else %}
-                                  <a href="#" id="button-{{ piece.piece_id }}" class="btn btn-primary open-EditNote" data-toggle="modal" data-edittype="add" data-pieceid="{{ piece.piece_id }}" title="Add Note to {{ piece.piece_id }}">Add Note</a>
+                                  <a href="#" id="button-{{ piece.piece_id }}" class="btn btn-primary open-EditNote" data-toggle="modal" data-edittype="add" data-pieceid="{{ piece.piece_id }}" title="Add Note to {{ piece.piece_id }}">Add&nbsp;Note</a>
                                 {% endif %}
                               </td>
                               <td>
@@ -195,10 +195,10 @@
                 </div>
 
                 <div class="accordion-group">
-                  <!-- Comments -->
+                  <!-- Pieces with Notes -->
                   <div class="accordion-heading">
                     <a class="accordion-toggle" data-toggle="collapse" href="#mynotes-section">
-                      <h2>Comments<i class="icon-plus"></i></h2>
+                      <h2>Pieces with notes<i class="icon-plus"></i></h2>
                     </a>
                   </div>
                   <div id="mynotes-section" class="accordion-body collapse">
@@ -222,17 +222,17 @@
                               <td><a href="/piece/{{ piece.piece_id }}">{{ piece.piece_id }}</a></td>
                               <td>{{ piece.title }}</td>
                               <td style="text-align:center;">
-                                <a href="#" id="button-{{ piece.piece_id }}" class="btn btn-info open-EditNote" data-toggle="modal" data-notetext="{{ user|notetext:piece }}" data-pieceid="{{ piece.piece_id }}" title="Edit Note to {{ piece.piece_id }}">Edit Note</a>
+                                <a href="#" id="button-{{ piece.piece_id }}" class="btn btn-info open-EditNote" data-toggle="modal" data-notetext="{{ user|notetext:piece }}" data-pieceid="{{ piece.piece_id }}" title="Edit Note to {{ piece.piece_id }}">Edit&nbsp;Note</a>
                               </td>
                               <td style="text-align:center;">
-                                <a href="#" id="button-{{ piece.piece_id }}" class="btn btn-info open-EditNote" data-toggle="modal" data-notetext="{{ user|notetext:piece }}" data-pieceid="{{ piece.piece_id }}" title="Edit Note to {{ piece.piece_id }}">Edit Note</a>
+                                <a href="#" id="button-{{ piece.piece_id }}" class="btn btn-danger open-DeleteNote" data-toggle="modal" data-notetext="{{ user|notetext:piece }}" data-pieceid="{{ piece.piece_id }}" title="Delete Note to {{ piece.piece_id }}">Delete</a>
                               </td>
                               <td>
                                   {% include "main/favourites/favourites.html" with is_favourite=True piece_id=piece.piece_id %}
                               </td>
                             </tr>
                           {% empty %}
-                            <td colspan="5">No pieces with notes.</td>
+                            <td colspan="4">No pieces with notes.</td>
                           {% endfor %}
                         </tbody>
                       </table> 
