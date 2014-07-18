@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load template_dict %}
-
+{% load notetext %}
 {% block header %}
 
 {% endblock %}
@@ -11,13 +11,30 @@
     <div class="span12">
       <div class="show-heading row-fluid">
         <div class="span8">
-          <hgroup class="show-title page-title span12">
+          <hgroup>
             <h1>{{ piece.title }}</h1>
             <h2><a href="/person/{{ piece.composer_id.person_id }}">{{ piece.composer_id.full_name }}</a></h2>
-            <h3>{{ piece.piece_id }}{% if is_logged_in %}
+            <h3>
+              {{ piece.piece_id }}
+              {% if is_logged_in %}
                 {% include "main/favourites/favourites.html" with is_favourite=is_favourite piece_id=piece.piece_id %}
-            {% endif %}</h3>
+              {% endif %}
+            </h3>
           </hgroup>
+          {% if is_logged_in %}
+            <form id="modal-form">
+              {% csrf_token %}
+            </form>
+            <div class="pull-right">
+              {% if user|notetext:piece %}
+                <a href="#" id="button-del-{{ piece.piece_id }}" class="btn btn-danger open-DeleteNote" data-toggle="modal" data-notetext="{{ user|notetext:piece }}" data-pieceid="{{ piece.piece_id }}" title="Delete Note to {{ piece.piece_id }}">Delete&nbsp;Note</a>
+                <a href="#" id="button-fav-{{ piece.piece_id }}" class="btn btn-info open-EditNote" data-toggle="modal" data-notetext="{{ user|notetext:piece }}" data-pieceid="{{ piece.piece_id }}" title="Edit Note to {{ piece.piece_id }}">Edit&nbsp;Note</a>
+              {% else %}
+                <a href="#" id="button-del-{{ piece.piece_id }}" class="" data-toggle="modal" data-notetext="{{ user|notetext:piece }}" data-pieceid="{{ piece.piece_id }}" title="Delete Note to {{ piece.piece_id }}"></a>
+                <a href="#" id="button-fav-{{ piece.piece_id }}" class="btn btn-primary open-EditNote" data-toggle="modal" data-pieceid="{{ piece.piece_id }}" title="Add Note to {{ piece.piece_id }}">Add&nbsp;Note</a>
+              {% endif %}
+            </div>
+          {% endif %}
           <div class="row-fluid">
             <h2>Text</h2>
             <table class="table table-striped ">
@@ -179,6 +196,9 @@
     $(document).ready(function (){
       attachPhraseClickEvents();
       attachFavouritesAction();
+      editNoteAction();
+      deleteNoteAction();
+      submitNoteAction();
       // Second parameter: Number of days' worth of comments to show
       startCommentFeed('{{piece.id}}', 14);
       attachCommentsAction();
