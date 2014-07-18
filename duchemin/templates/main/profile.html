@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load notetext %}
+{% load isfavourite %}
 
 {% block header %}
   <script src="{{ STATIC_URL }}js/notes.js"></script>
@@ -179,7 +180,7 @@
                                 {% endif %}
                               </td>
                               <td>
-                                  {% include "main/favourites/favourites.html" with is_favourite=True piece_id=piece.piece_id %}
+                                  {% include "main/favourites/favourites.html" with is_favourite=user|isfavourite:piece piece_id=piece.piece_id %}
                               </td>
                             </tr>
                           {% empty %}
@@ -228,7 +229,7 @@
                                 <a href="#" id="button-{{ piece.piece_id }}" class="btn btn-danger open-DeleteNote" data-toggle="modal" data-notetext="{{ user|notetext:piece }}" data-pieceid="{{ piece.piece_id }}" title="Delete Note to {{ piece.piece_id }}">Delete</a>
                               </td>
                               <td>
-                                  {% include "main/favourites/favourites.html" with is_favourite=True piece_id=piece.piece_id %}
+                                {% include "main/favourites/favourites.html" with is_favourite=user|isfavourite:piece piece_id=piece.piece_id %}
                               </td>
                             </tr>
                           {% empty %}
