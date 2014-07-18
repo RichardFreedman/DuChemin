@@ -1,9 +1,3 @@
-function log(msg) {
-    setTimeout(function() {
-        throw new Error(msg);
-    }, 0);
-}
-
 function attachPhraseClickEvents() {
     $('.view-phrase').on({
         'click': function(event) {
@@ -17,7 +11,7 @@ function attachPhraseClickEvents() {
 
             $("#phrase-modal").remove();
             var modal = $("<div />", {
-                "id": "phrase-modal"
+                "id": "phrase-modal",
             }).appendTo("body");
 
             // Distinguish between Phrase and Analysis slices
@@ -42,7 +36,7 @@ function attachPhraseClickEvents() {
             }).appendTo(modal);
 
             ajaxRenderPhrase($(this).attr((is_analysis ? 'anid' : 'phid')),
-                $(this).data('pieceid'),
+                $(this).data('meilink'),
                 $(this).data('start'),
                 $(this).data('stop'),
                 is_analysis
@@ -52,12 +46,12 @@ function attachPhraseClickEvents() {
     });
 }
 
-function ajaxRenderPhrase(id, piece_id, start, end, is_analysis) {
+function ajaxRenderPhrase(id, mei_link, start, end, is_analysis) {
     $.ajax({
         url: (is_analysis ? '/data/analysis/' : '/data/phrase/') + id,
         dataType: 'json',
         success: function(data, status, xhr) {
-            var loadedXML = meiView.Util.loadXMLDoc('/static/xml/' + piece_id + '.xml');
+            var loadedXML = meiView.Util.loadXMLDoc(mei_link);
             var filteredXml = meiView.filterMei(loadedXML, { noSysBreak:true });
             var meiDoc = new MeiLib.MeiDoc(filteredXml);
 
