@@ -3,36 +3,6 @@
 {% load isfavourite %}
 
 {% block header %}
-  <script src="{{ STATIC_URL }}js/notes.js"></script>
-  <script src="{{ STATIC_URL }}js/notation.js"></script>
-  <script src="{{ STATIC_URL }}js/favourites.js"></script>
-
-  <script type="text/javascript">
-    $(document).ready(function (){
-        attachFavouritesAction();
-        submitNoteAction();
-        editNoteAction();
-    });
-
-    // This scripts toggles the plus and minus icons
-    (function($) {
-      $('document').ready( function() {
-        $('.accordion-group').on('show hide', function(e){
-          $(e.target).siblings('.accordion-heading').find('.accordion-toggle i').toggleClass('icon-minus icon-plus', 200);
-        });
-      });
-    })(jQuery);
-  </script>
-
-  <!-- Can't import all the jquery and bootstrap, since they conflict with each other -->
-  <script src="{{ STATIC_URL }}js/jquery/src/effects.js"></script>
-  <script type="text/JavaScript" src="/static/js/bootstrap/bootstrap-modal.js"></script>
-  <script type="text/JavaScript" src="/static/js/bootstrap/bootstrap-transition.js"></script>
-
-  <!--
-    JAVASCRIPT FOR MEIVIEW NECESSARY
-    (CANVAS ON CLICKED OBSERVATION)
-  -->
 {% endblock %}
 
 {% block wrap %}
@@ -209,8 +179,8 @@
                           <tr>
                             <th>Piece&nbsp;ID</th>
                             <th>Title</th>
-                            <th>Edit</th>
                             <th>Delete</th>
+                            <th>Edit</th>
                             <th>Favourites</th>
                           </tr>
                         </thead>
@@ -223,10 +193,10 @@
                               <td><a href="/piece/{{ piece.piece_id }}">{{ piece.piece_id }}</a></td>
                               <td>{{ piece.title }}</td>
                               <td style="text-align:center;">
-                                <a href="#" id="button-{{ piece.piece_id }}" class="btn btn-info open-EditNote" data-toggle="modal" data-notetext="{{ user|notetext:piece }}" data-pieceid="{{ piece.piece_id }}" title="Edit Note to {{ piece.piece_id }}">Edit&nbsp;Note</a>
+                                <a href="#" id="button-{{ piece.piece_id }}" class="btn btn-danger open-DeleteNote" data-toggle="modal" data-notetext="{{ user|notetext:piece }}" data-pieceid="{{ piece.piece_id }}" title="Delete Note to {{ piece.piece_id }}">Delete</a>
                               </td>
                               <td style="text-align:center;">
-                                <a href="#" id="button-{{ piece.piece_id }}" class="btn btn-danger open-DeleteNote" data-toggle="modal" data-notetext="{{ user|notetext:piece }}" data-pieceid="{{ piece.piece_id }}" title="Delete Note to {{ piece.piece_id }}">Delete</a>
+                                <a href="#" id="button-{{ piece.piece_id }}" class="btn btn-info open-EditNote" data-toggle="modal" data-notetext="{{ user|notetext:piece }}" data-pieceid="{{ piece.piece_id }}" title="Edit Note to {{ piece.piece_id }}">Edit&nbsp;Note</a>
                               </td>
                               <td>
                                 {% include "main/favourites/favourites.html" with is_favourite=user|isfavourite:piece piece_id=piece.piece_id %}
@@ -359,5 +329,33 @@
       }
     })
   </script>
+
+  <script src="{{ STATIC_URL }}js/notes.js"></script>
+  <script src="{{ STATIC_URL }}js/notation.js"></script>
+  <script src="{{ STATIC_URL }}js/favourites.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function (){
+        attachFavouritesAction();
+        editNoteAction();
+        deleteNoteAction();
+        submitNoteAction();
+
+        // Toggling the +/- accordion icons
+        $('.accordion-group').on('show hide', function(e){
+          $(e.target).siblings('.accordion-heading').find('.accordion-toggle i').toggleClass('icon-minus icon-plus', 200);
+        });
+    });
+  </script>
+
+  <!-- Can't import all the jquery and bootstrap, since they conflict with each other -->
+  <script src="{{ STATIC_URL }}js/jquery/src/effects.js"></script>
+  <script type="text/JavaScript" src="{{ STATIC_URL }}js/bootstrap/bootstrap-modal.js"></script>
+  <script type="text/JavaScript" src="{{ STATIC_URL }}js/bootstrap/bootstrap-transition.js"></script>
+
+  <!--
+    JAVASCRIPT FOR MEIVIEW NECESSARY
+    (CANVAS ON CLICKED OBSERVATION)
+  -->
 
 {% endblock %}
