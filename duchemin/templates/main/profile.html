@@ -193,7 +193,7 @@
                               <td><a href="/piece/{{ piece.piece_id }}">{{ piece.piece_id }}</a></td>
                               <td>{{ piece.title }}</td>
                               <td style="text-align:center;">
-                                <a href="#" class="btn btn-danger open-DeleteNote" data-toggle="modal" data-notetext="{{ user|notetext:piece }}" data-pieceid="{{ piece.piece_id }}" title="Delete Note to {{ piece.piece_id }}">Delete</a>
+                                <a href="#" id="button-del-{{ piece.piece_id }}" class="btn btn-danger open-DeleteNote" data-toggle="modal" data-notetext="{{ user|notetext:piece }}" data-pieceid="{{ piece.piece_id }}" title="Delete Note to {{ piece.piece_id }}">Delete&nbsp;Note</a>
                               </td>
                               <td style="text-align:center;">
                                 <a href="#" id="button-note-{{ piece.piece_id }}" class="btn btn-info open-EditNote" data-toggle="modal" data-notetext="{{ user|notetext:piece }}" data-pieceid="{{ piece.piece_id }}" title="Edit Note to {{ piece.piece_id }}">Edit&nbsp;Note</a>
