@@ -1,9 +1,6 @@
 function editNoteAction() {
     $('.open-EditNote').on({
         'click': function(event) {
-            // Remove old modal, if any
-            $("#editNote").remove();
-
             var pieceid = $(this).data('pieceid');
 
             $.ajax({
@@ -23,7 +20,19 @@ function editNoteAction() {
     });
 }
 
+function deleteNoteAction() {
+    $( ".open-DeleteNote" ).on({
+        'click': function(event) {
+            // The second parameter says NOT to return to editing the note
+            confirmDeleteNoteAction($(this).data('pieceid'), false);
+        }
+    });
+}
+
 function showModalAction(pieceid, json) {
+    // Remove old modal, if any
+    $("#editNote").remove();
+
     // Title string
     var titletext = ('Edit Note to Piece ' + pieceid);
     var notetext = '';
@@ -109,9 +118,17 @@ function showModalAction(pieceid, json) {
         "class": "modal-footer",
     }).appendTo(modal_content);
 
+    var modal_footer_delete = $("<button />", {
+        "type": "button",
+        "id": "modal-delete",
+        "class": "btn btn-danger pull-left",
+        "data-dismiss": "modal",
+        "text": "Delete",
+    }).appendTo(modal_footer);
+
     var modal_footer_close = $("<button />", {
         "type": "button",
-        "class": "btn btn-default",
+        "class": "btn",
         "data-dismiss": "modal",
         "text": "Close",
     }).appendTo(modal_footer);
@@ -135,6 +152,13 @@ function showModalAction(pieceid, json) {
             event.preventDefault();
         }
     });
+
+    $( "#modal-delete" ).on({
+        'click': function(event) {
+            // The second parameter says to return to editing the note
+            confirmDeleteNoteAction(pieceid, true);
+        }
+    });
 }
 
 function submitNoteAction() {
@@ -155,7 +179,133 @@ function submitNoteAction() {
         button.innerHTML = "Edit Note";
         button.title = "Edit Note to " + pieceid;
 
-
         event.preventDefault();
+    });
+}
+
+function confirmDeleteNoteAction(pieceid, returntomodal) {
+    // Remove old modal, if any
+    $("#confirmDelete").remove();
+
+    // Title string
+    var titletext = ('Delete Note to Piece ' + pieceid);
+
+    // Outer div for modal.
+    var modal = $("<div />", {
+        "id": "confirmDelete",
+        "class": "modal fade",
+        "tabindex": "-1",
+        "role": "dialog",
+        "aria-labelledby": "confirmDelete",
+        "aria-hidden": "true",
+    }).appendTo("body");
+
+    // First layer div
+    var modal_dialog = $("<div />", {
+        "class": "modal-dialog",
+    }).appendTo(modal);
+
+    // Second layer div
+    var modal_content = $("<div />", {
+        "class": "modal-content",
+    }).appendTo(modal_dialog);
+
+    // Modal header div
+    var modal_header = $("<div />", {
+        "class": "modal-header",
+    }).appendTo(modal_content);
+
+    // Modal header: button
+    var modal_header_button = $("<button />", {
+        "type": "button",
+        "class": "close",
+        "data-dismiss": "modal",
+        "aria-hidden": "true",
+        "text": "×",
+    }).appendTo(modal_header);
+
+    // Modal header: text
+    var modal_header_text = $("<h3 />", {
+        "class": "modal-title",
+        "id": "confirmDeleteLabel",
+        "text": titletext,
+    }).appendTo(modal_header);
+
+    // Modal body div
+    var modal_body = $("<div />", {
+        "class": "modal-body",
+    }).appendTo(modal_content);
+
+    // Modal body: paragraph
+    var modal_body_p = $("<p />", {
+        "id": "modal-body-p",
+        "text": "Are you sure you want to delete this note?",
+    }).appendTo(modal_body);
+
+    // Modal body: form's piece ID
+    var modal_body_pieceid = $("<input />", {
+        "form": "modal-form",
+        "type": "hidden",
+        "name": "piece_id",
+        "id": "piece-id",
+        "value": pieceid,
+    }).appendTo(modal_body_p);
+
+    // Modal body: new text of the note, which is empty,
+    // because we're deleting it
+    var modal_body_pieceid = $("<input />", {
+        "form": "modal-form",
+        "type": "hidden",
+        "name": "text",
+        "id": "text",
+        "value": '',
+    }).appendTo(modal_body_p);
+
+    // Modal footer div
+    var modal_footer = $("<div />", {
+        "class": "modal-footer",
+    }).appendTo(modal_content);
+
+    var modal_footer_cancel = $("<button />", {
+        "type": "button",
+        "id": "cancel-delete",
+        "class": "btn",
+        "data-dismiss": "modal",
+        "data-pieceid": pieceid,
+        "text": "Cancel",
+    }).appendTo(modal_footer);
+
+    var modal_footer_delete = $("<button />", {
+        "form": "modal-form",
+        "type": "submit",
+        "id": "confirm-delete",
+        "class": "btn btn-danger",
+        "data-dismiss": "modal",
+        "text": "Delete",
+    }).appendTo(modal_footer);
+
+    $("#confirmDelete").modal({
+        "backdrop": "static",
+    });
+
+    $( "#cancel-delete" ).on({
+        'click': function(event) {
+            if (returntomodal) {
+                $.ajax({
+                    type: "GET",
+                    url: "/note/" + pieceid,
+                    dataType: 'json',
+                    success: function (json) {
+                        showModalAction(pieceid, json);
+                    },
+                });
+            }
+        }
+    });
+
+    $( "#confirm-delete" ).on({
+        'click': function(event) {
+            event.preventDefault();
+        }
     });
 }
