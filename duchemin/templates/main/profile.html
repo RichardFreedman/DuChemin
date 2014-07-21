@@ -120,7 +120,7 @@
                   <!-- Favourite Pieces -->
                   <div class="accordion-heading">
                     <a class="accordion-toggle" data-toggle="collapse" href="#favpieces-section">
-                      <h2>Pieces in Favourites<i class="icon-minus"></i></h2>
+                      <h2>Favourites<i class="icon-minus"></i></h2>
                     </a>
                   </div>
                   <div id="favpieces-section" class="accordion-body in collapse">
@@ -297,7 +297,7 @@
       </div>
     </div>
 
-    <div class="span3"><!-- Everything on the right -->
+    <div id="sidebar" class="span3">
       <div class="well span12">
         <h3>{{ user.username }}
           <!-- Edit profile functionality not yet added<br />
@@ -312,14 +312,54 @@
           <dd>{{ user.profile.role }}</dd>
         </dl>
       </div>
+
+      <div class="span12">
+        <h3>Help</h3>
+        <div id="help">
+          <h4><a href="#" id="my-work" class="advanced-help-heading">My Work</a></h4>
+          <div id="my-work-help-content" class="advanced-help-content">
+            <p>In the Observations pane, you will find a list of any formal observations you have made in the Lost Voices database. Each row in the table of observations contains a link to the piece’s page; selecting the measure range in a row brings up a window displaying only the relevant measures. To see further details about a given observation, select the “Expand” option.</p>
+            <p>In the Reconstructions pane is a list of any reconstructions you have made that are in the Lost Voices database. Selecting the Piece&nbsp;ID takes you to the piece’s page; there you can see your reconstruction, together with any other reconstructions for the same piece that may be present in the database.</p>
+          </div>
+
+          <h4><a href="#" id="favourites" class="advanced-help-heading">Favourites</a></h4>
+          <div id="favourites-help-content" class="advanced-help-content">
+            <p>Pieces in the Lost Voices database that you have marked with a filled star (&starf;) are added to your Favourites. In the Favourites pane, you can manage these pieces by adding, viewing and editing notes, or removing pieces from the list.</p>
+            <p>Notes are a place for you to record thoughts about a piece without making them visible to other viewers. The list of pieces with notes contains easy-to-access links for viewing, deleting and editing notes, as well as for adding or removing each piece from your Favourites. Notes are archived in the site database; if you need to recover an old version of a note that was mistakenly deleted or overwritten, please <a href="mailto:{{ADMIN_EMAIL}}?subject=Recover note by user {{user.username}}">contact the administrator</a>.</p>
+          </div>
+
+            <h4><a href="#" id="discussions" class="advanced-help-heading">Discussions</a></h4>
+          <div id="discussions-help-content" class="advanced-help-content">
+            <p>In the Pieces pane, you will find a list of all pieces you have publicly commented on, sorted by Piece&nbsp;ID. Each row contains links to the piece’s page and to the corresponding discussion page.</p>
+            <p>The Comments pane contains a list of all comments you have posted, sorted by date. As in the Pieces pane, each row contains links to the piece’s page and to the corresponding discussion page. All comments are public; if you need a comment to be removed, please <a href="mailto:{{ADMIN_EMAIL}}?subject=Recover note by user {{user.username}}">contact the administrator</a>.</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
-<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/themes/base/jquery-ui.css" rel="stylesheet"></link>
+  <style>
+    .advanced-help-content  {
+      display: none;
+    }
+    #advanced-help a {
+      cursor: pointer;
+    }
+  </style>
+
+  <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/themes/base/jquery-ui.css" rel="stylesheet"></link>
 
   <script type="text/javascript">
     // This script expands and hides analysis details
     $('.analyses-info').hide();
+    $('.advanced-help-heading').on({
+      'click': function(event) {
+        event.preventDefault();
+        var contentId = $(this).attr('id');
+        $('#' + contentId + '-help-content').toggle(200);
+        return false;
+      }
+    });
     $('.analyses-info-expand').on({
       'click': function(event) {
         event.preventDefault();
