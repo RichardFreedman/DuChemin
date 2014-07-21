@@ -101,7 +101,7 @@
             <h3><a href="/piece/{{ piece.piece_id }}/">Return to Piece View</a></h3>
             
             {% if is_logged_in %}
-              <p>Note that all comments are permanent. If you need a comment to be removed, please <a href="mailto:rfreedma@haverford.edu?subject=Please remove comment on Piece {{ piece.piece_id }}">contact us</a>.</p>
+              <p>Note that all comments are permanent. If you need a comment to be removed, please <a href="mailto:{{ADMIN_EMAIL}}?subject=Please remove comment on Piece {{ piece.piece_id }}">contact the administrator</a>.</p>
             {% endif %}
           </div>
         </div><!--/span-->

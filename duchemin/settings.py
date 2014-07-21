@@ -11,6 +11,8 @@ ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
 
+ADMIN_EMAIL = 'admin@digitalduchemin.org'
+
 MANAGERS = ADMINS
 
 AUTH_PROFILE_MODULE = "duchemin.DCUserProfile"
@@ -184,6 +186,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.static",
     "django.core.context_processors.csrf",
     "django.contrib.messages.context_processors.messages",
+    "duchemin.context_processors.admin_email",
 )
 
 SOLR_NUM_SEARCH_RESULTS = 10

@@ -4,6 +4,7 @@ from django.http import Http404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
+from django.template import RequestContext
 
 from duchemin.forms.analysis_form import AnalysisForm
 from duchemin.models.piece import DCPiece
@@ -115,7 +116,7 @@ def piece(request, pk):
         'is_logged_in': is_logged_in,
         'is_staff': is_staff
     }
-    return render(request, 'main/piece.html', data)
+    return render(request, 'main/piece.html', data, context_instance=RequestContext(request))
 
 
 def discussion(request, piece_id):
@@ -145,7 +146,7 @@ def discussion(request, piece_id):
         'is_staff': is_staff,
         'comments': comments,
     }
-    return render(request, 'main/discussion.html', data)
+    return render(request, 'main/discussion.html', data, context_instance=RequestContext(request))
 
 
 def reconstructions(request):
@@ -209,7 +210,7 @@ def profile(request):
         'discussed_pieces': discussed_pieces,
         'pieces_with_notes': pieces_with_notes,
     }
-    return render(request, 'main/profile.html', data)
+    return render(request, 'main/profile.html', data, context_instance=RequestContext(request))
 
 
 def login(request):
