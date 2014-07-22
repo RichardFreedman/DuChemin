@@ -4,7 +4,6 @@ from django.db.models.signals import post_save, post_delete
 
 from duchemin.models.book import DCBook
 from duchemin.models.person import DCPerson
-from duchemin.models.file import DCFile
 
 
 class DCPiece(models.Model):

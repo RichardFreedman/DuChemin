@@ -13,7 +13,7 @@ class DCNote(models.Model):
     text = models.TextField()
 
     def __unicode__(self):
-        return u"{} ({})".format(self.piece, self.author)
+        return u"{0} ({1})".format(self.piece, self.author)
 
     class Meta:
         app_label = "duchemin"
