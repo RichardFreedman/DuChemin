@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.http import Http404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.views import password_change
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
 
@@ -174,6 +175,11 @@ def reconstruction(request, recon_id):
     }
     return render(request, 'main/reconstruction.html', data)
 
+
+@login_required(login_url="/login/")
+def my_password_change(request):
+    return password_change(request, template_name='registration/password_change_form.html',
+        post_change_redirect="/profile/",)
 
 
 @login_required(login_url="/login/")

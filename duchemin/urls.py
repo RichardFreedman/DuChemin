@@ -56,6 +56,8 @@ if 'django.contrib.admin' in settings.INSTALLED_APPS:
 
         url(r'^notes/$', NoteList.as_view(), name="dcnote-list"),
         url(r'^note/(?P<pk>[a-zA-Z0-9]+)', NoteDetail.as_view(), name='dcnote-detail'),
+
+        url(r'^password_change/$', 'my_password_change'),
     )
 
     urlpatterns += patterns('duchemin.views.search',

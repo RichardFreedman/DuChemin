@@ -305,12 +305,13 @@
           -->
           &bull; <a href="#" id="logout">Log&nbsp;Out</a>
         </h3>
-        <dl class="well-list account-info-list">
+        <div class="span12"><dl class="well-list account-info-list">
           <dt>Joined:</dt>
           <dd>{{ user.date_joined.date }}</dd>
           <dt>Role:</dt>
           <dd>{{ user.profile.role }}</dd>
-        </dl>
+        </dl></div>
+        <h3><a href="/password_change/">Change Password</a></h3>
       </div>
 
       <div class="span12">
