@@ -12,7 +12,7 @@ class DCComment(models.Model):
     text = models.TextField()
 
     def __unicode__(self):
-        return u"{} ({} {})".format(self.piece, self.author, self.created)
+        return u"{0} ({1} {2})".format(self.piece, self.author, self.created)
 
     class Meta:
         app_label = "duchemin"
