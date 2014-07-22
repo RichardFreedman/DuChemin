@@ -127,9 +127,9 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.flatpages',
     # Uncomment the next line to enable the admin:
+    'duchemin',
     'django.contrib.admin',
     'bootstrap-pagination',
-    'duchemin',
     'django_extensions',
     'south',
     'crispy_forms',
