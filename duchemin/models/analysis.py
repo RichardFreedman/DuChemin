@@ -10,8 +10,8 @@ from duchemin.models.phrase import DCPhrase
 class DCAnalysis(models.Model):
     class Meta:
         app_label = "duchemin"
-        verbose_name = "Analysis"
-        verbose_name_plural = "Analyses"
+        verbose_name = "Observation"
+        verbose_name_plural = "Observations"
 
     timestamp = models.CharField(max_length=64, blank=True, null=True)
     analyst = models.ForeignKey(DCPerson, to_field='person_id', db_index=True, related_name="analyses")
