@@ -151,7 +151,7 @@ def discussion(request, piece_id):
 
 
 def reconstructions(request):
-    reconstructions = DCReconstruction.objects.all().order_by('piece__title', 'reconstructor__surname')
+    reconstructions = DCReconstruction.objects.all().order_by('piece__piece_id', 'reconstructor__surname')
     paginator = Paginator(reconstructions, 25)
     page = request.GET.get('page')
     try:
