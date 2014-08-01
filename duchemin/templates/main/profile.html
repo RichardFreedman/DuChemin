@@ -11,7 +11,7 @@
       <div class="row-fluid">
         <hgroup class="account-title page-title span8">
           <h1>Account Profile</h1>
-          <h2>{{ user.profile }}</h2>
+          <h2>{% if user.profile.person %}<a href="/person/{{ user.profile.person.id }}">{{ user.profile.person.full_name }}</a>{% else %}{{ user.profile }}{% endif %}</h2>
         </hgroup>
         <form class="mywork-search pull-right" method="get" action="/search">
           <input type="text" name="q" placeholder="Search My Work" />
