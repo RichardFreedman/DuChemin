@@ -39,9 +39,7 @@
         </form>
       {% endif %}
 
-      {% if content.remarks %}
-        <p id="remarks-text">{{ content.remarks}}</p>
-      {% endif %}
+      <p id="remarks-text">{% if content.remarks %}{{ content.remarks}}{% endif %}</p>
     </div>
   </div>
 
