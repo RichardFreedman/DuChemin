@@ -32,7 +32,7 @@
   <div class="row-fluid">
     <div class="span8">
       {% if request.user.profile.person.person_id == content.person_id %}
-        <form id="remarks-form">
+        <form data-personid="{{ content.person_id }}" id="remarks-form">
           {% csrf_token %}
         
           <a href="#" id="button-remarks" class="btn btn-success open-EditRemarks" data-toggle="modal" data-personid="{{ content.person_id }}" title="Edit Public Profile">{% if content.remarks %}Edit Public Profile{% else %}Add Public Profile{% endif %}</a>
