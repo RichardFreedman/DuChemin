@@ -85,7 +85,7 @@ function showRemarksModalAction(personid, remarkstext) {
 
     // Modal body: form's person ID
     var modal_body_personid = $("<input />", {
-        "form": "modal-form",
+        "form": "remarks-form",
         "type": "hidden",
         "name": "person_id",
         "id": "person-id",
@@ -94,7 +94,7 @@ function showRemarksModalAction(personid, remarkstext) {
 
     // Modal body: form's textarea
     var modal_body_textarea = $("<textarea />", {
-        "form": "modal-form",
+        "form": "remarks-form",
         "name": "remarks",
         "rows": "10",
         "id": "remarks-textarea",
@@ -128,7 +128,7 @@ function showRemarksModalAction(personid, remarkstext) {
 
     // Modal footer: save
     var modal_footer_save = $("<button />", {
-        "form": "modal-form",
+        "form": "remarks-form",
         "type": "submit",
         "id": "modal-save",
         "class": "btn btn-success",
@@ -143,7 +143,7 @@ function showRemarksModalAction(personid, remarkstext) {
 
     $( "#modal-save" ).on({
         'click': function(event) {
-            $('#modal-form').submit();
+            $('#remarks-form').submit();
 
             // If it was an Add Remarks button, make it now an Edit Remarks button
             var button = document.getElementById("button-remarks");
@@ -167,7 +167,7 @@ function showRemarksModalAction(personid, remarkstext) {
 }
 
 function submitRemarksAction() {
-    $( "#modal-form" ).submit(function( event ){
+    $( "#remarks-form" ).submit(function( event ){
         var form = $(this);
         var personid = $(this).data('personid');
         var serialized_data = form.serialize();
@@ -243,7 +243,7 @@ function confirmDeleteRemarksAction(personid, remarkstext) {
     // Modal body: form's person ID
     // Still needed?
     var modal_body_personid = $("<input />", {
-        "form": "modal-form",
+        "form": "remarks-form",
         "type": "hidden",
         "name": "person_id",
         "id": "person-id",
@@ -253,7 +253,7 @@ function confirmDeleteRemarksAction(personid, remarkstext) {
     // Modal body: new text of the public profile, which is empty,
     // because we're deleting it
     var modal_body_text = $("<input />", {
-        "form": "modal-form",
+        "form": "remarks-form",
         "type": "hidden",
         "name": "remarks",
         "id": "text",
@@ -275,7 +275,7 @@ function confirmDeleteRemarksAction(personid, remarkstext) {
     }).appendTo(modal_footer);
 
     var modal_footer_delete = $("<button />", {
-        "form": "modal-form",
+        "form": "remarks-form",
         "type": "submit",
         "id": "confirm-delete",
         "class": "btn btn-danger",
@@ -295,7 +295,7 @@ function confirmDeleteRemarksAction(personid, remarkstext) {
 
     $( "#confirm-delete" ).on({
         'click': function(event) {
-            $('#modal-form').submit();
+            $('#remarks-form').submit();
 
             // If it was an Edit button, make it now an Add button
             var button = document.getElementById("button-remarks");
