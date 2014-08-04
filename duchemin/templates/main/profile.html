@@ -378,21 +378,24 @@
 
   <script src="{{ STATIC_URL }}js/vendor/jquery.cookie.js"></script>
   <script src="{{ STATIC_URL }}js/notes.js"></script>
+  <script src="{{ STATIC_URL }}js/remarks.js"></script>
   <script src="{{ STATIC_URL }}js/notation.js"></script>
   <script src="{{ STATIC_URL }}js/favourites.js"></script>
 
   <script type="text/javascript">
     $(document).ready(function (){
-    	attachPhraseClickEvents();
-        attachFavouritesAction();
-        editNoteAction();
-        deleteNoteAction();
-        submitNoteAction();
+      attachPhraseClickEvents();
+      attachFavouritesAction();
+      editNoteAction();
+      deleteNoteAction();
+      submitNoteAction();
+      editRemarksAction();
+      submitRemarksAction();
 
-        // Toggling the +/- accordion icons
-        $('.accordion-group').on('show hide', function(e){
-          $(e.target).siblings('.accordion-heading').find('.accordion-toggle i').toggleClass('icon-minus icon-plus');
-        });
+      // Toggling the +/- accordion icons
+      $('.accordion-group').on('show hide', function(e){
+        $(e.target).siblings('.accordion-heading').find('.accordion-toggle i').toggleClass('icon-minus icon-plus');
+      });
     });
   </script>
 
