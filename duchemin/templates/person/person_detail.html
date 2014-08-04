@@ -40,7 +40,7 @@
       {% endif %}
 
       {% if content.remarks %}
-        <p>{{ content.remarks}}</p>
+        <p id="remarks-text">{{ content.remarks}}</p>
       {% endif %}
     </div>
   </div>
@@ -74,7 +74,6 @@
   <script>
     $(document).ready(function (){
       editRemarksAction();
-      deleteRemarksAction();
       submitRemarksAction();
     });
   </script>
