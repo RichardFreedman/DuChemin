@@ -25,9 +25,12 @@ function showRemarksModalAction(personid, remarkstext) {
     // Remove old modal, if any
     $("#editRemarks").remove();
 
+    if (!remarkstext) {
+        remarkstext = '';
+    }
+
     // Title string
     var titletext = ('Edit Public Profile');
-    var remarkstext = '';
 
     // Outer div for modal.
     var modal = $("<div />", {
@@ -92,7 +95,7 @@ function showRemarksModalAction(personid, remarkstext) {
     // Modal body: form's textarea
     var modal_body_textarea = $("<textarea />", {
         "form": "modal-form",
-        "name": "text",
+        "name": "remarks",
         "rows": "10",
         "id": "remarks-textarea",
         "style": "width:100%; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;",
@@ -130,6 +133,7 @@ function showRemarksModalAction(personid, remarkstext) {
         "id": "modal-save",
         "class": "btn btn-success",
         "data-dismiss": "modal",
+        "data-personid": personid,
         "text": "Save changes",
     }).appendTo(modal_footer);
 
@@ -140,6 +144,17 @@ function showRemarksModalAction(personid, remarkstext) {
     $( "#modal-save" ).on({
         'click': function(event) {
             $('#modal-form').submit();
+
+            // If it was an Add Remarks button, make it now an Edit Remarks button
+            var button = document.getElementById("button-remarks");
+            if (button) {
+                button.innerHTML = "Edit Public Profile";
+                button.title = "Edit Public Profile";
+            }
+
+            // Reload to change the text on the page
+            location.reload(true);
+
             event.preventDefault();
         }
     });
@@ -154,19 +169,14 @@ function showRemarksModalAction(personid, remarkstext) {
 function submitRemarksAction() {
     $( "#modal-form" ).submit(function( event ){
         var form = $(this);
+        var personid = $(this).data('personid');
         var serialized_data = form.serialize();
         $.ajax({
             type: "POST",
-            url: "/person/",
+            url: "/person/" + personid,
             data: serialized_data,
         });
 
-        // If it was an Add Remarks button, make it now an Edit Remarks button
-        var button = document.getElementById("button-remarks");
-        if (button) {
-            button.innerHTML = "Edit Public Profile";
-            button.title = "Edit Public Profile";
-        }
         event.preventDefault();
     });
 }
@@ -176,7 +186,7 @@ function confirmDeleteRemarksAction(personid, remarkstext) {
     $("#confirmDelete").remove();
 
     // Title string
-    var titletext = ('Delete Remarks');
+    var titletext = ('Delete Public Profile');
 
     // Outer div for modal.
     var modal = $("<div />", {
@@ -242,10 +252,10 @@ function confirmDeleteRemarksAction(personid, remarkstext) {
 
     // Modal body: new text of the public profile, which is empty,
     // because we're deleting it
-    var modal_body_personid = $("<input />", {
+    var modal_body_text = $("<input />", {
         "form": "modal-form",
         "type": "hidden",
-        "name": "text",
+        "name": "remarks",
         "id": "text",
         "value": '',
     }).appendTo(modal_body_p);
@@ -287,12 +297,16 @@ function confirmDeleteRemarksAction(personid, remarkstext) {
         'click': function(event) {
             $('#modal-form').submit();
 
-            // If it was an Edit Remarks button, make it now an Add Remarks button
+            // If it was an Edit button, make it now an Add button
             var button = document.getElementById("button-remarks");
             if (button) {
-                button_fav.innerHTML = "Add Public Profile";
-                button_fav.title = "Add Public Profile";
+                button.innerHTML = "Add Public Profile";
+                button.title = "Add Public Profile";
             }
+
+            // Reload to change the text on the page
+            location.reload(true);
+
             event.preventDefault();
         }
     });
