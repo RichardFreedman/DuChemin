@@ -161,7 +161,7 @@ function showRemarksModalAction(personid, remarkstext) {
 
     $( "#modal-delete" ).on({
         'click': function(event) {
-            confirmDeleteRemarksAction(personid);
+            confirmDeleteRemarksAction(personid, remarkstext);
         }
     });
 }
