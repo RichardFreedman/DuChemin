@@ -42,6 +42,11 @@ class PersonDetail(generics.RetrieveAPIView):
         self.check_object_permissions(self.request, obj)
         return obj
 
+    def get(self, *args, **kwargs):
+        person = self.get_object(kwargs)
+        serializer = DCPersonDetailSerializer(person)
+        return Response(serializer.data)
+
     def post(self, request, *args, **kwargs):
         remarks_text = request.DATA.get('remarks', None)
         current_user = User.objects.get(pk=request.user.id)
