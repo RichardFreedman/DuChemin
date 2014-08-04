@@ -4,6 +4,8 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework import permissions
 
 from duchemin.serializers.person import DCPersonListSerializer, DCPersonDetailSerializer
+from rest_framework.response import Response
+from rest_framework import status
 from duchemin.models.person import DCPerson
 from django.contrib.auth.models import User
 from duchemin.renderers.custom_html_renderer import CustomHTMLRenderer
@@ -41,7 +43,7 @@ class PersonDetail(generics.RetrieveAPIView):
         return obj
 
     def post(self, request, *args, **kwargs):
-        remarks_text = request.DATA.get('remarks_text', None)
+        remarks_text = request.DATA.get('remarks', None)
         current_user = User.objects.get(pk=request.user.id)
         person = current_user.profile.person
 
@@ -49,7 +51,7 @@ class PersonDetail(generics.RetrieveAPIView):
             person.remarks = remarks_text
             person.save()
 
-            serialized = DCPersonSerializer(person).data
+            serialized = DCPersonDetailSerializer(person).data
 
             return Response(serialized, status=status.HTTP_202_ACCEPTED)
         else:
