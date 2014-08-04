@@ -143,17 +143,19 @@ function showRemarksModalAction(personid, remarkstext) {
 
     $( "#modal-save" ).on({
         'click': function(event) {
-            $('#remarks-form').submit();
-
-            // If it was an Add Remarks button, make it now an Edit Remarks button
             var button = document.getElementById("button-remarks");
+            var remarks_text = document.getElementById("remarks-text");
+
             if (button) {
                 button.innerHTML = "Edit Public Profile";
                 button.title = "Edit Public Profile";
             }
 
-            // Reload to change the text on the page
-            location.reload(true);
+            if (remarks_text) {
+                remarks_text.innerHTML = $("#remarks-textarea").val();
+            }
+
+            $('#remarks-form').submit();
 
             event.preventDefault();
         }
@@ -295,17 +297,19 @@ function confirmDeleteRemarksAction(personid, remarkstext) {
 
     $( "#confirm-delete" ).on({
         'click': function(event) {
-            $('#remarks-form').submit();
-
-            // If it was an Edit button, make it now an Add button
             var button = document.getElementById("button-remarks");
+            var remarks_text = document.getElementById("remarks-text");
+
             if (button) {
                 button.innerHTML = "Add Public Profile";
                 button.title = "Add Public Profile";
             }
 
-            // Reload to change the text on the page
-            location.reload(true);
+            if (remarks_text) {
+                remarks_text.innerHTML = '';
+            }
+
+            $('#remarks-form').submit();
 
             event.preventDefault();
         }
