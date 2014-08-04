@@ -33,6 +33,9 @@
             </ul>
 
             <div class="tab-content">
+              <form id="modal-form">
+                {% csrf_token %}
+              </form>
               <!-- Everything in tabs is here. -->
               <div class="tab-pane" id="tab1">
                 <!-- My Work: Observations and Reconstructions -->
@@ -141,9 +144,6 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <form id="modal-form">
-                          	{% csrf_token %}
-                          </form>
                           {% for piece in favourited_pieces %}
                             <tr>
                               <td><a href="/piece/{{ piece.piece_id }}">{{ piece.piece_id }}</a></td>
@@ -191,9 +191,6 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <form id="modal-form">
-                            {% csrf_token %}
-                          </form>
                           {% for piece in pieces_with_notes %}
                             <tr>
                               <td><a href="/piece/{{ piece.piece_id }}">{{ piece.piece_id }}</a></td>
