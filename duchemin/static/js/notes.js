@@ -266,7 +266,7 @@ function confirmDeleteNoteAction(pieceid, returntomodal) {
 
     // Modal body: new text of the note, which is empty,
     // because we're deleting it
-    var modal_body_pieceid = $("<input />", {
+    var modal_body_textarea = $("<input />", {
         "form": "modal-form",
         "type": "hidden",
         "name": "text",
