@@ -15,7 +15,7 @@ function startCommentFeed(piece, days_to_show){
 
     // If there are no comments, we will display a message.
     var empty = true;
-    var empty_message = "No recent comments.";
+    var empty_message = "<p id='empty-block'>No recent comments.</p>";
     
     // Check to see if the helper function was called with a piece_id or not
     if (piece != null){
@@ -71,6 +71,13 @@ function startCommentFeed(piece, days_to_show){
                     //   on time zone, but that's not important.
                     if ((today - comment_date < days_to_show * MILLISECONDS_IN_DAY) ||
                             !days_to_show) {
+
+                        // Remove the "empty message" if necessary
+                        empty_block = $('#empty-block');
+                        if (empty_block) {
+                            $('#empty-block').remove();
+                        }
+
                         $('#discussion-block').prepend(comment);
 
                         // Since we added something, we'll set the "empty"
@@ -139,6 +146,13 @@ function startCommentFeed(piece, days_to_show){
                     // This could be off by a matter of hours, depending
                     //   on time zone, but that's not important.
                     if (today - comment_date < days_to_show * MILLISECONDS_IN_DAY) {
+
+                        // Remove the "empty message" if necessary
+                        empty_block = $('#empty-block');
+                        if (empty_block) {
+                            $('#empty-block').remove();
+                        }
+
                         $('#discussion-block').append(comment);
 
                         // Since we added something, we'll set the "empty"
@@ -148,6 +162,13 @@ function startCommentFeed(piece, days_to_show){
                     }
                     else if (!days_to_show) {
                         // If showing all comments, order them first to last
+
+                        // Remove the "empty message" if necessary
+                        empty_block = $('#empty-block');
+                        if (empty_block) {
+                            $('#empty-block').remove();
+                        }
+                        
                         $('#discussion-block').append(comment);
                         empty = false;
                     }
