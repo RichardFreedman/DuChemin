@@ -13,6 +13,10 @@ from duchemin.models.comment import DCComment
 from duchemin.models.piece import DCPiece
 from duchemin.serializers.comment import DCCommentSerializer
 
+
+# Don't save comments that are essentially empty.
+EMPTY_COMMENTS = ['Type a comment here', '', ' ']
+
 # These will stick around, but if we're only using this for JSON serialization
 # we won't need HTML templates.
 # from duchemin.renderers.custom_html_renderer import CustomHTMLRenderer
@@ -48,16 +52,20 @@ class CommentList(generics.ListCreateAPIView):
 
         piece_obj = get_object_or_404(DCPiece, piece_id=piece_id)
 
-        current_user = User.objects.get(pk=request.user.id)
-        comment = DCComment()
-        comment.piece = piece_obj
-        comment.author = current_user
-        comment.text = comment_text
-        comment.save()
+        if comment_text not in EMPTY_COMMENTS:
+            current_user = User.objects.get(pk=request.user.id)
+            comment = DCComment()
+            comment.piece = piece_obj
+            comment.author = current_user
+            comment.text = comment_text
+            comment.save()
 
-        serialized = DCCommentSerializer(comment).data
+            serialized = DCCommentSerializer(comment).data
 
-        return Response(serialized, status=status.HTTP_201_CREATED)
+            return Response(serialized, status=status.HTTP_201_CREATED)
+
+        else:
+            return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class CommentDetail(generics.RetrieveUpdateDestroyAPIView):
