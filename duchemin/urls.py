@@ -28,19 +28,19 @@ if 'django.contrib.admin' in settings.INSTALLED_APPS:
         url(r'^auth/logout/$', SessionClose.as_view()),
         url(r'^piece/(?P<piece_id>[0-9a-zA-Z]+)/add-observation/$', 'add_observation'),
         url(r'^piece/(?P<piece_id>[0-9a-zA-Z]+)/discussion/$', 'discussion'),
-        url(r'^piece/(?P<pk>[0-9a-zA-Z]+)', 'piece', name="dcpiece-detail"),
+        url(r'^piece/(?P<pk>[0-9a-zA-Z]+)/$', 'piece', name="dcpiece-detail"),
         url(r'^pieces/$', 'pieces', name="dcpiece-list"),
 
-        url(r'^book/(?P<pk>[0-9]+)', 'book', name="dcbook-detail"),
+        url(r'^book/(?P<pk>[0-9]+)/$', 'book', name="dcbook-detail"),
         url(r'^books/$', 'books', name="dcbook-list"),
 
         url(r'^profile/', 'profile'),
 
         url(r'^reconstructions/$', 'reconstructions'),
-        url(r'^reconstruction/(?P<reconstruction_id>[0-9]+)', 'reconstruction'),
+        url(r'^reconstruction/(?P<reconstruction_id>[0-9]+)/$', 'reconstruction'),
 
         url(r'^people/$', PersonList.as_view(), name="dcperson-list"),
-        url(r'^person/(?P<pk>[a-zA-Z0-9]+)', PersonDetail.as_view(), name="dcperson-detail"),
+        url(r'^person/(?P<pk>[a-zA-Z0-9]+)/$', PersonDetail.as_view(), name="dcperson-detail"),
 
         url(r'^analyses/$', AnalysisList.as_view(), name="dcanalysis-list"),
         url(r'^analysis/(?P<pk>[0-9]+)/$', AnalysisDetail.as_view(), name="dcanalysis-detail"),
@@ -55,7 +55,7 @@ if 'django.contrib.admin' in settings.INSTALLED_APPS:
         url(r'^comment/(?P<pk>[0-9]+)/$', CommentDetail.as_view(), name='dccomment-detail'),
 
         url(r'^notes/$', NoteList.as_view(), name="dcnote-list"),
-        url(r'^note/(?P<pk>[a-zA-Z0-9]+)', NoteDetail.as_view(), name='dcnote-detail'),
+        url(r'^note/(?P<pk>[a-zA-Z0-9]+)/$', NoteDetail.as_view(), name='dcnote-detail'),
 
         url(r'^password_change/$', 'my_password_change'),
     )
@@ -65,8 +65,8 @@ if 'django.contrib.admin' in settings.INSTALLED_APPS:
     )
 
     urlpatterns += patterns('duchemin.views.data',
-        url(r'^data/analysis/(?P<anid>[0-9]+)', 'analysis'),
-        url(r'^data/phrase/(?P<piece_id>[a-zA-Z0-9_]+)/(?P<phrase_id>[0-9]+)', 'phrase'),
+        url(r'^data/analysis/(?P<anid>[0-9]+)/$', 'analysis'),
+        url(r'^data/phrase/(?P<piece_id>[a-zA-Z0-9_]+)/(?P<phrase_id>[0-9]+)/$', 'phrase'),
     )
 
     urlpatterns += patterns('duchemin.views.callbacks',
