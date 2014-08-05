@@ -200,12 +200,12 @@ function startCommentFeed(piece, days_to_show){
         for (var i = 0; i < text_array_len; i++) {
             word = text_array[i];
             
+            // TODO:
             // @username replaced with link to profile page
-            word = word.replace(/^@(.+)/gi,"<a href='/person/$1/'>@$1</a>");
+            // word = word.replace(/^@([a-z0-9_]+)/gi,"<a href='/person/$1/'>@$1</a>");
+
             // DCxxxx replaced with link to piece page
-            word = word.replace(/^#?DC(.+)/gi,"<a href='/piece/DC$1/'>DC$1</a>");
-            // #piece replaced with link to piece page (just in case)
-            word = word.replace(/^#(.+)/gi,"<a href='/piece/$1/'>#$1</a>");
+            word = word.replace(/^#?DC([0-9]{4})/gi,"<a href='/piece/DC$1/'>DC$1</a>");
             
             if (i != 0 ){ return_text = return_text + " "; }
             return_text = return_text + word;
