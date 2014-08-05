@@ -16,6 +16,7 @@ function startCommentFeed(piece, days_to_show){
     // If there are no comments, we will display a message.
     var empty = true;
     var empty_message = "<p id='empty-block'>No recent comments.</p>";
+    var empty_for_table = '<tr><td colspan="2">No comments.</td></tr>';
     
     // Check to see if the helper function was called with a piece_id or not
     if (piece != null){
@@ -134,6 +135,10 @@ function startCommentFeed(piece, days_to_show){
                         '<div class="text"><p>' + parseCommentTags(item.text) +
                         '</p></div></div>';
 
+                    var comment_for_table = '<tr><td>' + person_string +
+                        '</td><td>' + parseCommentTags(item.text) +
+                        '</td></tr>';
+
                     // If we're in a context that limits number of comments,
                     //   check the date of the comment against the current date,
                     //   and only prepend if it's a recent comment -- otherwise
@@ -148,12 +153,10 @@ function startCommentFeed(piece, days_to_show){
                     if (today - comment_date < days_to_show * MILLISECONDS_IN_DAY) {
 
                         // Remove the "empty message" if necessary
-                        empty_block = $('#empty-block');
-                        if (empty_block) {
-                            $('#empty-block').remove();
-                        }
-
-                        $('#discussion-block').append(comment);
+                        $('#empty-block').remove();
+                        $('#empty-block-table').remove();
+                        $('#discussion-block').prepend(comment);
+                        $('#discussion-table').prepend(comment_for_table);
 
                         // Since we added something, we'll set the "empty"
                         // flag to false -- otherwise we'll display the
@@ -164,12 +167,11 @@ function startCommentFeed(piece, days_to_show){
                         // If showing all comments, order them first to last
 
                         // Remove the "empty message" if necessary
-                        empty_block = $('#empty-block');
-                        if (empty_block) {
-                            $('#empty-block').remove();
-                        }
-                        
+                        $('#empty-block').remove();
+                        $('#empty-block-table').remove();
                         $('#discussion-block').append(comment);
+                        $('#discussion-table').append(comment_for_table);
+
                         empty = false;
                     }
                     // Update the last fetched item ID each refresh to reduce return
@@ -177,6 +179,7 @@ function startCommentFeed(piece, days_to_show){
                 });
                 if (empty) {
                     $('#discussion-block').append(empty_message);
+                    $('#discussion-table').append(empty_for_table);
                     // Don't print it again.
                     empty = false;
                 }
