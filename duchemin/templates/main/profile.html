@@ -238,13 +238,13 @@
                           {% for piece in discussed_pieces %}
                             <tr>
                               <td>
-                                <a href="/piece/{{ piece.piece_id }}">{{ piece.piece_id }}</a>
+                                <a href="/piece/{{ piece.piece_id }}/">{{ piece.piece_id }}</a>
                               </td>
                               <td>
                                 {{ piece.title }}
                               </td>
                               <td>
-                                <a href="/{{ piece.piece_id }}/discussion">View Discussion</a>
+                                <a href="/piece/{{ piece.piece_id }}/discussion/">View Discussion</a>
                               </td>
                             </tr>
                           {% empty %}
@@ -279,7 +279,7 @@
                           {% for comment in my_comments %}
                             <tr>
                               <td>
-                                <a href="/piece/{{ analysis.composition_number.piece_id }}">{{ comment.piece.piece_id }}</a>
+                                <a href="/piece/{{ analysis.composition_number.piece_id }}/">{{ comment.piece.piece_id }}</a>
                               </td>
                               <td>
                                 <a href="/piece/{{ comment.piece.piece_id }}/discussion/">{{ comment.text }}</a>
