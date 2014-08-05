@@ -16,7 +16,7 @@ function startCommentFeed(piece, days_to_show){
     // If there are no comments, we will display a message.
     var empty = true;
     var empty_message = "<p id='empty-block'>No recent comments.</p>";
-    var empty_for_table = '<tr><td colspan="2">No comments.</td></tr>';
+    var empty_for_table = '<tr id="empty-block-table"><td colspan="2">No comments.</td></tr>';
     
     // Check to see if the helper function was called with a piece_id or not
     if (piece != null){
