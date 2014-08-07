@@ -48,9 +48,9 @@
     <div class="navbar-inner">
       <div class="container-fluid">
         {% if user.is_authenticated %}
-          <p class="navbar-text pull-right"><a href="/profile"><i class="icon-user"></i> My Account</a> | <a href="/logout">Logout</a></p>
+          <p class="navbar-text pull-right"><i class="icon-user"></i> <a href="/profile">My Account</a> | <a href="/logout">Logout</a></p>
         {% else %}
-          <p class="navbar-text pull-right"><a href="/profile"><i class="icon-user"></i> Login</a></p>
+          <p class="navbar-text pull-right"><i class="icon-user"></i> <a href="mailto:{{ADMIN_EMAIL}}?subject=Account request">Request account</a> | <a href="/profile">Login</a></p>
         {% endif %}
       </div>
     </div>
