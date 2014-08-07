@@ -20,7 +20,7 @@
           </hgroup>
           <div class="row-fluid">
             <div class="span12">
-              <table class="table table-striped table-bordered table-hover pull-up" style="margin-top:10px;">
+              <table class="table table-bordered table-striped table-hover pull-up" style="margin-top:10px;">
                 <thead>
                   <tr>
                     <th colspan="2">Discussion</th>
@@ -30,7 +30,7 @@
                   <!-- Comments from JavaScript go here. -->
                 </tbody>
                 {% if is_logged_in %}
-                  <tbody>
+                  <thead>
                     <tr>
                       <td>
                        <a href="/profile">{{ user.first_name }} {{ user.last_name }}</a>
@@ -44,7 +44,7 @@
                         </form>
                       </td>
                     </tr>
-                  </tbody>
+                  </thead>
                 {% endif %}
               </table>
             </div>
@@ -67,7 +67,7 @@
             <h3><a href="/piece/{{ piece.piece_id }}/">Return to Piece View</a></h3>
             
             {% if is_logged_in %}
-              <p>Note that all comments are permanent. If you need a comment to be removed, please <a href="mailto:{{ADMIN_EMAIL}}?subject=Please remove comment on Piece {{ piece.piece_id }}">contact the administrator</a>.</p>
+              <p>Note that all comments are permanent. If you need a comment to be removed, you can <a href="mailto:{{ADMIN_EMAIL}}?subject=Remove comment on Piece {{ piece.piece_id }}">contact the administrator</a>.</p>
             {% endif %}
           </div>
         </div><!--/span-->
