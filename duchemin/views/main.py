@@ -88,7 +88,7 @@ def piece(request, pk):
     # note: this is not the *actual* pk, it's the piece_id. This field name just makes REST Framework happy.
     # Redirect to url with uppercase piece ID
     if pk != pk.upper():
-        return HttpResponseRedirect('/piece/%s/' % pk.upper())
+        return HttpResponseRedirect("/piece/{0}/".format(pk.upper()))
     try:
         piece = DCPiece.objects.get(piece_id=pk)
     except DCPiece.DoesNotExist:
@@ -126,7 +126,7 @@ def piece(request, pk):
 def discussion(request, piece_id):
     # Redirect to url with uppercase piece ID
     if piece_id != piece_id.upper():
-        return HttpResponseRedirect('/piece/%s/discussion/' % piece_id.upper())
+        return HttpResponseRedirect("/piece/{0}/discussion/".format(piece_id.upper()))
     try:
         piece = DCPiece.objects.get(piece_id=piece_id)
     except DCPiece.DoesNotExist:
@@ -233,7 +233,7 @@ def login(request):
 def add_observation(request, piece_id):
     # Redirect to url with uppercase piece ID
     if piece_id != piece_id.upper():
-        return HttpResponseRedirect('/piece/%s/add-observation/' % piece_id.upper())
+        return HttpResponseRedirect("/piece/{0}/add-observation/".format(piece_id.upper()))
     # return render(request, 'main/add_analysis.html', {})
     try:
         piece = DCPiece.objects.get(piece_id=piece_id)
