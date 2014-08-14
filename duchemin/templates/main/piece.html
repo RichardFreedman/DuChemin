@@ -184,7 +184,7 @@
     })
   </script>
 
-<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/themes/base/jquery-ui.css" rel="stylesheet"></link>
+  <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/themes/base/jquery-ui.css" rel="stylesheet"></link>
 
   <script src="{{ STATIC_URL }}js/vendor/jquery.cookie.js"></script>
   <script src="{{ STATIC_URL }}js/notes.js"></script>
@@ -262,7 +262,7 @@
     $(document).ready( function(){
 
       /* Load an MEI file from an XML document */
-      var loadedXML = meiView.Util.loadXMLDoc('{{ piece.mei_link }}');
+      var loadedXML = meiView.Util.loadXMLDoc('{{ piece.mei_link }}'.replace('.xml', 'E.xml'));
 
       /* Make sure the file will be suitable for rendering */
       var filteredXml = meiView.filterMei(loadedXML, { noSysBreak:true });
