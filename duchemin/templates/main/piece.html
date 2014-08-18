@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% load template_dict %}
 {% load notetext %}
-{% block header %}
 
+{% block title %}
+<title>Lost Voices &mdash; {{ piece.piece_id }}: {{ piece.title }}</title>
 {% endblock %}
-
 
 {% block wrap %}
   <div class="row-fluid">

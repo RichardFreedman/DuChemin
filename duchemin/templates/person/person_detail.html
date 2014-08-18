@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block title %}
+<title>Lost Voices &mdash; {{ content.full_name }}</title>
+{% endblock %}
+
 {% block wrap %}
   <hgroup>
     <h1>{{ content.full_name }}

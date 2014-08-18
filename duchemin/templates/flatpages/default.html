@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block title %}
+<title>Lost Voices &mdash; {{ flatpage.title }}</title>
+{% endblock %}
+
 {% block wrap %}
 <h2>{{ flatpage.title }}</h2>
 {% autoescape off %}
