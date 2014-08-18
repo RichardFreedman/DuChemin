@@ -10,7 +10,7 @@ class DCPiecePhraseSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class DCPhraseSerializer(serializers.HyperlinkedModelSerializer):
-    piece = DCPiecePhraseSerializer()
+    piece_id = DCPiecePhraseSerializer()
 
     class Meta:
         model = DCPhrase
