@@ -77,11 +77,13 @@
             <dl class="well-list piece-info-list">
               <dt>Source:</dt>
               <dd><a href="/book/{{ piece.book_id.book_id }}">{{ piece.book_id.title }}</a></dd>
+              {% if piece.pdf_link or piece.mei_link %}
               <dt>View:</dt>
-              <dd><a href="{{ piece.pdf_link }}" target="_blank">Complete Modern Edition (PDF)</a><br/>
-              <a href="{{ piece.mei_link }}" target="_blank">MEI File</a></dd>
+              <dd>{% if piece.pdf_link %}<a href="{{ piece.pdf_link }}" target="_blank">Complete Modern Edition (PDF)</a>{% endif %}{% if piece.pdf_link and piece.mei_link %}<br/>{% endif %}{% if piece.mei_link %}<a href="{{ piece.mei_link }}" target="_blank">MEI File</a>{% endif %}</dd>{% endif %}
+              {% if piece.audio_link %}
               <dt>Listen:</dt>
               <dd><a href="{{ piece.audio_link }}" target="_blank">Complete Recording (MP3)</a></dd>
+              {% endif %}
             </dl>
           </div>
           <!-- If this column is too narrow, omit id="sidebar" -->
