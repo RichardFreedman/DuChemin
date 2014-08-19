@@ -75,10 +75,7 @@ if __name__ == "__main__":
         else:
             contributor_name = u"{0}".format(analysis.analyst.surname)
 
-        if analysis.cadence == "Yes":
-            cadence = True
-        else:
-            cadence = False
+        cadence = analysis.is_cadence
 
         if analysis.cadence_alter:
             cadence_alter = [x.strip() for x in analysis.cadence_alter.split(",")]
