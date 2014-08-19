@@ -10,7 +10,13 @@ class Command(BaseCommand):
             try:
                 if analysis.repeat_kind == '':
                     analysis.repeat_kind = None
-                    analysis.save()
+                if analysis.text_treatment == '':
+                    analysis.text_treatment = None
+                if analysis.cadence_kind == '':
+                    analysis.cadence_kind = None
+                if analysis.cadence_final_tone == '':
+                    analysis.cadence_final_tone = None
+                analysis.save()
             except:
                 e = str(sys.exc_info())
                 self.stdout.write('%s\n' % e, ending='')
