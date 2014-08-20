@@ -905,6 +905,8 @@
     <field name="title" type="string" indexed="true" stored="true" />
     <field name="composer" type="string" indexed="true" stored="true" />
     <field name="pdf_link" type="string" indexed="true" stored="true" />
+    <field name="mei_link" type="string" indexed="true" stored="true" />
+    <field name="audio_link" type="string" indexed="true" stored="true" />
 
     <!-- analysis fields -->
     <field name="analysis_id" type="int" indexed="true" stored="true" />
