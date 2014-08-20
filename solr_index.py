@@ -35,7 +35,7 @@ if __name__ == "__main__":
     for piece in pieces:
         # fix the composer name
         composer_name = ""
-        if piece.composer_id.given_name != "":
+        if piece.composer_id.given_name:
             composer_name = u"{0}, {1}".format(piece.composer_id.surname, piece.composer_id.given_name)
         else:
             composer_name = u"{0}".format(piece.composer_id.surname)
