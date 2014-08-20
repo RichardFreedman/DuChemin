@@ -1,5 +1,6 @@
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 from duchemin.models import DCPiece
+from optparse import make_option
 
 import sys
 
@@ -7,9 +8,23 @@ import sys
 class Command(BaseCommand):
     help = "Fills in the MEI and audio urls"
 
-    def handle(self, *args, **kwargs):
-        MEI_PATH = 'http://duchemin-dev.haverford.edu/mei/'
-        MP3_PATH = 'http://duchemin-dev.haverford.edu/audio/'
+    option_list = BaseCommand.option_list + (
+        make_option(
+            '--dev',
+            action='store_true',
+            dest='dev',
+            default=False,
+            help='Use dev URL instead of production URL',
+            ),
+    )
+
+    def handle(self, *args, **options):
+        if options.get('dev', False):
+            PATH = 'http://duchemin-dev.haverford.edu/'
+        else:
+            PATH = 'http://digitalduchemin.org/'
+        MEI_PATH = PATH + 'mei/'
+        MP3_PATH = PATH + 'audio/'
         for piece in DCPiece.objects.all():
             try:
                 piece.mei_link = MEI_PATH + piece.piece_id + '.xml'
