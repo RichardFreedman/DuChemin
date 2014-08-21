@@ -1,8 +1,9 @@
 {% load bootstrap_pagination %}
+{% load apostrophe %}
 <ul class="item-list results-list unstyled">
     {% for res in work_results.object_list %}
     <li class="result works-result">
-        <h3><a href="/piece/{{ res.piece_id }}">{{ res.title }}</a></h3>
+        <h3><a href="/piece/{{ res.piece_id }}">{{ res.title|apostrophe }}</a></h3>
         <ul class="item-actions">
             <li><a href=""><i class="icon-file"></i> View Notation</a></li>
             {% if is_logged_in %}
