@@ -85,14 +85,36 @@ def pieces(request):
 
 
 def piece(request, pk):
-    # note: this is not the *actual* pk, it's the piece_id. This field name just makes REST Framework happy.
-    # Redirect to url with uppercase piece ID
-    if pk != pk.upper():
-        return HttpResponseRedirect("/piece/{0}/".format(pk.upper()))
+    def format_pk(string):
+        """Format piece_id with last character, if a letter, lowercase,
+        and all other letters uppercase.
+
+        >>> format_pk('dc0101')
+        'DC0101'
+
+        >>> format_pk('DC1203B')
+        'DC1203b'
+
+        """
+        if len(string) < 2:
+            return string
+        else:
+            return string[:-1].upper() + string[-1:].lower()
+
+    # note: this is not the *actual* pk, it's the piece_id.
+    # This field name just makes REST Framework happy.
+
+    # Redirect to url with uppercase letters
+    # (except for possible last letter, which is lowercase)
     try:
-        piece = DCPiece.objects.get(piece_id=pk)
-    except DCPiece.DoesNotExist:
-        raise Http404
+        if pk != format_pk(pk):
+            return HttpResponseRedirect("/piece/{0}/".format(format_pk(pk)))
+        try:
+            piece = DCPiece.objects.get(piece_id=pk)
+        except DCPiece.DoesNotExist:
+            raise Http404
+    except IndexError:
+        pass
 
     is_favourite = False
     is_logged_in = False
