@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load apostrophe %}
+{% load figuredash %}
 
 {% block title %}
 <title>Lost Voices &mdash; {{ person.full_name }}</title>
@@ -17,18 +18,18 @@
 </h1>
 <h2>
 {% if person.birth_date %}
-    b. {{ person.birth_date }}
+    b. {{ person.birth_date|apostrophe|figuredash }}
 {% else %}
     b. ????
 {% endif %}
 &ndash;
 {% if person.death_date %}
-    d. {{ person.death_date }}
+    d. {{ person.death_date|apostrophe|figuredash }}
 {% else %}
     d. ????
 {% endif %}
 {% if person.active_date %}
-    (c. {{ person.active_date }})
+    (c. {{ person.active_date|apostrophe|figuredash }})
 {% endif %}
 </h2>
 
