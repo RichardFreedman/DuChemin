@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load template_dict %}
+{% load apostrophe %}
 
 {% block title %}
 <title>Lost Voices &mdash; Discussion on {{ piece.piece_id }}</title>
@@ -12,8 +13,8 @@
       <div class="show-heading row-fluid">
         <div class="span8">
           <hgroup class="show-title page-title span12">
-            <h1>{{ piece.title }}</h1>
-            <h2><a href="/person/{{ piece.composer_id.person_id }}">{{ piece.composer_id.full_name }}</a></h2>
+            <h1>{{ piece.title|apostrophe }}</h1>
+            <h2><a href="/person/{{ piece.composer_id.person_id }}">{{ piece.composer_id.full_name|apostrophe }}</a></h2>
             <h3>{{ piece.piece_id }}{% if is_logged_in %}
                 {% include "main/favourites/favourites.html" with is_favourite=is_favourite piece_id=piece.piece_id %}
             {% endif %}</h3>

@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load apostrophe %}
 
 {% block title %}
 <title>Lost Voices &mdash; {{ person.full_name }}</title>
@@ -6,9 +7,9 @@
 
 {% block wrap %}
 {{ content }}
-<h1>{{ person.full_name }}
+<h1>{{ person.full_name|apostrophe }}
 {% if person.alt_spelling %}
-<em>({{ person.alt_spelling }})</em>
+<em>({{ person.alt_spelling|apostrophe }})</em>
 {% endif %}
 {% if analyses %}
     <small>(Analyst)</small>

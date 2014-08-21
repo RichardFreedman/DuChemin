@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load template_dict %}
 {% load notetext %}
+{% load apostrophe %}
 
 {% block title %}
 <title>Lost Voices &mdash; {{ piece.piece_id }}: {{ piece.title }}</title>
@@ -12,8 +13,8 @@
       <div class="show-heading row-fluid">
         <div class="span8">
           <hgroup>
-            <h1>{{ piece.title }}</h1>
-            <h2><a href="/person/{{ piece.composer_id.person_id }}">{{ piece.composer_id.full_name }}</a></h2>
+            <h1>{{ piece.title|apostrophe }}</h1>
+            <h2><a href="/person/{{ piece.composer_id.person_id }}">{{ piece.composer_id.full_name|apostrophe }}</a></h2>
             <h3>
               {{ piece.piece_id }}
               {% if is_logged_in %}
@@ -63,7 +64,7 @@
                       {% endif %}
                     </td>
                     <td class="line-text">
-                      {{ phrase.phrase_text }}
+                      {{ phrase.phrase_text|apostrophe }}
                     </td>
                   </tr>
                 {% endfor %}

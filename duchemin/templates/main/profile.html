@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load notetext %}
 {% load isfavourite %}
+{% load apostrophe %}
 
 {% block title %}
 <title>Lost Voices &mdash; Account Profile</title>
@@ -15,7 +16,7 @@
       <div class="row-fluid">
         <hgroup class="account-title page-title span8">
           <h1>Account Profile</h1>
-          <h2>{% if user.profile.person %}<a href="/person/{{ user.profile.person.id }}">{{ user.profile.person.full_name }}</a>{% else %}{{ user.profile }}{% endif %}</h2>
+          <h2>{% if user.profile.person %}<a href="/person/{{ user.profile.person.id }}">{{ user.profile.person.full_name|apostrophe }}</a>{% else %}{{ user.profile|apostrophe }}{% endif %}</h2>
         </hgroup>
         <form class="mywork-search pull-right" style="margin-bottom:0px;" method="get" action="/search">
           <input type="text" name="q" placeholder="Search My Work" />
@@ -133,10 +134,10 @@
                   <!-- Favourite Pieces -->
                   <div class="accordion-heading">
                     <a class="accordion-toggle" data-toggle="collapse" href="#favpieces-section">
-                      <h2>Favourites<i class="icon-minus"></i></h2>
+                      <h2>Favourites<i class="icon-plus"></i></h2>
                     </a>
                   </div>
-                  <div id="favpieces-section" class="accordion-body in collapse">
+                  <div id="favpieces-section" class="accordion-body collapse">
                     <div class="accordion-inner">
                       <table class="table table-striped table-bordered table-hover">
                         <thead>
@@ -179,10 +180,10 @@
                   <!-- Pieces with Notes -->
                   <div class="accordion-heading">
                     <a class="accordion-toggle" data-toggle="collapse" href="#mynotes-section">
-                      <h2>Pieces with notes<i class="icon-plus"></i></h2>
+                      <h2>Pieces with Notes<i class="icon-minus"></i></h2>
                     </a>
                   </div>
-                  <div id="mynotes-section" class="accordion-body collapse">
+                  <div id="mynotes-section" class="accordion-body in collapse">
                     <div class="accordion-inner">
                       <table class="table table-striped table-bordered table-hover">
                         <thead>
