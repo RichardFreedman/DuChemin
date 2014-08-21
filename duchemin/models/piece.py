@@ -59,8 +59,6 @@ def solr_index(sender, instance, created, **kwargs):
         'title': piece.title,
         'composer': composer_name,
         'pdf_link': piece.pdf_link,
-        'mei_link': piece.mei_link,
-        'audio_link': piece.audio_link,
     }
     solrconn.add(**d)
     solrconn.commit()
