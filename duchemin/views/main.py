@@ -128,11 +128,6 @@ def piece(request, pk):
 
     phrases = DCPhrase.objects.filter(piece_id=pk).order_by('phrase_num')
 
-    # Typographically correct apostrophes in title and phrases
-    piece.title = unicode(piece.title).replace(u"'", u"\u2019")
-    for phrase in phrases:
-        phrase.phrase_text = unicode(phrase.phrase_text).replace(u"'", u"\u2019")
-
     analyses = DCAnalysis.objects.filter(composition_number=pk).order_by('phrase_number__phrase_num', 'start_measure')
     reconstructions = DCReconstruction.objects.filter(piece=pk).order_by('piece')
     comments = DCComment.objects.filter(piece=piece).order_by('created')
@@ -171,9 +166,6 @@ def discussion(request, piece_id):
             is_favourite = True
 
     comments = DCComment.objects.filter(piece=piece).order_by('created')
-
-    # Typographically correct apostrophes in title
-    piece.title = unicode(piece.title).replace(u"'", u"\u2019")
 
     data = {
         'user': request.user,
