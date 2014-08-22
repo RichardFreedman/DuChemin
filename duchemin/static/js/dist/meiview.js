@@ -68,6 +68,14 @@ meiView.SelectedEditors.prototype.toggleReconstructor = function(editor) {
   }
 }
 
+meiView.SelectedEditors.prototype.toggleConcordance = function(editor) {
+  if (this.editors[editor]) {
+    this.editors[editor] = false;
+  } else {
+    this.editors[editor] = true;
+  }
+}
+
 meiView.SelectedEditors.prototype.editorsList = function() {
   var res = [];
   $.each(this.editors, function(i, e) {
@@ -125,6 +133,7 @@ meiView.Viewer.prototype.init = function(options){
   this.scoreHeight = options.height || 1000;
   this.createSourceList(this.MEI.ALTs);
   this.Reconstructors = this.createReconstructorList();
+  this.Concordances = this.createConcordanceList();
   this_viewer = this;
   this.UI = new meiView.UI({
     viewer: this_viewer,
@@ -132,11 +141,17 @@ meiView.Viewer.prototype.init = function(options){
     title: options.title,
   });
   this.selectedReconstructors = new meiView.SelectedEditors();
+  this.selectedConcordances = new meiView.SelectedEditors();
 }
 
 meiView.Viewer.prototype.toggleReconstruction = function(editor) {
   this.selectedReconstructors.toggleReconstructor(editor);
   this.selectReconstructions(this.selectedReconstructors.editors);
+}
+
+meiView.Viewer.prototype.toggleConcordance = function(editor) {
+  this.selectedConcordances.toggleConcordance(editor);
+  this.selectConcordances(this.selectedConcordances.editors);
 }
 
 meiView.Viewer.prototype.createReconstructorList = function() {
@@ -147,6 +162,20 @@ meiView.Viewer.prototype.createReconstructorList = function() {
     var edid = $(this).attr('xml:id');
     if (!edid) throw "Editor ID is undefined";
     if ($(me.MEI.rich_score).find('app[type="reconstruction"]').find('rdg[resp="#' + edid + '"]').length > 0) {
+      result[edid] = this;
+    }
+  });  
+  return result;
+}
+
+meiView.Viewer.prototype.createConcordanceList = function() {
+  var result = {};
+  var editors = $(this.MEI.rich_head).find('fileDesc').find('source');
+  var me = this;
+  $(editors).each(function(i) {
+    var edid = $(this).attr('xml:id');
+    if (!edid) throw "Source ID is undefined";
+    if ($(me.MEI.rich_score).find('app[type="concordance"]').find('rdg[source="#' + edid + '"]').length > 0) {
       result[edid] = this;
     }
   });  
@@ -175,7 +204,7 @@ meiView.Viewer.prototype.createSourceList = function(Apps) {
   for(appID in Apps) {
     var app = Apps[appID];
     var measure_n = $($(app.elem).closest('measure')[0]).attr('n');
-    if (app.tagname === 'choice' || (app.tagname === 'app' && $(app.elem).attr('type') !== 'reconstruction')) {
+    if (app.tagname === 'choice' || (app.tagname === 'app' && $(app.elem).attr('type') !== 'reconstruction' && $(app.elem).attr('type') !== 'concordance')) {
       if (typeof this.Report[measure_n] === 'undefined') {
         this.Report[measure_n] = [];
       }
@@ -190,7 +219,7 @@ meiView.Viewer.prototype.createSourceList = function(Apps) {
     for(varXMLID in app.altitems) {
       var altitem = app.altitems[varXMLID];
       var tagname = altitem.tagname;
-      if (tagname === 'rdg' || tagname === 'corr') {
+      if ((tagname === 'rdg' && $(altitem.elem).attr('type') !== 'concordance') || tagname === 'corr') {
         var source_resp;
         if (tagname === 'rdg') { 
           source_resp = altitem.source;
@@ -378,6 +407,34 @@ meiView.Viewer.prototype.selectReconstructions = function(editors) {
   this.displayCurrentPage();
 }
 
+meiView.Viewer.prototype.selectConcordances = function(editors) {
+  var sectionplaneUpdate = {};
+
+  var apps = $(this.MEI.rich_score).find('app[type="concordance"]');
+  for (editorID in editors) {
+    var i;
+    for (i=0; i<apps.length; i++) {
+      var app = apps[i];
+      var app_xml_id=$(app).attr('xml:id');
+      var rdgs = $(app).find('rdg[source="#'+editorID+'"]');
+      var j;
+      for (j=0; j<rdgs.length; j++) {
+        var rdg_xml_id = $(rdgs[j]).attr('xml:id');
+        if (sectionplaneUpdate[app_xml_id] && editors[editorID]) {
+          sectionplaneUpdate[app_xml_id].push(rdg_xml_id);
+        } else if (!sectionplaneUpdate[app_xml_id] && editors[editorID]) {
+          sectionplaneUpdate[app_xml_id] = [rdg_xml_id];
+        } else if (!sectionplaneUpdate[app_xml_id] && !editors[editorID]){
+          sectionplaneUpdate[app_xml_id] = [];
+        }
+      };
+    };
+  }
+
+  this.MEI.updateSectionView(sectionplaneUpdate);
+  this.displayCurrentPage();
+}
+
 meiView.Viewer.prototype.selectReconstruction = function(editor) {
   var sectionplaneUpdate = {};
   var apps = $(this.MEI.rich_score).find('app[type="reconstruction"]');
@@ -386,6 +443,24 @@ meiView.Viewer.prototype.selectReconstruction = function(editor) {
     var app = apps[i];
     var app_xml_id=$(app).attr('xml:id');
     var rdgs = $(app).find('rdg[resp="#'+editor+'"]');
+    var j;
+    for (j=0; j<rdgs.length; j++) {
+      var rdg_xml_id = $(rdgs[j]).attr('xml:id');
+      sectionplaneUpdate[app_xml_id] = [rdg_xml_id];
+    }
+  }
+  this.MEI.updateSectionView(sectionplaneUpdate);
+  this.displayCurrentPage();
+}
+
+meiView.Viewer.prototype.selectConcordance = function(editor) {
+  var sectionplaneUpdate = {};
+  var apps = $(this.MEI.rich_score).find('app[type="concordance"]');
+  var i;
+  for (i=0; i<apps.length; i++) {
+    var app = apps[i];
+    var app_xml_id=$(app).attr('xml:id');
+    var rdgs = $(app).find('rdg[source="#'+editor+'"]');
     var j;
     for (j=0; j<rdgs.length; j++) {
       var rdg_xml_id = $(rdgs[j]).attr('xml:id');
@@ -696,6 +771,24 @@ meiView.UI.prototype.fillSideBar = function(sidebardiv, sidebar_class) {
       + '</li>');
   }
 
+  var concordanses = this.viewer.Concordances;
+  for (editorID in this.viewer.Concordances) {
+    var listElem = sidebardiv.find('ul[id="concordance-list"]');
+    if (listElem.length === 0) {
+      sidebardiv.append('<h3 class="' + sidebar_class 
+        + '">Concordances</h3><div class="' + sidebar_class 
+        + '"><ul id="concordance-list"></ul></div>');
+      listElem = sidebardiv.find('ul[id="concordance-list"]');
+    }
+    var editor = this.viewer.Concordances[editorID];
+    listElem.append('<li class="meiview-sidebar-item"\
+      onclick="meiView.UI.callback(\'' 
+      + this.viewer.id + '-ui\', \'onConcordanceClick\', { editorID: \'' 
+      + editorID + '\'})">' 
+      + editorID 
+      + '</li>');
+  }
+
   var emendations = this.viewer.Emendations;
   var choices = $(this.viewer.MEI.rich_score).find('choice');
   if (choices.length > 0) {
@@ -764,6 +857,10 @@ meiView.UI.callback = function(id, fname, params) {
 
 meiView.UI.prototype.onReconstructionClick = function(params) {
   this.viewer.toggleReconstruction(params.editorID);
+}
+
+meiView.UI.prototype.onConcordanceClick = function(params) {
+  this.viewer.toggleConcordance(params.editorID);
 }
 
 meiView.UI.objects = {};
@@ -1521,6 +1618,9 @@ meiView.filterMei = function(meiXml, options) {
     $(music).find('sb').remove();
   }
 
+  //4. Remove currently unsupported <meterSig> elements.
+  $(music).find('meterSig').remove();
+
   //4. Substitue longas with breves
   meiView.substituteLonga(music);
 
@@ -1586,6 +1686,7 @@ meiView.Inherit(meiView.CompactViewer, meiView.Viewer, {
     this.scoreHeight = options.height || 1000;
     this.createSourceList(this.MEI.ALTs);
     this.Reconstructors = this.createReconstructorList();
+    this.Concordances = this.createConcordanceList();
     this_viewer = this;
     this.UI = new meiView.CompactUI({
       viewer: this_viewer,
@@ -1594,6 +1695,7 @@ meiView.Inherit(meiView.CompactViewer, meiView.Viewer, {
       scale: options.scale,
     });
     this.selectedReconstructors = new meiView.SelectedEditors();
+    this.selectedConcordances = new meiView.SelectedEditors();
 
     if (this.mode == meiView.Mode.FULL) {
       // this.UI.showCritRep();
@@ -2006,14 +2108,14 @@ meiView.Inherit(meiView.CompactUI, meiView.UI, {
       var main_canvas_div_height = $(maindiv).find('.main-canvas-div').height();
       canvas_container_width = view_main_width * (1 - this.options.sidebar_ratio);
       if ($(maindiv).find('.sidebar').css('display') === 'none') {
-        canvas_container_width = view_main_width;
+        canvas_container_width = view_main_width - 18;
       }
       var canvas_container_height = main_canvas_div_height;
       var clef_canvas_height = main_canvas_div_height;
       var sidebar_width = view_main_width - canvas_container_width;
       var sidebar_height = main_canvas_div_height;
       var clef_canvas_div_width = $(maindiv).find('.clef-canvas-div').width();
-      var main_canvas_div_width = canvas_container_width - clef_canvas_div_width;
+      var main_canvas_div_width = canvas_container_width - clef_canvas_div_width + 18;
       var pagination_heigh = (this.paginationOn()) ? $(maindiv).find('.pagination-div').height() : 0;
       var critrep_heigh = (this.critRepOn()) ? $(maindiv).find('.critrep-div').height() : 0;
       var main_area_height = main_canvas_div_height + 2 * pagination_heigh + critrep_heigh;
