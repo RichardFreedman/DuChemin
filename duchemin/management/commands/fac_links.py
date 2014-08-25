@@ -13,10 +13,13 @@ class Command(BaseCommand):
                  }
         for book in DCBook.objects.all():
             try:
-                book.cesr = ('http://ricercar.cesr.univ-tours.fr/3-programmes/EMN/duchemin/pages/consult.asp?table=A' +
+                if book.book_id and book.book_id >= 1 and book.book_id <= 16:
+                    book.cesr = ('http://ricercar.cesr.univ-tours.fr/3-programmes/EMN/duchemin/pages/consult.asp?table=A' +
                                  codes[book.book_id]
                                  )
-                book.save()
+                    book.save()
+                else:
+                    self.stdout.write(str(book.book_id) + '\n', ending='')
             except:
                 e = str(sys.exc_info())
                 self.stdout.write('%s\n' % e, ending='')
