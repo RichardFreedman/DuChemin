@@ -19,8 +19,34 @@
 * permissions and limitations under the License.
 ***/
 
+
 // the default line thickness is 2, but this renders poorly with meiView's scaling
 if (typeof Vex !== 'undefined') Vex.Flow.STAVE_LINE_THICKNESS = 1;
+
+
+// Constants associated with each variant (supplied part) type
+cons = function(var_type) {
+  if (var_type == 'reconstruction') {
+    return {
+      title: 'editor',
+      attr: 'resp',
+      el: 'rdg',
+      parent: 'app',
+    }
+  }
+  else if (var_type == 'concordance') {
+    return {
+      title: 'source[type="concordance"]',
+      attr: 'source',
+      el: 'rdg',
+      parent: 'app',
+    }
+  }
+  else {
+    throw "Unsupported supplied part type";
+  }
+}
+
 
 meiView = {};
 
@@ -40,45 +66,34 @@ meiView.Util.loadXMLDoc = function(filename) {
   return xmlhttp.responseXML;
 }
 
-meiView.SelectedEditors = function() {
-  this.init();
+meiView.SelectedSuppliedPartList = function(type_name) {
+  this.init(type_name);
 }
 
-meiView.SelectedEditors.prototype.init = function (){
-  this.editors = {};
+meiView.SelectedSuppliedPartList.prototype.init = function (type_name){
+  this.origins = {};
+  this.var_type = type_name;
 }
 
-meiView.SelectedEditors.prototype.addEditor = function(editor) {
-  if (this.editors[editor]) {
-    this.editors[editor] = false;
+meiView.SelectedSuppliedPartList.prototype.addOrigin = function(origin) {
+  if (this.origins[origin]) {
+    this.origins[origin] = true;
   }
 }
 
-meiView.SelectedEditors.prototype.removeEditor = function(editor) {
-  if (!this.editors[editor]) {
-    this.editors[editor] = true;
+meiView.SelectedSuppliedPartList.prototype.removeOrigin = function(origin) {
+  if (!this.origins[origin]) {
+    this.origins[origin] = false;
   }
 }
 
-meiView.SelectedEditors.prototype.toggleReconstructor = function(editor) {
-  if (this.editors[editor]) {
-    this.editors[editor] = false;
-  } else {
-    this.editors[editor] = true;
-  }
+meiView.SelectedSuppliedPartList.prototype.toggleSuppliedPart = function(origin) {
+  this.origins[origin] = !this.origins[origin];
 }
 
-meiView.SelectedEditors.prototype.toggleConcordance = function(editor) {
-  if (this.editors[editor]) {
-    this.editors[editor] = false;
-  } else {
-    this.editors[editor] = true;
-  }
-}
-
-meiView.SelectedEditors.prototype.editorsList = function() {
+meiView.SelectedSuppliedPartList.prototype.originsList = function() {
   var res = [];
-  $.each(this.editors, function(i, e) {
+  $.each(this.origins, function(i, e) {
     if (e) {
       res.push(i);
     }
@@ -132,72 +147,52 @@ meiView.Viewer.prototype.init = function(options){
   this.scoreWidth = options.width || 1200; // 1000
   this.scoreHeight = options.height || 1000;
   this.createSourceList(this.MEI.ALTs);
-  this.Reconstructors = this.createReconstructorList();
-  this.Concordances = this.createConcordanceList();
+  
+  // Create an object of supplied parts. Reconstructions, concordances,
+  // and any other supplied parts can be added to this object.
+  this.SuppliedPartLists = {};
+  this.SuppliedPartLists['reconstruction'] =
+      this.createSuppliedPartList('reconstruction');
+  this.SuppliedPartLists['concordance'] =
+      this.createSuppliedPartList('concordance');
+
   this_viewer = this;
   this.UI = new meiView.UI({
     viewer: this_viewer,
     maindiv: options.maindiv,
     title: options.title,
   });
-  this.selectedReconstructors = new meiView.SelectedEditors();
-  this.selectedConcordances = new meiView.SelectedEditors();
+  // Create dictionary of selected part lists, matching the
+  // part lists which have been created
+  this.selectedSuppliedPartLists = {};
+  for (var key in this.SuppliedPartLists) {
+    this.selectedSuppliedPartLists[key] = new meiView.SelectedSuppliedPartList(key)
+  }
 }
 
-meiView.Viewer.prototype.toggleReconstruction = function(editor) {
-  this.selectedReconstructors.toggleReconstructor(editor);
-  this.selectReconstructions(this.selectedReconstructors.editors);
+meiView.Viewer.prototype.toggleSuppliedPart = function(var_type, origin) {
+  this.selectedSuppliedPartLists[var_type].toggleSuppliedPart(origin);
+  this.selectSuppliedParts(var_type, this.selectedSuppliedPartLists);
 }
 
-meiView.Viewer.prototype.toggleConcordance = function(editor) {
-  this.selectedConcordances.toggleConcordance(editor);
-  this.selectConcordances(this.selectedConcordances.editors);
-}
-
-meiView.Viewer.prototype.createReconstructorList = function() {
+meiView.Viewer.prototype.createSuppliedPartList = function(var_type) {
   var result = {};
-  var editors = $(this.MEI.rich_head).find('fileDesc').find('editor');
+  var origins = $(this.MEI.rich_head).find('fileDesc').find(cons(var_type)['title']);
   var me = this;
-  $(editors).each(function(i) {
-    var edid = $(this).attr('xml:id');
-    if (!edid) throw "Editor ID is undefined";
-    if ($(me.MEI.rich_score).find('app[type="reconstruction"]').find('rdg[resp="#' + edid + '"]').length > 0) {
-      result[edid] = this;
+  $(origins).each(function(i) {
+    var orig_id = $(this).attr('xml:id');
+    if (!orig_id) {
+      throw ("Origin ID is undefined");
     }
-  });  
+    if ($(me.MEI.rich_score).find(cons(var_type)['el'] + '[' + cons(var_type)['attr'] + '="#' + orig_id + '"]').length > 0) {
+      result[orig_id] = this;
+    }
+  });
   return result;
 }
 
-meiView.Viewer.prototype.createConcordanceList = function() {
-  var result = {};
-  var editors = $(this.MEI.rich_head).find('fileDesc').find('source');
-  var me = this;
-  $(editors).each(function(i) {
-    var edid = $(this).attr('xml:id');
-    if (!edid) throw "Source ID is undefined";
-    if ($(me.MEI.rich_score).find('app[type="concordance"]').find('rdg[source="#' + edid + '"]').length > 0) {
-      result[edid] = this;
-    }
-  });  
-  return result;
-}
-
-meiView.Viewer.prototype.createEditorList = function() {
-  var result = {};
-  var editors = $(this.MEI.rich_head).find('fileDesc').find('editor');
-  var me = this;
-  $(editors).each(function() {
-    var edid = $(this).attr('xml:id');
-    if (!edid) throw "Editor ID is undefined";
-    if ($(me.MEI.rich_score).find('sic[resp="#' + edid + '"]').length > 0) {
-      result[edid] = this;
-    }
-  });  
-  return result;
-}
 
 meiView.Viewer.prototype.createSourceList = function(Apps) {
-
   this.Sources = {};
   this.Emendations = {};
   this.Report = {};
@@ -366,8 +361,8 @@ meiView.Viewer.prototype.displayCurrentPage = function() {
     staveSpacing: 70,
     systemSpacing: 90,
     staff: {
-      bottom_text_position : 8,
-      fill_style : "#000000"
+      bottom_text_position: 8,
+      fill_style: "#000000"
     },
     vexWidth:this.scoreWidth, 
     vexHeight:this.scoreHeight
@@ -379,94 +374,32 @@ meiView.Viewer.prototype.displayCurrentPage = function() {
 
 }
 
-meiView.Viewer.prototype.selectReconstructions = function(editors) {
+meiView.Viewer.prototype.selectSuppliedParts = function() {
   var sectionplaneUpdate = {};
-
-  var apps = $(this.MEI.rich_score).find('app[type="reconstruction"]');
-  for (editorID in editors) {
-    var i;
-    for (i=0; i<apps.length; i++) {
-      var app = apps[i];
-      var app_xml_id=$(app).attr('xml:id');
-      var rdgs = $(app).find('rdg[resp="#'+editorID+'"]');
-      var j;
-      for (j=0; j<rdgs.length; j++) {
-        var rdg_xml_id = $(rdgs[j]).attr('xml:id');
-        if (sectionplaneUpdate[app_xml_id] && editors[editorID]) {
-          sectionplaneUpdate[app_xml_id].push(rdg_xml_id);
-        } else if (!sectionplaneUpdate[app_xml_id] && editors[editorID]) {
-          sectionplaneUpdate[app_xml_id] = [rdg_xml_id];
-        } else if (!sectionplaneUpdate[app_xml_id] && !editors[editorID]){
-          sectionplaneUpdate[app_xml_id] = [];
+  for (var var_type in this.selectedSuppliedPartLists) {
+    origins = this.selectedSuppliedPartLists[var_type].origins
+    var all_apps = $(this.MEI.rich_score).find(cons(var_type)['parent']);
+    for (originID in origins) {
+      var i;
+      for (i=0; i<all_apps.length; i++) {
+        var app = all_apps[i];
+        var app_xml_id=$(app).attr('xml:id');
+        var rdgs = $(app).find(cons(var_type)['el'] + '[' + cons(var_type)['attr'] + '="#'+originID+'"]');
+        var j;
+        for (j=0; j<rdgs.length; j++) {
+          var rdg_xml_id = $(rdgs[j]).attr('xml:id');
+          if (sectionplaneUpdate[app_xml_id] && origins[originID]) {
+            sectionplaneUpdate[app_xml_id].push(rdg_xml_id);
+          } else if (!sectionplaneUpdate[app_xml_id] && origins[originID]) {
+            sectionplaneUpdate[app_xml_id] = [rdg_xml_id];
+          } else if (!sectionplaneUpdate[app_xml_id] && !origins[originID]){
+            sectionplaneUpdate[app_xml_id] = [];
+          }
         }
-      };
-    };
-  }
-
-  this.MEI.updateSectionView(sectionplaneUpdate);
-  this.displayCurrentPage();
-}
-
-meiView.Viewer.prototype.selectConcordances = function(editors) {
-  var sectionplaneUpdate = {};
-
-  var apps = $(this.MEI.rich_score).find('app[type="concordance"]');
-  for (editorID in editors) {
-    var i;
-    for (i=0; i<apps.length; i++) {
-      var app = apps[i];
-      var app_xml_id=$(app).attr('xml:id');
-      var rdgs = $(app).find('rdg[source="#'+editorID+'"]');
-      var j;
-      for (j=0; j<rdgs.length; j++) {
-        var rdg_xml_id = $(rdgs[j]).attr('xml:id');
-        if (sectionplaneUpdate[app_xml_id] && editors[editorID]) {
-          sectionplaneUpdate[app_xml_id].push(rdg_xml_id);
-        } else if (!sectionplaneUpdate[app_xml_id] && editors[editorID]) {
-          sectionplaneUpdate[app_xml_id] = [rdg_xml_id];
-        } else if (!sectionplaneUpdate[app_xml_id] && !editors[editorID]){
-          sectionplaneUpdate[app_xml_id] = [];
-        }
-      };
-    };
-  }
-
-  this.MEI.updateSectionView(sectionplaneUpdate);
-  this.displayCurrentPage();
-}
-
-meiView.Viewer.prototype.selectReconstruction = function(editor) {
-  var sectionplaneUpdate = {};
-  var apps = $(this.MEI.rich_score).find('app[type="reconstruction"]');
-  var i;
-  for (i=0; i<apps.length; i++) {
-    var app = apps[i];
-    var app_xml_id=$(app).attr('xml:id');
-    var rdgs = $(app).find('rdg[resp="#'+editor+'"]');
-    var j;
-    for (j=0; j<rdgs.length; j++) {
-      var rdg_xml_id = $(rdgs[j]).attr('xml:id');
-      sectionplaneUpdate[app_xml_id] = [rdg_xml_id];
+      }
     }
   }
-  this.MEI.updateSectionView(sectionplaneUpdate);
-  this.displayCurrentPage();
-}
 
-meiView.Viewer.prototype.selectConcordance = function(editor) {
-  var sectionplaneUpdate = {};
-  var apps = $(this.MEI.rich_score).find('app[type="concordance"]');
-  var i;
-  for (i=0; i<apps.length; i++) {
-    var app = apps[i];
-    var app_xml_id=$(app).attr('xml:id');
-    var rdgs = $(app).find('rdg[source="#'+editor+'"]');
-    var j;
-    for (j=0; j<rdgs.length; j++) {
-      var rdg_xml_id = $(rdgs[j]).attr('xml:id');
-      sectionplaneUpdate[app_xml_id] = [rdg_xml_id];
-    }
-  }
   this.MEI.updateSectionView(sectionplaneUpdate);
   this.displayCurrentPage();
 }
@@ -673,7 +606,7 @@ meiView.UI.prototype.srcID2srcLabel = function(src) {
   }
 }
 
-meiView.UI.prototype.editorID2editorLabel = function(src) {
+meiView.UI.prototype.originID2originLabel = function(src) {
   if (src === 'sic') {
     return 'Sic (mistakes in base text)'
   } else {
@@ -752,41 +685,29 @@ meiView.UI.prototype.onClickSideBarMarkup = function(me, measure_n, altID) {
 }
 
 meiView.UI.prototype.fillSideBar = function(sidebardiv, sidebar_class) {
-
-  var reconstructurs = this.viewer.Reconstructors;
-  for (editorID in this.viewer.Reconstructors) {
-    var listElem = sidebardiv.find('ul[id="reconstructor-list"]');
-    if (listElem.length === 0) {
-      sidebardiv.append('<h3 class="' + sidebar_class 
-        + '">Reconstructions</h3><div class="' + sidebar_class 
-        + '"><ul id="reconstructor-list"></ul></div>');
-      listElem = sidebardiv.find('ul[id="reconstructor-list"]');
-    }
-    var editor = this.viewer.Reconstructors[editorID];
-    listElem.append('<li class="meiview-sidebar-item"\
-      onclick="meiView.UI.callback(\'' 
-      + this.viewer.id + '-ui\', \'onReconstructionClick\', { editorID: \'' 
-      + editorID + '\'})">' 
-      + editorID 
-      + '</li>');
+  // Create a capitalized, plural form of a var name
+  // e.g. 'reconstruction' -> 'Reconstructions'
+  cap_plural = function(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1) + 's';
   }
-
-  var concordanses = this.viewer.Concordances;
-  for (editorID in this.viewer.Concordances) {
-    var listElem = sidebardiv.find('ul[id="concordance-list"]');
-    if (listElem.length === 0) {
-      sidebardiv.append('<h3 class="' + sidebar_class 
-        + '">Concordances</h3><div class="' + sidebar_class 
-        + '"><ul id="concordance-list"></ul></div>');
-      listElem = sidebardiv.find('ul[id="concordance-list"]');
+  // Supplied part lists: reconstructions and concordances
+  for (var var_type in this.viewer.SuppliedPartLists) {
+    for (originID in this.viewer.SuppliedPartLists[var_type]) {
+      var listElem = sidebardiv.find('ul[id="' + var_type + '"]');
+      if (listElem.length === 0) {
+        sidebardiv.append('<h3 class="' + sidebar_class + 
+            '">' + cap_plural(var_type) + '</h3><div class="' + sidebar_class +
+            '"><ul id="' + var_type + '"></ul></div>');
+        listElem = sidebardiv.find('ul[id="' + var_type + '"]');
+      }
+      var origin = var_type[originID];
+      listElem.append('<li class="meiview-sidebar-item"\
+          onclick="meiView.UI.callback(\'' + 
+          this.viewer.id + '-ui\', \'onSuppliedPartClick\', { ' +
+          'originID: \'' + originID + '\',' +
+          'var_type: \'' + var_type + '\',' +
+          '})">' + originID + '</li>');
     }
-    var editor = this.viewer.Concordances[editorID];
-    listElem.append('<li class="meiview-sidebar-item"\
-      onclick="meiView.UI.callback(\'' 
-      + this.viewer.id + '-ui\', \'onConcordanceClick\', { editorID: \'' 
-      + editorID + '\'})">' 
-      + editorID 
-      + '</li>');
   }
 
   var emendations = this.viewer.Emendations;
@@ -855,12 +776,8 @@ meiView.UI.callback = function(id, fname, params) {
   meiView.UI.objects[id][fname](params);
 }
 
-meiView.UI.prototype.onReconstructionClick = function(params) {
-  this.viewer.toggleReconstruction(params.editorID);
-}
-
-meiView.UI.prototype.onConcordanceClick = function(params) {
-  this.viewer.toggleConcordance(params.editorID);
+meiView.UI.prototype.onSuppliedPartClick = function(params) {
+  this.viewer.toggleSuppliedPart(params.var_type, params.originID);
 }
 
 meiView.UI.objects = {};
@@ -1259,12 +1176,30 @@ meiView.UI.prototype.ShowSelectorPanel = function(dotInfo) {
     var altitem = altitems[xmlID];
     var tagname = altitem.tagname;
     var source = altitem.source;
+    var resp = altitem.resp;
     var replacements = {};
     replacements[appID] = xmlID;
     variantSlice.updateSectionView(replacements);
-    var text = 'Lemma';
-    if (source) {
+    var text = '';
+    if (tagname == 'lem') {
+      text = 'Lemma';
+    }
+    else if (tagname == 'sic') {
+      text = 'Original';
+    }
+    else if (tagname == 'corr') {
+      if (resp) {
+        text = 'Corrected (' + resp.replace(/#/g, '').replace(/ /g, ', ') + ')';
+      }
+      else {
+        text = 'Corrected'
+      }
+    }
+    else if (source) {
       text = source.replace(/#/g, '').replace(/ /g, ', ');
+    }
+    else if (resp) {
+      text = resp.replace(/#/g, '').replace(/ /g, ', ');
     }
     var selected = (this.viewer.MEI.sectionplane[appID] === altitem);
     this.dlg.addItem(text+':', variantSlice.sectionview_score, selected, xmlID);
@@ -1618,9 +1553,6 @@ meiView.filterMei = function(meiXml, options) {
     $(music).find('sb').remove();
   }
 
-  //4. Remove currently unsupported <meterSig> elements.
-  $(music).find('meterSig').remove();
-
   //4. Substitue longas with breves
   meiView.substituteLonga(music);
 
@@ -1685,8 +1617,15 @@ meiView.Inherit(meiView.CompactViewer, meiView.Viewer, {
     }
     this.scoreHeight = options.height || 1000;
     this.createSourceList(this.MEI.ALTs);
-    this.Reconstructors = this.createReconstructorList();
-    this.Concordances = this.createConcordanceList();
+
+    // Create an object of supplied parts. Reconstructions, concordances,
+    // and any other supplied parts can be added to this object.
+    this.SuppliedPartLists = {}
+    this.SuppliedPartLists['reconstruction'] =
+        this.createSuppliedPartList('reconstruction');
+    this.SuppliedPartLists['concordance'] =
+        this.createSuppliedPartList('concordance');
+
     this_viewer = this;
     this.UI = new meiView.CompactUI({
       viewer: this_viewer,
@@ -1694,8 +1633,12 @@ meiView.Inherit(meiView.CompactViewer, meiView.Viewer, {
       title: options.title,
       scale: options.scale,
     });
-    this.selectedReconstructors = new meiView.SelectedEditors();
-    this.selectedConcordances = new meiView.SelectedEditors();
+    // Create dictionary of selected part lists, matching the
+    // part lists which have been created
+    this.selectedSuppliedPartLists = {};
+    for (var key in this.SuppliedPartLists) {
+      this.selectedSuppliedPartLists[key] = new meiView.SelectedSuppliedPartList(key)
+    }
 
     if (this.mode == meiView.Mode.FULL) {
       // this.UI.showCritRep();
@@ -1856,7 +1799,6 @@ meiView.Inherit(meiView.CompactViewer, meiView.Viewer, {
     this.UI.dlg && this.UI.dlg.hide();
   },
 });
-
 ;meiView.CompactUI = function(options) {
   this.init(options);
 }
@@ -2306,24 +2248,26 @@ meiView.Inherit(meiView.CompactUI, meiView.UI, {
         var sourceresp = (alt.tagname == 'app') ? 'in ' : 'by ';
         for (altid in alt.altitems) {
           var listitem = '';
-          if (alt.altitems[altid].tagname == 'rdg') {
-             listitem = alt.altitems[altid].source;
+          if (alt.altitems[altid].tagname == 'rdg' && $(alt.altitems[altid].elem).attr('type') == 'variant') {
+            listitem = alt.altitems[altid].source;
           } else if (alt.altitems[altid].tagname == 'corr') {
             listitem = alt.altitems[altid].resp;
           }
           if (listitem) {
             sourceresp += comma + listitem.replace(/#/g, '').replace(/ /g, ', ');
-            if (comma == '') comma = ', ';
+            if (comma == '') {
+              comma = ', ';
+            }
+            $(me.maindiv).find('.critrep-div ul').append('<li>' + alt.xmlID + '</li>');
+            $(tbody).append('<tr class="meiview-sidebar-item meiview-critrep-item"' 
+              + me.onClickSideBarMarkup(me, measure_n, alt.xmlID) + '>'
+              + '<td class="critrep-field critrep-measureno">' + 'M' + measure_n.toString() + '</td>'
+              + '<td class="critrep-field critrep-voice">' + this.shortVoiceLabel(alt.elem) + '</td>'
+              + '<td class="critrep-field critrep-type">' + ((alt.tagname == 'app') ? 'Variant' : 'Emendation') + '</td>'
+              + '<td class="critrep-field critrep-sources">' + sourceresp +'</td>'
+            + '</tr>');
           }
         }
-        $(me.maindiv).find('.critrep-div ul').append('<li>' + alt.xmlID + '</li>');
-        $(tbody).append('<tr class="meiview-sidebar-item meiview-critrep-item"' 
-          + me.onClickSideBarMarkup(me, measure_n, alt.xmlID) + '>'
-          + '<td class="critrep-field critrep-measureno">' + 'M' + measure_n.toString() + '</td>'
-          + '<td class="critrep-field critrep-voice">' + this.shortVoiceLabel(alt.elem) + '</td>'
-          + '<td class="critrep-field critrep-type">' + ((alt.tagname == 'app') ? 'Variant' : 'Emendation') + '</td>'
-          + '<td class="critrep-field critrep-sources">' + sourceresp +'</td>'
-        + '</tr>');
       }
     }
     if ($(tbody).find('.meiview-critrep-item').length == 0) {
