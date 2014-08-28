@@ -23,32 +23,30 @@
 // the default line thickness is 2, but this renders poorly with meiView's scaling
 if (typeof Vex !== 'undefined') Vex.Flow.STAVE_LINE_THICKNESS = 1;
 
-
-// Constants associated with each variant (supplied part) type
-cons = function(var_type) {
-  if (var_type == 'reconstruction') {
-    return {
-      title: 'editor',
-      attr: 'resp',
-      el: 'rdg',
-      parent: 'app',
-    }
-  }
-  else if (var_type == 'concordance') {
-    return {
-      title: 'source[type="concordance"]',
-      attr: 'source',
-      el: 'rdg',
-      parent: 'app',
-    }
-  }
-  else {
-    throw "Unsupported supplied part type";
-  }
-}
-
-
 meiView = {};
+
+// Define the list of supplied staff types we will be using.
+// (Perhaps this could be automated in the future.)
+meiView.VarTypeList = {
+  'reconstruction':
+      { 'title': 'editor',
+        'attr': 'resp', 
+        'el': 'rdg',
+        'parent': 'app',
+      },
+  'concordance':
+      { 'title': 'source[type="concordance"]',
+        'attr': 'source', 
+        'el': 'rdg',
+        'parent': 'app',
+      },
+  'blank':
+      { 'title': null,
+        'attr': null,
+        'el': 'rdg',
+        'parent': 'app',
+      },
+}
 
 meiView.Util = {};
 
@@ -73,18 +71,6 @@ meiView.SelectedSuppliedPartList = function(type_name) {
 meiView.SelectedSuppliedPartList.prototype.init = function (type_name){
   this.origins = {};
   this.var_type = type_name;
-}
-
-meiView.SelectedSuppliedPartList.prototype.addOrigin = function(origin) {
-  if (this.origins[origin]) {
-    this.origins[origin] = true;
-  }
-}
-
-meiView.SelectedSuppliedPartList.prototype.removeOrigin = function(origin) {
-  if (!this.origins[origin]) {
-    this.origins[origin] = false;
-  }
 }
 
 meiView.SelectedSuppliedPartList.prototype.toggleSuppliedPart = function(origin) {
@@ -151,10 +137,16 @@ meiView.Viewer.prototype.init = function(options){
   // Create an object of supplied parts. Reconstructions, concordances,
   // and any other supplied parts can be added to this object.
   this.SuppliedPartLists = {};
-  this.SuppliedPartLists['reconstruction'] =
-      this.createSuppliedPartList('reconstruction');
-  this.SuppliedPartLists['concordance'] =
-      this.createSuppliedPartList('concordance');
+  for (var var_type in meiView.VarTypeList) {
+    this.SuppliedPartLists[var_type] = this.createSuppliedPartList(var_type);
+  }
+
+  // Create dictionary of selected part lists, matching the
+  // part lists which have been created
+  this.selectedSuppliedPartLists = {};
+  for (var var_type in meiView.VarTypeList) {
+    this.selectedSuppliedPartLists[var_type] = new meiView.SelectedSuppliedPartList(var_type);
+  }
 
   this_viewer = this;
   this.UI = new meiView.UI({
@@ -162,12 +154,6 @@ meiView.Viewer.prototype.init = function(options){
     maindiv: options.maindiv,
     title: options.title,
   });
-  // Create dictionary of selected part lists, matching the
-  // part lists which have been created
-  this.selectedSuppliedPartLists = {};
-  for (var key in this.SuppliedPartLists) {
-    this.selectedSuppliedPartLists[key] = new meiView.SelectedSuppliedPartList(key)
-  }
 }
 
 meiView.Viewer.prototype.toggleSuppliedPart = function(var_type, origin) {
@@ -176,21 +162,31 @@ meiView.Viewer.prototype.toggleSuppliedPart = function(var_type, origin) {
 }
 
 meiView.Viewer.prototype.createSuppliedPartList = function(var_type) {
+  var title = (meiView.VarTypeList[var_type])['title'];
+  var attr = (meiView.VarTypeList[var_type])['attr'];
+  var el = (meiView.VarTypeList[var_type])['el'];
   var result = {};
-  var origins = $(this.MEI.rich_head).find('fileDesc').find(cons(var_type)['title']);
   var me = this;
-  $(origins).each(function(i) {
-    var orig_id = $(this).attr('xml:id');
-    if (!orig_id) {
-      throw ("Origin ID is undefined");
+
+  if (attr) {
+    var origins = $(this.MEI.rich_head).find('fileDesc').find(title);
+    $(origins).each(function(i) {
+      var orig_id = $(this).attr('xml:id');
+      if (!orig_id) {
+        throw ("Origin ID is undefined");
+      }
+      if ($(me.MEI.rich_score).find(el + '[' + attr + '="#' + orig_id + '"]').length > 0) {
+        result[orig_id] = this;
+      }
+    });
+  }
+  else {
+    if ($(me.MEI.rich_score).find(el + '[type="' + var_type + '"]').length > 0) {
+      result[var_type] = var_type;
     }
-    if ($(me.MEI.rich_score).find(cons(var_type)['el'] + '[' + cons(var_type)['attr'] + '="#' + orig_id + '"]').length > 0) {
-      result[orig_id] = this;
-    }
-  });
+  }
   return result;
 }
-
 
 meiView.Viewer.prototype.createSourceList = function(Apps) {
   this.Sources = {};
@@ -377,14 +373,23 @@ meiView.Viewer.prototype.displayCurrentPage = function() {
 meiView.Viewer.prototype.selectSuppliedParts = function() {
   var sectionplaneUpdate = {};
   for (var var_type in this.selectedSuppliedPartLists) {
-    origins = this.selectedSuppliedPartLists[var_type].origins
-    var all_apps = $(this.MEI.rich_score).find(cons(var_type)['parent']);
+    var attr = (meiView.VarTypeList[var_type])['attr'];
+    var el = (meiView.VarTypeList[var_type])['el'];
+    var parent = (meiView.VarTypeList[var_type])['parent'];
+
+    var origins = this.selectedSuppliedPartLists[var_type].origins
+    var all_apps = $(this.MEI.rich_score).find(parent);
     for (originID in origins) {
       var i;
       for (i=0; i<all_apps.length; i++) {
         var app = all_apps[i];
         var app_xml_id=$(app).attr('xml:id');
-        var rdgs = $(app).find(cons(var_type)['el'] + '[' + cons(var_type)['attr'] + '="#'+originID+'"]');
+        if (attr) {
+          var rdgs = $(app).find(el + '[' + attr + '="#'+originID+'"]');
+        }
+        else {
+          var rdgs = $(app).find(el + '[type' + '="'+originID+'"]');
+        }
         var j;
         for (j=0; j<rdgs.length; j++) {
           var rdg_xml_id = $(rdgs[j]).attr('xml:id');
@@ -700,13 +705,15 @@ meiView.UI.prototype.fillSideBar = function(sidebardiv, sidebar_class) {
             '"><ul id="' + var_type + '"></ul></div>');
         listElem = sidebardiv.find('ul[id="' + var_type + '"]');
       }
-      var origin = var_type[originID];
       listElem.append('<li class="meiview-sidebar-item"\
           onclick="meiView.UI.callback(\'' + 
           this.viewer.id + '-ui\', \'onSuppliedPartClick\', { ' +
           'originID: \'' + originID + '\',' +
-          'var_type: \'' + var_type + '\',' +
-          '})">' + originID + '</li>');
+          'var_type: \'' + var_type + '\',' + '})">' + 
+          // Just a hack to make a better message than 'blank'
+          // for showing blank staves
+          (originID == 'blank' ? 'Show missing staves' : originID) +
+          '</li>');
     }
   }
 
@@ -725,25 +732,24 @@ meiView.UI.prototype.fillSideBar = function(sidebardiv, sidebar_class) {
       var measure_n = $($(choice).closest('measure')[0]).attr('n');
       var choiceID = $(choice).attr('xml:id');
       var liID = this.toCSSId(choiceID);
+
+      // resplist <- list of editors who have entered corrections
+      var resplist = '';
+      var corrs = $(choice).find('corr');
+      var altlabel_open = '(corr. by ';
+      var altlabel_close = ')';
+      var j = 0;
+      for (var j; j<corrs.length; j++) {
+        var corr = corrs[j];
+        resplist += ( j > 0 ? ', ' : '') + $(corr).attr('resp').replace(/^#/, '');
+      }
+
       emendListElem.append('<li id="' + liID + '" class="meiview-sidebar-item" '
         + this.onClickSideBarMarkup(this, measure_n, choiceID) + '>'
-        + this.appID2appLabel(choiceID)
+        + this.appID2appLabel(choiceID) + altlabel_open + resplist + altlabel_close
         + '</li>'
       );
       var liItem = $(emendListElem).find('li#' + liID);
-      liItem.append('<ul></ul>');
-      var ul = liItem.find('ul');
-      var altitems = $(choice).find('sic, corr');
-      var j = 0;
-      for (var j; j<altitems.length; j++) {
-        var altitem = altitems[j];
-        var xmlID = $(altitem).attr('xml:id');
-        ul.append('<li id="' + this.liID(xmlID, liID)
-          + '" class="meiview-sidebar-item">'
-          + this.choiceItem2choiceItemLabel(altitem)
-          + '</li>'
-        );
-      }
     }
   }
 
@@ -1536,25 +1542,71 @@ meiView.filterMei = function(meiXml, options) {
       propagateAttrValue('key.sig.show', this, scoreDef);
     });
   }
+
+  var eliminateAccidElements = function(music) {
+
+    var eliminateAccid = function(accid) {
+
+      var place_val = $(accid).attr('place');
+      var func_val = $(accid).attr('func');
+
+      if ( place_val == 'above' && func_val == 'edit' ) {
+
+        var parent_note_id = $(accid).parent('supplied').parent('note').attr('xml:id');
+        if (!parent_note_id) {
+          console.log('parent note xml:id is needed in order to attach ficta. Ficta will be ignored.');
+        } else {
+          var dir = meiXml.createElementNS('http://www.music-encoding.org/ns/mei', 'dir');
+          $(dir).attr('startid', parent_note_id);
+          var accid_val = $(accid).attr('accid');
+          if (accid_val == 's') {
+            $(dir).append('♯');
+          } else if (accid_val == 'n') {
+            $(dir).append('♮');
+          } else if (accid_val == 'f') {
+            $(dir).append('♭');
+          }
+          $(accid).closest('staff').get(0).parentNode.appendChild(dir);
+        }
+
+      } else {
+        $(accid).parent('note').attr('accid', $(accid).attr('accid'));
+      }
+
+      accid.parentNode.removeChild(accid);
+    }
+
+    var accids = $(music).find('accid');
+    $(accids).each(function() {
+      eliminateAccid(this);
+    });
+
+  }
   
   var music = meiXml.getElementsByTagNameNS("http://www.music-encoding.org/ns/mei", 'music')[0];
 
-  //1. Remove page break elements (<pb>)
+  // Remove page break elements (<pb>)
   $(music).find('pb').remove();
 
-  //2. Propagate meter and key signatures from score def to staff def
+  // Propagate meter and key signatures from score def to staff def
   var scoreDefs = $(music).find('scoreDef');
   $(scoreDefs).each(function() {
     propagateScoreDefAttrs(this);
   });
 
-  //3. Remove system breaks if not needed.
+  // Remove system breaks if not needed.
   if (options.noSysBreak) {
     $(music).find('sb').remove();
   }
+  
+  // Remove elements that may cause the renderer to choke
+  $(music).find('meterSig').remove();
+  $(music).find('annot[type="bracket"]').remove();
 
-  //4. Substitue longas with breves
+  // Substitute longas with breves
   meiView.substituteLonga(music);
+
+  eliminateAccidElements(music);
 
   return meiXml;
 }
@@ -1617,14 +1669,19 @@ meiView.Inherit(meiView.CompactViewer, meiView.Viewer, {
     }
     this.scoreHeight = options.height || 1000;
     this.createSourceList(this.MEI.ALTs);
-
+    
     // Create an object of supplied parts. Reconstructions, concordances,
     // and any other supplied parts can be added to this object.
     this.SuppliedPartLists = {}
-    this.SuppliedPartLists['reconstruction'] =
-        this.createSuppliedPartList('reconstruction');
-    this.SuppliedPartLists['concordance'] =
-        this.createSuppliedPartList('concordance');
+    for (var var_type in meiView.VarTypeList)
+      this.SuppliedPartLists[var_type] = this.createSuppliedPartList(var_type);
+
+    // Create dictionary of selected part lists, matching the
+    // part lists which have been created
+    this.selectedSuppliedPartLists = {};
+    for (var var_type in meiView.VarTypeList) {
+      this.selectedSuppliedPartLists[var_type] = new meiView.SelectedSuppliedPartList(var_type);
+    }
 
     this_viewer = this;
     this.UI = new meiView.CompactUI({
@@ -1633,12 +1690,6 @@ meiView.Inherit(meiView.CompactViewer, meiView.Viewer, {
       title: options.title,
       scale: options.scale,
     });
-    // Create dictionary of selected part lists, matching the
-    // part lists which have been created
-    this.selectedSuppliedPartLists = {};
-    for (var key in this.SuppliedPartLists) {
-      this.selectedSuppliedPartLists[key] = new meiView.SelectedSuppliedPartList(key)
-    }
 
     if (this.mode == meiView.Mode.FULL) {
       // this.UI.showCritRep();
