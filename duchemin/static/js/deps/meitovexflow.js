@@ -1332,16 +1332,26 @@ var MEI2VF = ( function(m2v, MeiLib, VF, $, undefined) {
           spacing: 1.3,
         },
         /**
-         * @cfg {Object} annotFont the font used for annotations (for example,
-         * 'pizz.')
+         * @cfg {Object} annotFont the font used for annotations and directions
+         * (for example, 'pizz.')
          * @cfg {String} annotFont.family the font family
          * @cfg {Number} annotFont.size the font size
-         * @cfg {String} annotFont.weight the font weight
          */
         annotFont : {
           family : 'Times',
           size : 15,
-          weight : 'Italic'
+        },
+        /**
+         * @cfg {Object} exprFont the font used for expression marks (for example,
+         * 'staccato')
+         * @cfg {String} exprFont.family the font family
+         * @cfg {Number} exprFont.size the font size
+         * @cfg {String} exprFont.weight the font weight
+         */
+        annotFont : {
+          family : 'Times',
+          size : 15,
+          weight : 'italic',
         },
         /**
          * @cfg {Object} dynamFont the font used for dynamics
@@ -1352,7 +1362,7 @@ var MEI2VF = ( function(m2v, MeiLib, VF, $, undefined) {
         dynamFont : {
           family : 'Times',
           size : 18,
-          weight : 'bold italic'
+          weight : 'bold italic',
         },
         /**
          * @cfg {Object} tempoFont The tempo font
@@ -1363,7 +1373,7 @@ var MEI2VF = ( function(m2v, MeiLib, VF, $, undefined) {
         tempoFont : {
           family : "Times",
           size : 17,
-          weight : "bold"
+          weight : "bold",
         },
         /**
          * @cfg {Object} staff The staff config object passed to each
@@ -4477,28 +4487,7 @@ var MEI2VF = ( function(m2v, MeiLib, VF, $, undefined) {
 
       getKeySpec : function() {
         var me = this, keyname, key_accid, key_mode;
-        var keys = {
-          '0': 'C',
-          '1f': 'F',
-          '2f': 'Bb',
-          '3f': 'Eb',
-          '4f': 'Ab',
-          '5f': 'Db',
-          '6f': 'Gb',
-          '7f': 'Cb',
-          '1s': 'G',
-          '2s': 'D',
-          '3s': 'A',
-          '4s': 'E',
-          '5s': 'B',
-          '6s': 'F#',
-          '7s': 'C#',
-        }
-        if (me.staffDefObj['key.sig'] !== undefined) {
-          keysig = me.staffDefObj['key.sig'].toLowerCase();
-          return keys[keysig];
-        }
-        else if (me.staffDefObj['key.pname'] !== undefined) {
+        if (me.staffDefObj['key.pname'] !== undefined) {
           keyname = me.staffDefObj['key.pname'].toUpperCase();
           key_accid = me.staffDefObj['key.accid'];
           if (key_accid !== undefined) {
@@ -4518,7 +4507,6 @@ var MEI2VF = ( function(m2v, MeiLib, VF, $, undefined) {
             keyname += (key_mode === 'major') ? '' : 'm';
           return keyname;
         }
-        // Fallback key
         return 'C';
       },
 
