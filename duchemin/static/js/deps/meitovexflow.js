@@ -582,9 +582,9 @@ MeiLib.SliceMEI = function(MEI, params) {
   if (paramsStaves)
     $(slice).find('staffDef').remove(':not(' + staffDefSelector + ')');
   if (params.noClef || params.noKey || params.noMeter) {
-    var staffDefs = $(slice).find('staffDef');
-    scoreDefs = $(slice).find('scoreDef');
-    setVisibles(scoreDefs, params);
+    scoreDef = $(slice).find('scoreDef')[0];
+    var staffDefs = $(scoreDef).find('staffDef');
+    setVisibles($(scoreDef), params);
     setVisibles(staffDefs, params);
   }
   if (params.noConnectors) {
@@ -1348,7 +1348,7 @@ var MEI2VF = ( function(m2v, MeiLib, VF, $, undefined) {
          * @cfg {Number} exprFont.size the font size
          * @cfg {String} exprFont.weight the font weight
          */
-        annotFont : {
+        exprFont : {
           family : 'Times',
           size : 15,
           weight : 'italic',
@@ -2254,7 +2254,7 @@ var MEI2VF = ( function(m2v, MeiLib, VF, $, undefined) {
             throw new m2v.RUNTIME_ERROR('MEI2VF.RERR.BadArguments', 'mei:note must have oct attribute');
 
           if (mei_tie)
-            me.processAttrTie(mei_tie, xml_id, pname, oct);
+            me.processAttrTie(mei_tie, xml_id, pname, oct, staff_n);
           if (mei_slur)
             me.processAttrSlur(mei_slur, xml_id);
 
@@ -2323,7 +2323,7 @@ var MEI2VF = ( function(m2v, MeiLib, VF, $, undefined) {
           var allNoteIndices = [];
 
           children.each(function(i) {
-            me.processNoteInChord(i, this, element, chord);
+            me.processNoteInChord(i, this, element, chord, staff_n);
             allNoteIndices.push(i);
           });
 
@@ -2361,7 +2361,7 @@ var MEI2VF = ( function(m2v, MeiLib, VF, $, undefined) {
       /**
        * @method processNoteInChord
        */
-      processNoteInChord : function(i, element, chordElement, chord) {
+      processNoteInChord : function(i, element, chordElement, chord, staff_n) {
         var me = this, atts, xml_id;
 
         atts = m2v.Util.attsToObj(element);
@@ -2369,7 +2369,7 @@ var MEI2VF = ( function(m2v, MeiLib, VF, $, undefined) {
         xml_id = MeiLib.XMLID(element);
 
         if (atts.tie)
-          me.processAttrTie(atts.tie, xml_id, atts.pname, atts.oct);
+          me.processAttrTie(atts.tie, xml_id, atts.pname, atts.oct, staff_n);
         if (atts.slur)
           me.processAttrSlur(atts.slur, xml_id);
 
@@ -2586,18 +2586,20 @@ var MEI2VF = ( function(m2v, MeiLib, VF, $, undefined) {
       /**
        * @method processAttrTie
        */
-      processAttrTie : function(mei_tie, xml_id, pname, oct) {
+      processAttrTie : function(mei_tie, xml_id, pname, oct, staff_n) {
         var me = this, i, j;
         for ( i = 0, j = mei_tie.length; i < j; ++i) {
           if (mei_tie[i] === 'i') {
             me.ties.start_tieslur(xml_id, {
               pname : pname,
-              oct : oct
+              oct : oct,
+              staff_n: staff_n,
             });
           } else if (mei_tie[i] === 't') {
             me.ties.terminate_tie(xml_id, {
               pname : pname,
-              oct : oct
+              oct : oct,
+              staff_n: staff_n,
             });
           }
         }
@@ -3504,7 +3506,8 @@ var MEI2VF = ( function(m2v, MeiLib, VF, $, undefined) {
         allTies = this.getModels();
 
         cmpLinkCond = function(lc1, lc2) {
-          return (lc1 && lc2 && lc1.pname === lc2.pname && lc1.oct === lc2.oct);
+          return (lc1 && lc2 && lc1.pname === lc2.pname && lc1.oct === lc2.oct 
+            && lc1.staff_n === lc2.staff_n);
         };
 
         if (!linkCond.pname || !linkCond.oct)
@@ -4368,12 +4371,14 @@ var MEI2VF = ( function(m2v, MeiLib, VF, $, undefined) {
      *
      * @constructor
      * @param staffdef
+     * @param scoredef
      * @param w_clef
      * @param w_keysig
      * @param w_timesig
      */
-    m2v.StaffInfo = function(staffdef, w_clef, w_keysig, w_timesig) {
+    m2v.StaffInfo = function(staffdef, scoredef, w_clef, w_keysig, w_timesig) {
       var me = this;
+      me.scoreDefObj = scoredef ? m2v.Util.attsToObj(scoredef) : {};
       me.renderWith = {
         clef : w_clef,
         keysig : w_keysig,
@@ -4395,6 +4400,11 @@ var MEI2VF = ( function(m2v, MeiLib, VF, $, undefined) {
           me.meter = {
             count : +me.staffDefObj['meter.count'],
             unit : +me.staffDefObj['meter.unit']
+          };
+        } else if (me.scoreDefObj.hasOwnProperty('meter.count') && me.scoreDefObj.hasOwnProperty('meter.unit')) {
+          me.meter = {
+            count : +me.scoreDefObj['meter.count'],
+            unit : +me.scoreDefObj['meter.unit']
           };
         }
       },
@@ -4487,7 +4497,28 @@ var MEI2VF = ( function(m2v, MeiLib, VF, $, undefined) {
 
       getKeySpec : function() {
         var me = this, keyname, key_accid, key_mode;
-        if (me.staffDefObj['key.pname'] !== undefined) {
+        var keys = {
+          '0': 'C',
+          '1f': 'F',
+          '2f': 'Bb',
+          '3f': 'Eb',
+          '4f': 'Ab',
+          '5f': 'Db',
+          '6f': 'Gb',
+          '7f': 'Cb',
+          '1s': 'G',
+          '2s': 'D',
+          '3s': 'A',
+          '4s': 'E',
+          '5s': 'B',
+          '6s': 'F#',
+          '7s': 'C#',
+        }
+        if (me.staffDefObj['key.sig'] !== undefined) {
+          keysig = me.staffDefObj['key.sig'].toLowerCase();
+          return keys[keysig];
+        }
+        else if (me.staffDefObj['key.pname'] !== undefined) {
           keyname = me.staffDefObj['key.pname'].toUpperCase();
           key_accid = me.staffDefObj['key.accid'];
           if (key_accid !== undefined) {
@@ -4507,6 +4538,7 @@ var MEI2VF = ( function(m2v, MeiLib, VF, $, undefined) {
             keyname += (key_mode === 'major') ? '' : 'm';
           return keyname;
         }
+        // Fallback key
         return 'C';
       },
 
@@ -4518,10 +4550,11 @@ var MEI2VF = ( function(m2v, MeiLib, VF, $, undefined) {
       getTimeSig : function() {
         var me = this, symbol, count, unit;
         symbol = me.staffDefObj['meter.sym'];
-        if (symbol)
+        if (symbol) {
           return (symbol === 'cut') ? 'C|' : 'C';
-        count = me.staffDefObj['meter.count'];
-        unit = me.staffDefObj['meter.unit'];
+        }
+        count = me.meter.count;
+        unit = me.meter.unit;
         return (count && unit) ? count + '/' + unit : undefined;
       },
 
@@ -4555,11 +4588,12 @@ var MEI2VF = ( function(m2v, MeiLib, VF, $, undefined) {
         me.renderWith = result;
       },
 
-      updateDef : function(staffDef) {
+      updateDef : function(staffDef, scoreDef) {
         var me = this, newStaffDef;
         newStaffDef = m2v.Util.attsToObj(staffDef);
         me.updateRenderWith(newStaffDef);
         me.staffDefObj = newStaffDef;
+        me.scoreDefObj = scoreDef ? m2v.Util.attsToObj(scoreDef) : {};
         me.updateMeter();
         me.updateStaveLabels();
         me.updateSpacing();
@@ -5174,11 +5208,13 @@ var MEI2VF = ( function(m2v, MeiLib, VF, $, undefined) {
        */
       processScoreDef : function(scoredef) {
         var me = this, i, j, children, systemLeftmar;
-        systemLeftmar = $(scoredef).attr('system.leftmar');
+        me.scoreDefElement = scoredef;
+        me.scoreDef = $(scoredef);
+        systemLeftmar = me.scoreDef.attr('system.leftmar');
         if ( typeof systemLeftmar === 'string') {
           me.setLeftMar(+systemLeftmar);
         }
-        children = $(scoredef).children();
+        children = me.scoreDef.children();
         for ( i = 0, j = children.length; i < j; i += 1) {
           me.processScoreDef_child(children[i]);
         }
@@ -5270,9 +5306,9 @@ var MEI2VF = ( function(m2v, MeiLib, VF, $, undefined) {
         staff_n = +$(staffDef).attr('n');
         staff_info = me.currentStaffInfos[staff_n];
         if (staff_info) {
-          staff_info.updateDef(staffDef);
+          staff_info.updateDef(staffDef, me.scoreDefElement);
         } else {
-          me.currentStaffInfos[staff_n] = new m2v.StaffInfo(staffDef, true, true, true);
+          me.currentStaffInfos[staff_n] = new m2v.StaffInfo(staffDef, me.scoreDefElement, true, true, true);
         }
         return staff_n;
       }
