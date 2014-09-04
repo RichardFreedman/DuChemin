@@ -106,7 +106,7 @@
               <!-- <h3>Add your voice</h3> -->
               <form id="comment-form">
                 {% csrf_token %}
-                <textarea id="comment-field" form="comment-form" name="text" rows="2" class="span12" style="margin-top:5px;">Type a comment here</textarea>
+                <textarea id="comment-field" form="comment-form" name="text" placeholder="Type a comment here" rows="2" class="span12" style="margin-top:5px;"></textarea>
                 <input type="hidden" name="piece_id" value="{{ piece.piece_id }}"/>
                 <input type="submit" name="comment-submit" value="Comment"/>
               </form>
