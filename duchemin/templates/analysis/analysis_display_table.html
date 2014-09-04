@@ -7,7 +7,7 @@
   </tr>
   {% for analysis in content.analyses %}
     <tr>
-      <td><a href="#" class="view-analysis" anid="{{ analysis.id }}">{{ analysis.start_measure }}&ndash;{{ analysis.stop_measure }}</a></td>
+      <td><a href="#" class="view-phrase" anid="{{ analysis.id }}">{{ analysis.start_measure }}&ndash;{{ analysis.stop_measure }}</a></td>
       <td><a href="/piece/{{ analysis.composition_number.piece_id }}">{{ analysis.composition_number.title }}</a></td>
       <td>{{ analysis.phrase_number.phrase_num }}</td>
       <td>
