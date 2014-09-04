@@ -10,7 +10,7 @@
   <tbody>
   {% for analysis in analyses %}
     <tr>
-      <td><a href="#" class="view-phrase" anid="{{ analysis.id }}" data-pieceid="{{ analysis.composition_number.piece_id }}" data-meilink="{{ piece.mei_link }}" data-start="{{ analysis.start_measure }}" data-stop="{{ analysis.stop_measure }}">{{ analysis.start_measure }}&ndash;{{ analysis.stop_measure }}</a></td>
+      <td><a href="#" class="view-phrase" anid="{{ analysis.id }}" data-pieceid="{{ analysis.piece_id }}" data-meilink="{{ piece.mei_link }}" data-start="{{ analysis.start_measure }}" data-stop="{{ analysis.stop_measure }}">{{ analysis.start_measure }}&ndash;{{ analysis.stop_measure }}</a></td>
       <td><a href="/piece/{{ analysis.piece_id }}">{{ analysis.title }}</a></td>
       <td>{{ analysis.phrase_number }}</td>
       <td>
