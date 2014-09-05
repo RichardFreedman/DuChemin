@@ -55,7 +55,7 @@
                     </td>
                     <td>
                     {% if phrase.phrase_start %}
-                      <a href="#" class="view-phrase" phid="{{ piece.piece_id }}/{{ phrase.phrase_id }}" data-pieceid="{{ piece.piece_id }}" data-meilink="{{ piece.mei_link }}" data-phrasenum="{{ phrase.phrase_num }}" data-start="{{ phrase.phrase_start }}" data-stop="{{ phrase.phrase_stop }}">{{ phrase.phrase_start }}&ndash;{{ phrase.phrase_stop }}</a>
+                      <a href="#" class="view-phrase" data-pieceid="{{ piece.piece_id }}" data-meilink="{{ piece.mei_link }}" data-phrasenum="{{ phrase.phrase_num }}" data-start="{{ phrase.phrase_start }}" data-stop="{{ phrase.phrase_stop }}">{{ phrase.phrase_start }}&ndash;{{ phrase.phrase_stop }}</a>
                     {% endif %}
                     </td>
                     <td>
@@ -144,7 +144,7 @@
                           {{ analysis.phrase_number.phrase_num }}
                         </td>
                         <td>
-                          <a href="#" class="view-phrase" anid="{{ analysis.id }}" data-pieceid="{{ analysis.composition_number.piece_id }}" data-meilink="{{ piece.mei_link }}" data-start="{{ analysis.start_measure }}" data-stop="{{ analysis.stop_measure }}">{{ analysis.start_measure }}&ndash;{{ analysis.stop_measure }}</a>
+                          <a href="#" class="view-phrase" data-pieceid="{{ analysis.composition_number.piece_id }}" data-meilink="{{ analysis.composition_number.mei_link }}" data-start="{{ analysis.start_measure }}" data-stop="{{ analysis.stop_measure }}">{{ analysis.start_measure }}&ndash;{{ analysis.stop_measure }}</a>
                         </td>
                         <td>
                           <a href="/person/{{ analysis.analyst.person_id }}">{{ analysis.analyst }}</a>
