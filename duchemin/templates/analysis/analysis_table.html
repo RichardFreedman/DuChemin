@@ -10,7 +10,8 @@
   <tbody>
   {% for analysis in analyses %}
     <tr>
-      <td><a href="#" class="view-phrase" anid="{{ analysis.id }}" data-pieceid="{{ analysis.piece_id }}" data-meilink="{{ analysis.composition_number.mei_link }}" data-start="{{ analysis.start_measure }}" data-stop="{{ analysis.stop_measure }}">{{ analysis.start_measure }}&ndash;{{ analysis.stop_measure }}</a></td>
+      <!-- The values in curly brackets are sometimes different from those in the piece template. This is intentional. Why? This file pulls data from solr_index, not from the Django models directly. -->
+      <td><a href="#" class="view-phrase" anid="{{ analysis.id }}" data-pieceid="{{ analysis.piece_id }}" data-meilink="/mei/{{ analysis.piece_id }}.xml" data-start="{{ analysis.start_measure }}" data-stop="{{ analysis.stop_measure }}">{{ analysis.start_measure }}&ndash;{{ analysis.stop_measure }}</a></td>
       <td><a href="/piece/{{ analysis.piece_id }}">{{ analysis.title }}</a></td>
       <td>{{ analysis.phrase_number }}</td>
       <td>
