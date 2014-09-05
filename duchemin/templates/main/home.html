@@ -3,16 +3,14 @@
 {% load staticfiles %}
 
 {% block header %}
-  {% if is_logged_in %}
-    <script type="text/javascript" src="{{ STATIC_URL }}js/comments.js"></script>
-    <script type="text/javascript">
-      $(document).ready(function (){
-        // First parameter: Null because passing no piece_id
-        // Second parameter: Number of days' worth of comments to show
-        startCommentFeed(null, 14);
-      });
-    </script>
-  {% endif %}
+  <script type="text/javascript" src="{{ STATIC_URL }}js/comments.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function (){
+      // First parameter: Null because passing no piece_id
+      // Second parameter: Number of days' worth of comments to show
+      startCommentFeed(null, 14);
+    });
+  </script>
 {% endblock %}
 
 {% block wrap %}
