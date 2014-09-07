@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load bootstrap_pagination %}
+
+{% block title %}
+<title>Lost Voices &mdash; Discussions</title>
+{% endblock %}
+
+{% block wrap %}
+<div class="row-fluid">
+    <div class="span12">
+        <div class="show-heading row-fluid">
+            <hgroup class="show-title page-title span12">
+              <h1>Discussion Comments</h1>
+            </hgroup>
+
+            <table class="table table-striped table-bordered table-hover">
+                <tr>
+                    <th>Piece</th>
+                    <th>Author</th>
+                    <th>Date</th>
+                </tr>
+                {% for comment in comments %}
+                <tr>
+                    <td>{{ comment.piece }}</td>
+                    <td>{{ comment.author }}</td>
+                    <td>{{ comment.created }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            {% bootstrap_paginate books range=10 %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+Status API Training Shop Blog About
