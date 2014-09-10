@@ -2,8 +2,13 @@
 import os
 from settings_production import *
 
-DEBUG = True
+DEBUG = False  # Should be not be True for production
 TEMPLATE_DEBUG = DEBUG
+
+ALLOWED_HOSTS = [
+    '.haverford.edu',
+    '.digitalduchemin.org',
+]
 
 PROJECT_DIR = os.path.dirname(__file__)
 
