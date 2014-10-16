@@ -896,7 +896,7 @@ meiView.UI.prototype.displayDotForMeasure = function(vexStaff) {
 
 
 meiView.UI.prototype.displayMeasureNos = function() {
-  console.log('meiView.UI.prototype.displayMeasureNos()')
+//  console.log('meiView.UI.prototype.displayMeasureNos()')
   for (n in this.measure_n_texts) {
     if (this.measure_n_texts[n])
     { 
@@ -909,7 +909,7 @@ meiView.UI.prototype.displayMeasureNos = function() {
   var ui_canvas = this.fabrCanvas;
   var ui_measure_n_texts = this.measure_n_texts;
   $.each(rendered_measures, function(n, measure) {
-    console.log('meiView.UI.prototype.displayMeasureNos() n:' + n);
+//    console.log('meiView.UI.prototype.displayMeasureNos() n:' + n);
     if (measure) {
       var i, vexStaff = measure[1], skip = false;
       for (i=0; i<vexStaff.modifiers.length; i++) {
@@ -925,8 +925,8 @@ meiView.UI.prototype.displayMeasureNos = function() {
         }
       }
       if (!skip) {
-        console.log('meiView.UI.prototype.displayMeasureNos() vexStaff:');      
-        console.log(vexStaff);
+//        console.log('meiView.UI.prototype.displayMeasureNos() vexStaff:');
+//        console.log(vexStaff);
         var left = (vexStaff.x + 8) * ui_scale;
         var top = (vexStaff.y + 15) * ui_scale;
         var text = new fabric.Text(n.toString(), {
@@ -1554,7 +1554,7 @@ meiView.filterMei = function(meiXml, options) {
 
         var parent_note_id = $(accid).parent('supplied').parent('note').attr('xml:id');
         if (!parent_note_id) {
-          console.log('parent note xml:id is needed in order to attach ficta. Ficta will be ignored.');
+//          console.log('parent note xml:id is needed in order to attach ficta. Ficta will be ignored.');
         } else {
           var dir = meiXml.createElementNS('http://www.music-encoding.org/ns/mei', 'dir');
           $(dir).attr('startid', parent_note_id);
@@ -1756,7 +1756,7 @@ meiView.Inherit(meiView.CompactViewer, meiView.Viewer, {
   getPageXML_ClefPart: function(page) {
     var me = this, staves, clefxml, score,
         scoredefs, scoredef, section, measure, staff_n;
-    console.log('getPageXML_ClefPart() {start}');
+//    console.log('getPageXML_ClefPart() {start}');
     staves = me.stavesToDisplay(this.MEI.sectionview_score);
     clefxml = me.MEI.getSectionViewSlice({
       start_n:'-1',
@@ -1767,7 +1767,7 @@ meiView.Inherit(meiView.CompactViewer, meiView.Viewer, {
     });
     score = clefxml;
     if (score) {
-      console.log('getPageXML_ClefPart() {I}');
+//      console.log('getPageXML_ClefPart() {I}');
     
       scoredefs = $(score).find('scoreDef');
       scoredef = scoredefs[0];
@@ -1938,7 +1938,7 @@ meiView.Inherit(meiView.CompactUI, meiView.UI, {
 
     var me = this;
     $(window).on('resize', function(event){
-      console.log('window resized');
+//      console.log('window resized');
       me.resizeElements();
     });
 
@@ -2148,8 +2148,8 @@ meiView.Inherit(meiView.CompactUI, meiView.UI, {
         }
       });
     }
-    console.log('max measure width: ' + w_max.toString());
-    console.log('scale: ' + options.scale.toString());
+//    console.log('max measure width: ' + w_max.toString());
+//    console.log('scale: ' + options.scale.toString());
   
     $(this.maindiv).find('.clef-canvas-div').css('width', w_max * options.scale);
     $(this.canvasClef).css('width', $(this.canvasClef).width() * options.scale);
@@ -2286,8 +2286,8 @@ meiView.Inherit(meiView.CompactUI, meiView.UI, {
 
     // measure by measure
     var me = this;
-    console.log("Critical Report:")
-    console.log(this.viewer.Report);
+//    console.log("Critical Report:")
+//    console.log(this.viewer.Report);
     var tbody = getTableBody(this.maindiv);
     for (measure_n in this.viewer.Report) {
       var altlist = this.viewer.Report[measure_n];
