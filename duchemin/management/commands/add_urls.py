@@ -8,23 +8,9 @@ import sys
 class Command(BaseCommand):
     help = "Fills in the MEI and audio urls"
 
-    option_list = BaseCommand.option_list + (
-        make_option(
-            '--dev',
-            action='store_true',
-            dest='dev',
-            default=False,
-            help='Use dev URL instead of production URL',
-            ),
-    )
-
     def handle(self, *args, **options):
-        if options.get('dev', False):
-            PATH = 'http://duchemin-dev.haverford.edu/'
-        else:
-            PATH = 'http://digitalduchemin.org/'
-        MEI_PATH = PATH + 'mei/'
-        MP3_PATH = PATH + 'audio/'
+        MEI_PATH = '/mei/'
+        MP3_PATH = '/audio/'
         for piece in DCPiece.objects.all():
             try:
                 piece.mei_link = MEI_PATH + piece.piece_id + '.xml'
