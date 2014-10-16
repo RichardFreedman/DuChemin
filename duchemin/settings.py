@@ -6,6 +6,7 @@ DEBUG = False  # Should be not be True for production
 TEMPLATE_DEBUG = DEBUG
 
 ALLOWED_HOSTS = [
+    '127.0.0.1',
     '.haverford.edu',
     '.digitalduchemin.org',
 ]
