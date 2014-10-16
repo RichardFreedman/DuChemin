@@ -12,6 +12,7 @@ class Command(BaseCommand):
         MEI_PATH = '/mei/'
         MP3_PATH = '/audio/'
         for piece in DCPiece.objects.all():
+            print("Processing {0}".format(piece.piece_id))
             try:
                 piece.mei_link = MEI_PATH + piece.piece_id + '.xml'
                 if ('DC01' in piece.piece_id or
