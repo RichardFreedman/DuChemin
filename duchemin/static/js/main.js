@@ -1,6 +1,6 @@
 function doRender(anid) {
     $.ajax({
-        url: "http://duchemin-dev.haverford.edu/notation/" + pieceId + "/" + startMeas + "/" + endMeas,
+        url: "/notation/" + pieceId + "/" + startMeas + "/" + endMeas,
         dataType: 'json',
         success: function(data, status, xhr) {
             console.log(data);
