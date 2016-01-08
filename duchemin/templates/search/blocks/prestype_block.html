@@ -294,17 +294,24 @@
                     </div>
                 </div>
 
-                <div class="accordion-group">
+               <div class="accordion-group">
                     <div class="accordion-heading">
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#presentationTypes-accordion" href="#presentationOther-section"><span>Other Options</span><i class="icon-plus"></i></a>
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#search-accordion" href="#form-section">
+                            <span>HR Types</span><i class="icon-plus"></i>
+                        </a>
                     </div>
-                    <div id="presentationOther-section" class="accordion-body collapse">
+                    <div id="form-section" class="accordion-body collapse">
                         <div class="accordion-inner">
-                            <label class="checkbox" id="search_checkbox" for="presentationOther1"><input type="checkbox" id="presentationOther1" name="presentationOther" value="HR Simple" />HR Simple</label>
-                            <label class="checkbox" id="search_checkbox" for="presentationOther2"><input type="checkbox" id="presentationOther2" name="presentationOther" value="HR Dactyll" />HR Dactyll</label>
-                            <label class="checkbox" id="search_checkbox" for="presentationOther3"><input type="checkbox" id="presentationOther3" name="presentationOther" value="HR Stagger" />HR Stagger</label>
-                            <label class="checkbox" id="search_checkbox" for="presentationOther4"><input type="checkbox" id="presentationOther4" name="presentationOther" value="HR Dance" />HR Dance</label>
-                            <label class="checkbox" id="search_checkbox" for="presentationOther5"><input type="checkbox" id="presentationOther5" name="presentationOther" value="HR Fauxbourdon" />HR Fauxbourdon</label>
+                            <ul class="unstyled">
+                            {% for type in other_pres_type %}
+                                <li>
+                                    <label class="checkbox" for="prestype{{ forloop.counter }}">
+                                        <input type="checkbox" id="prestype{{ forloop.counter }}" name="opt" value="{{ type }}" />
+                                {{ type }}
+                                    </label>
+                                </li>
+                            {% endfor %}
+                            </ul>
                         </div>
                     </div>
                 </div>
