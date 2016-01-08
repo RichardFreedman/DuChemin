@@ -16,6 +16,16 @@
                 </li>
             {% endfor %}
             </ul>
+            <ul class="unstyled">
+            {% for exactness in repeat_exact_varied %}
+                <li>
+                    <label class="checkbox" for="exact{{ forloop.counter }}">
+                        <input type="checkbox" id="exact{{ forloop.counter }}" name="rev" value="{{ exactness }}" />
+                {{ exactness }}
+                    </label>
+                </li>
+            {% endfor %}
+            </ul>
         </div>
     </div>
 </div>
