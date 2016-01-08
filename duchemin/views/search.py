@@ -25,6 +25,8 @@ def _empty_search(request):
     is_cadence = sorted(facets['is_cadence'])
     repeat_kind = sorted(facets['repeat_kind'])
     text_treatment = sorted(facets['text_treatment'])
+    other_pres_type = sorted(facets['other_pres_type'])
+    repeat_exact_varied = sorted(facets['repeat_exact_varied'])
 
     book_info = sorted([tuple(book.split("_")) for book in book_title])
 
@@ -78,6 +80,8 @@ def _empty_search(request):
         'is_cadences': is_cadence,
         'repeat_kinds': repeat_kind,
         'text_treatments': text_treatment,
+        'other_pres_type': other_pres_type,
+        'repeat_exact_varied': repeat_exact_varied,
         'cad_voice_cantz': cad_voice_cantz,
         'cad_voice_tenz': cad_voice_tenz,
         'intpatt_up6_voice': intpatt_up6_voice,
