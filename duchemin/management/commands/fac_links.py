@@ -14,7 +14,8 @@ class Command(BaseCommand):
         for book in DCBook.objects.all():
             try:
                 if book.book_id and book.book_id >= 1 and book.book_id <= 16:
-                    book.cesr = ('http://ricercar-old.cesr.univ-tours.fr/3-programmes/EMN/duchemin/pages/consult.asp?table=A' +
+                    
+                    book.cesr = ('https://ricercar.cesr.univ-tours.fr/3-programmes/EMN/duchemin/pages/consult.asp?table=A' +
                                  codes[book.book_id]
                                  )
                     book.save()
