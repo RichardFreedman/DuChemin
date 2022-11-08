@@ -1,4 +1,9 @@
-<h3><a href="#">{{ block.title }}</a></h3>
+<!-- Links turned off unless they go somewhere! -->
+<h3>
+	<!-- <a href="#"> -->
+		{{ block.title }}
+	<!-- </a> -->
+</h3>
 {% autoescape off %}
     {{ block.body }}
 {% endautoescape %}

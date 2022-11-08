@@ -1,99 +1,421 @@
 {% extends "base.html" %}
+{% load notetext %}
+{% load isfavourite %}
+{% load apostrophe %}
+
+{% block title %}
+<title>Lost Voices &mdash; Account Profile</title>
+{% endblock %}
 
 {% block header %}
-  <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/themes/base/jquery-ui.css" rel="stylesheet"></link>
-  <script src="{{ STATIC_URL }}js/notation.js"></script>
-  <script type="text/javascript" src="http://vm-duchemin.haverford.edu:8080/assets/scripts/libs/vexflow-free.js"></script>
-  <script type="text/javascript" src="http://vm-duchemin.haverford.edu:8080/assets/scripts/libs/meitovexflow.js"></script>
-<script type="text/javascript">
-    $(document).ready(function (){
-        attachAnalysisClickEvents();
-    });
-  </script>
 {% endblock %}
 
 {% block wrap %}
+  <div class="row-fluid">
+    <div class="span9"><!-- Everything on the left -->
       <div class="row-fluid">
-        <div class="span12">
-          <div class="account-heading row-fluid">
-            <hgroup class="account-title page-title span8">
-              <h1>Account Profile</h1>
-              <h2>{{ user.first_name}} {{ user.last_name }}</h2>
-              <h3>{{ user.username }}</h3>
-            </hgroup>
-            <div class="well span4">
-              <dl class="well-list account-info-list">
-                <dt>Joined:</dt>
-                <dd>{{ user.date_joined }}</dd>
-                <dt>Role:</dt>
-                <dd>Editor</dd>
-              </dl>
-            </div>
-          </div>
-          <div class="row-fluid">
-            <div class="span8 favorites-container content-container">
-              <div class="tabbable tabs-left">
-                <ul class="nav nav-tabs">
-                  <li class="active"><a href="#tab1" data-toggle="tab">My Favourites</a></li>
-                  <li><a href="#tab2" data-toggle="tab">My Analyses</a></li>
-                  <li><a href="#tab3" data-toggle="tab">My Reconstructions</a></li>
-                </ul>
-                <div class="tab-content">
-                  <div class="tab-pane active" id="tab1">
-                    <h2>Pieces</h2>
-                    {% if profile.favourited_piece.count > 0 %}
-                    <ul>
-                      {% for favourite in favourited_pieces %}
-                        <li><a href="/piece/{{ favourite.piece_id }}">{{ favourite.title }}</a></li>
-                      {% endfor%}
-                    </ul>
-                    {% else %}
-                    <p>You have not selected any favourite pieces</p>
-                    {% endif %}
+        <hgroup class="account-title page-title span8">
+          <h1>Account Profile</h1>
+          <h2>{% if user.profile.person %}<a href="/person/{{ user.profile.person.id }}">{{ user.profile.person.full_name|apostrophe }}</a>{% else %}{{ user.profile|apostrophe }}{% endif %}</h2>
+        </hgroup>
+        <form class="mywork-search pull-right" style="margin-bottom:0px;" method="get" action="/search">
+          <input type="text" name="q" placeholder="Search My Work" />
+        </form>
+        {% if user.profile.person %}
+          <form data-personid="{{ user.profile.person.person_id }}" id="remarks-form">
+            {% csrf_token %}
+            <a href="#" id="button-remarks" class="btn btn-success open-EditRemarks pull-right" data-toggle="modal" data-personid="{{ user.profile.person.person_id }}" title="Edit Public Profile">{% if user.profile.person.remarks %}Edit Public Profile{% else %}Add Public Profile{% endif %}</a>
+          </form>
+        {% endif %}
+      </div>
+      <div class="row-fluid">
+        <div class="span12 favorites-container content-container">
+          <div class="tabbable tabs-left">
+            <ul class="nav nav-tabs">
+              <li><a href="#tab1" data-toggle="tab">My Work</a></li>
+              <li class="active"><a href="#tab2" data-toggle="tab">Favourites</a></li>
+              <li><a href="#tab3" data-toggle="tab">Discussions</a></li>
+            </ul>
 
-                    <h2>Analyses</h2>
-                    {% if profile.favourited_analysis.count > 0 %}
-                      {% include "analysis/analysis_display_table.html" with analyses=favourited_analyses %}
-                    {% else %}
-                      <p>You have not selected any favourite analyses</p>
-                    {% endif %}
+            <div class="tab-content">
+              <form id="modal-form">
+                {% csrf_token %}
+              </form>
+              <!-- Everything in tabs is here. -->
+              <div class="tab-pane" id="tab1">
+                <!-- My Work: Observations and Reconstructions -->
+                <div class="accordion-group">
+                  <!-- My Observations -->
+                  <div class="accordion-heading">
+                    <a class="accordion-toggle" data-toggle="collapse" href="#mypieces-section">
+                      <h2>Observations<i class="icon-plus"></i></h2>
+                    </a>
+                  </div>
+                  <div id="mypieces-section" class="accordion-body collapse">
+                    <div class="accordion-inner">
+                      <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                          <tr>
+                            <th>Piece&nbsp;ID</th>
+                            <th>Title</th>
+                            <th>Measures</th>
+                            <th>Show details</th>
+                          </tr>
+                        </thead>
 
-                    <h2>Reconstructions</h2>
-                    {% if profile.favourited_reconstruction.count > 0 %}
-                    <ul>
-                      {% for favourite in favourited_reconstructions %}
-                        <li><a href="/piece/{{ favourite.piece_id }}">{{ favourite.piece.title }} ({{ favourite.reconstructor }})</a></li>
-                      {% endfor %}
-                    </ul>
-                    {% else %}
-                      <p>You have not selected any favourite reconstructions</p>
-                    {% endif %}
+                        <tbody>
+                          {% for analysis in my_analyses %}
+                            <tr>
+                              <td>
+                                <a href="/piece/{{ analysis.composition_number.piece_id }}">{{ analysis.composition_number.piece_id }}</a>
+                              </td>
+                              <td>
+                                {{ analysis.composition_number.title }}
+                              </td>
+                              <td>
+                                <a href="#" class="view-phrase" data-pieceid="{{ analysis.composition_number.piece_id }}" data-meilink="{{ analysis.composition_number.mei_link }}" data-start="{{ analysis.start_measure }}" data-stop="{{ analysis.stop_measure }}">{{ analysis.start_measure }}&ndash;{{ analysis.stop_measure }}</a>
+                              </td>
+                              <td> 
+                                <a href="#" class="analyses-info-expand" target="analyses-info-{{ forloop.counter }}">Expand</a>
+                              </td>
+                            </tr>
+                            <tr id="analyses-info-{{ forloop.counter }}" class="analyses-info">
+                              <td colspan="5">
+                                {% include "analysis/analysis_extended_display_info.html" %}
+                              </td>
+                            </tr>
+                          {% empty %}
+                            <td colspan="4">No observations made.</td>
+                          {% endfor %}
+                        </tbody>
+                      </table> 
+                    </div>
                   </div>
-                  <div class="tab-pane" id="tab2">
-                    {% if my_analyses %}
-                    <h2>My Analyses</h2>
-                    {% for analysis in my_analyses %}
-                    <p>{{ analysis.composition_number.title }}</p>
-                    {% endfor %}
-                    {% endif %}
+                </div>
+                
+                <div class="spacerTop">
+                </div>
+                
+                <div class="accordion-group">
+                  <!-- My Reconstructions -->
+                  <div class="accordion-heading">
+                    <a class="accordion-toggle" data-toggle="collapse" href="#myreconstructions-section">
+                      <h2>Reconstructions<i class="icon-plus"></i></h2>
+                    </a>
                   </div>
-                  <div class="tab-pane" id="tab3">
-                  {% if my_reconstructions %}
-                    <h2>My Reconstructions</h2>
-                    {% for reconstruction in my_reconstructions %}
-                    <p><a href="/piece/{{ reconstruction.piece.piece_id }}">{{ reconstruction.piece.title }}</a></p>
-                    {% endfor %}
-                  {% endif %}
+                  <div id="myreconstructions-section" class="accordion-body collapse">
+                    <div class="accordion-inner">
+                      <table id="reconstructions" class="table table-striped table-bordered table-hover">
+                        <thead>
+                          <tr>
+                            <th>Piece&nbsp;ID</th>
+                            <th>Title</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for recon in my_reconstructions %}
+                            <tr>
+                                <td><a href="/piece/{{ recon.piece.piece_id }}">{{ recon.piece.piece_id }}</a></td>
+                                <td>{{ recon.piece.title }}</td>
+                            </tr>
+                          {% empty %}
+                            <td colspan="2">No reconstructions made.</td>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div><!--/span-->
-            <div id="sidebar" class="span4">
-              <h3>About Favorites</h3>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-            </div><!--/span-->
-          </div><!--/row-->
-        </div><!--/span-->
-      </div><!--/row-->
+
+              <div class="tab-pane active" id="tab2">
+                <!-- My Favourites: Pieces and Reconstructions -->
+                <div class="accordion-group">
+                  <!-- Favourite Pieces -->
+                  <div class="accordion-heading">
+                    <a class="accordion-toggle" data-toggle="collapse" href="#favpieces-section">
+                      <h2>Favourites<i class="icon-plus"></i></h2>
+                    </a>
+                  </div>
+                  <div id="favpieces-section" class="accordion-body collapse">
+                    <div class="accordion-inner">
+                      <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                          <tr>
+                            <th>Piece&nbsp;ID</th>
+                            <th>Title</th>
+                            <th>Notes</th>
+                            <th>Favourites</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for piece in favourited_pieces %}
+                            <tr>
+                              <td><a href="/piece/{{ piece.piece_id }}">{{ piece.piece_id }}</a></td>
+                              <td>{{ piece.title }}</td>
+                              <td style="text-align:center;">
+                                {% if user|notetext:piece %}
+                                  <a href="#" id="button-fav-{{ piece.piece_id }}" class="btn btn-info open-EditNote" data-toggle="modal" data-notetext="{{ user|notetext:piece }}" data-pieceid="{{ piece.piece_id }}" title="Edit Note to {{ piece.piece_id }}">Edit&nbsp;Note</a>
+                                {% else %}
+                                  <a href="#" id="button-fav-{{ piece.piece_id }}" class="btn btn-primary open-EditNote" data-toggle="modal" data-pieceid="{{ piece.piece_id }}" title="Add Note to {{ piece.piece_id }}">Add&nbsp;Note</a>
+                                {% endif %}
+                              </td>
+                              <td>
+                                  {% include "main/favourites/favourites.html" with is_favourite=user|isfavourite:piece piece_id=piece.piece_id %}
+                              </td>
+                            </tr>
+                          {% empty %}
+                            <td colspan="4">No pieces in Favourites.</td>
+                          {% endfor %}
+                        </tbody>
+                      </table> 
+                    </div>
+                  </div>
+                </div>
+
+                <div class="spacerTop">
+                </div>
+
+                <div class="accordion-group">
+                  <!-- Pieces with Notes -->
+                  <div class="accordion-heading">
+                    <a class="accordion-toggle" data-toggle="collapse" href="#mynotes-section">
+                      <h2>Pieces with Notes<i class="icon-minus"></i></h2>
+                    </a>
+                  </div>
+                  <div id="mynotes-section" class="accordion-body in collapse">
+                    <div class="accordion-inner">
+                      <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                          <tr>
+                            <th>Piece&nbsp;ID</th>
+                            <th>Title</th>
+                            <th>Delete</th>
+                            <th>Edit</th>
+                            <th>Favourites</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for piece in pieces_with_notes %}
+                            <tr>
+                              <td><a href="/piece/{{ piece.piece_id }}">{{ piece.piece_id }}</a></td>
+                              <td>{{ piece.title }}</td>
+                              <td style="text-align:center;">
+                                <a href="#" id="button-del-{{ piece.piece_id }}" class="btn btn-danger open-DeleteNote" data-toggle="modal" data-notetext="{{ user|notetext:piece }}" data-pieceid="{{ piece.piece_id }}" title="Delete Note to {{ piece.piece_id }}">Delete&nbsp;Note</a>
+                              </td>
+                              <td style="text-align:center;">
+                                <a href="#" id="button-note-{{ piece.piece_id }}" class="btn btn-info open-EditNote" data-toggle="modal" data-notetext="{{ user|notetext:piece }}" data-pieceid="{{ piece.piece_id }}" title="Edit Note to {{ piece.piece_id }}">Edit&nbsp;Note</a>
+                              </td>
+                              <td>
+                                {% include "main/favourites/favourites.html" with is_favourite=user|isfavourite:piece piece_id=piece.piece_id %}
+                              </td>
+                            </tr>
+                          {% empty %}
+                            <td colspan="5">No pieces with notes.</td>
+                          {% endfor %}
+                        </tbody>
+                      </table> 
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="tab-pane" id="tab3">
+                <!-- My Discussions: Pieces and Reconstructions -->
+                <div class="accordion-group">
+                  <!-- Discussions about Pieces -->
+                  <div class="accordion-heading">
+                    <a class="accordion-toggle" data-toggle="collapse" href="#discusspieces-section">
+                      <h2>Pieces<i class="icon-minus"></i></h2>
+                    </a>
+                  </div>
+                  <div id="discusspieces-section" class="accordion-body in collapse">
+                    <div class="accordion-inner">
+                      <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                          <tr>
+                            <th>Piece&nbsp;ID</th>
+                            <th>Title</th>
+                            <th>Discussion</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for piece in discussed_pieces %}
+                            <tr>
+                              <td>
+                                <a href="/piece/{{ piece.piece_id }}/">{{ piece.piece_id }}</a>
+                              </td>
+                              <td>
+                                {{ piece.title }}
+                              </td>
+                              <td>
+                                <a href="/piece/{{ piece.piece_id }}/discussion/">View Discussion</a>
+                              </td>
+                            </tr>
+                          {% empty %}
+                            <td colspan="3">No pieces discussed.</td>
+                          {% endfor %}
+                        </tbody>
+                      </table> 
+                    </div>
+                  </div>
+                </div>
+
+                <div class="spacerTop">
+                </div>
+
+                <div class="accordion-group">
+                  <!-- Comments -->
+                  <div class="accordion-heading">
+                    <a class="accordion-toggle" data-toggle="collapse" href="#discusscomments-section">
+                      <h2>Comments<i class="icon-plus"></i></h2>
+                    </a>
+                  </div>
+                  <div id="discusscomments-section" class="accordion-body collapse">
+                    <div class="accordion-inner">
+                      <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                          <tr>
+                            <th>Piece&nbsp;ID</th>
+                            <th>Comment</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for comment in my_comments %}
+                            <tr>
+                              <td>
+                                <a href="/piece/{{ comment.piece.piece_id }}/">{{ comment.piece.piece_id }}</a>
+                              </td>
+                              <td>
+                                <a href="/piece/{{ comment.piece.piece_id }}/discussion/">{{ comment.text }}</a>
+                              </td>
+                            </tr>
+                          {% empty %}
+                            <td colspan="2">No comments.</td>
+                          {% endfor %}
+                        </tbody>
+                      </table> 
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div><!--/span-->
+        </div><!--/row-->
+      </div>
+    </div>
+
+    <div class="span3">
+      <div class="well">
+        <h3>{{ user.username }}
+          <!-- Edit profile functionality not yet added<br />
+            <a href="#" id="editpro">Edit&nbsp;Profile</a>
+          -->
+          &bull; <a href="#" id="logout">Log&nbsp;Out</a>
+        </h3>
+        <div class="span12"><dl class="well-list account-info-list">
+          <dt>Joined:</dt>
+          <dd>{{ user.date_joined.date }}</dd>
+          <dt>Role:</dt>
+          <dd>{{ user.profile.role }}</dd>
+        </dl></div>
+        <h3><a href="/password_change/">Change Password</a></h3>
+      </div>
+
+      <div class="span12">
+        <h3>Help</h3>
+        <div id="help">
+          <h4><a href="#" id="my-work" class="advanced-help-heading">My Work</a></h4>
+          <div id="my-work-help-content" class="advanced-help-content">
+            <p>In the “Observations” pane, you will find a list of any formal observations you have made in the Lost Voices database. Each row in the table of observations contains a link to the piece’s page; selecting the measure range in a row brings up a window displaying only the relevant measures. To see further details about a given observation, select the “Expand” option.</p>
+            <p>In the “Reconstructions” pane is a list of any reconstructions you have made that are in the Lost Voices database. Selecting the Piece&nbsp;ID takes you to the piece’s page; there you can see your reconstruction, together with any other reconstructions for the same piece that may be present in the database.</p>
+          </div>
+
+          <h4><a href="#" id="favourites" class="advanced-help-heading">Favourites</a></h4>
+          <div id="favourites-help-content" class="advanced-help-content">
+            <p>Pieces in the Lost Voices database that you have marked with a filled star (&starf;) are added to your Favourites. In the “Favourites” pane, you can manage these pieces by adding, viewing and editing notes, or removing pieces from the list.</p>
+            <p>Notes are a place for you to record thoughts about a piece without making them visible to other viewers. The list of pieces with notes contains links for viewing, deleting and editing notes, as well as for adding or removing each piece from your Favourites. Notes are archived in the site database; if you need to recover an old version of a note that was mistakenly deleted or replaced, you can <a href="mailto:{{ADMIN_EMAIL}}?subject=Recover note by user {{user.username}}">contact the administrator</a>.</p>
+          </div>
+
+            <h4><a href="#" id="discussions" class="advanced-help-heading">Discussions</a></h4>
+          <div id="discussions-help-content" class="advanced-help-content">
+            <p>In the “Pieces” pane, you will find a list of all pieces you have publicly commented on, sorted by Piece&nbsp;ID. Each row contains links to the piece’s page and to the corresponding discussion page.</p>
+            <p>The “Comments” pane contains a list of all comments you have posted, sorted by date. As in the “Pieces” pane, each row contains links to the piece’s page and to the corresponding discussion page. All comments are public; if you need a comment to be removed, you can <a href="mailto:{{ADMIN_EMAIL}}?subject=Remove comment by user {{user.username}}">contact the administrator</a>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .advanced-help-content  {
+      display: none;
+    }
+    #advanced-help a {
+      cursor: pointer;
+    }
+  </style>
+
+  <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/themes/base/jquery-ui.css" rel="stylesheet"></link>
+
+  <script type="text/javascript">
+    // This script expands and hides analysis details
+    $('.analyses-info').hide();
+    $('.advanced-help-heading').on({
+      'click': function(event) {
+        event.preventDefault();
+        var contentId = $(this).attr('id');
+        $('#' + contentId + '-help-content').toggle(200);
+        return false;
+      }
+    });
+    $('.analyses-info-expand').on({
+      'click': function(event) {
+        event.preventDefault();
+        tgt = "#" + $(this).attr('target');
+        $(tgt).toggle();
+        tag = $(this).text() == "Expand" ? "Collapse" : "Expand";
+        $(this).text(tag);
+        return false;
+      }
+    })
+  </script>
+
+  <script src="{{ STATIC_URL }}js/vendor/jquery.cookie.js"></script>
+  <script src="{{ STATIC_URL }}js/notes.js"></script>
+  <script src="{{ STATIC_URL }}js/remarks.js"></script>
+  <script src="{{ STATIC_URL }}js/notation.js"></script>
+  <script src="{{ STATIC_URL }}js/favourites.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function (){
+      attachPhraseClickEvents();
+      attachFavouritesAction();
+      editNoteAction();
+      deleteNoteAction();
+      submitNoteAction();
+      editRemarksAction();
+      submitRemarksAction();
+
+      // Toggling the +/- accordion icons
+      $('.accordion-group').on('show hide', function(e){
+        $(e.target).siblings('.accordion-heading').find('.accordion-toggle i').toggleClass('icon-minus icon-plus');
+      });
+    });
+  </script>
+
+  <!-- Can't import all the jquery and bootstrap, since they conflict with each other -->
+  <script type="text/JavaScript" src="{{ STATIC_URL }}js/jquery/src/effects.js"></script>
+  <script type="text/JavaScript" src="{{ STATIC_URL }}js/bootstrap/bootstrap-modal.js"></script>
+  <script type="text/JavaScript" src="{{ STATIC_URL }}js/bootstrap/bootstrap-transition.js"></script>
+
+  <!-- meiView dependencies and scripts -->
+
+  <script type="text/JavaScript" src="/static/js/vexflow/vexflow-min.js"></script>
+  <script type="text/JavaScript" src="/static/js/deps/Fabric-all.js"></script>
+  <script type="text/JavaScript" src="/static/js/deps/meitovexflow.min.js"></script>
+
+  <script type="text/JavaScript" src="/static/js/dist/meiview.js"></script>
+  <link rel="stylesheet" href="/static/css/dist/meiview.css"/>
+
 {% endblock %}

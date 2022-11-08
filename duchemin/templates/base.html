@@ -6,7 +6,9 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Lost Voices: Du Chemin</title>
+  {% block title %}
+    <title>Lost Voices: The Chansons of Nicolas Du Chemin</title>
+  {% endblock %}
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width">
 
@@ -22,35 +24,19 @@
   <!-- end scripts -->
   <link href="{{ STATIC_URL }}css/bootstrap.min.css" rel="stylesheet"></link>
   <link href="{{ STATIC_URL }}css/bootstrap-responsive.min.css" rel="stylesheet"></link>
-  <link type="text/css" rel="stylesheet" href="http://vm-duchemin.haverford.edu:8080/assets/styles/music.css"></link>
   <link rel="stylesheet" href="{{STATIC_URL}}css/style.css">
   <link href='http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,600,600italic' rel='stylesheet' type='text/css'>
   <script src="{{ STATIC_URL }}js/vendor/modernizr-2.5.3.min.js"></script>
 </head>
 <body id="home-page">
   <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
-
-<!--     <div id="page-util-nav" class="navbar">
-      <div class="navbar-inner">
-        <div class="container-fluid">
-          <ul class="nav">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="account.html">Account</a></li>
-            <li><a href="advanced.html">Search</a></li>
-            <li><a href="results.html">Search Results</a></li>
-            <li><a href="show.html">Entry View</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
- -->
   <div id="utility-nav" class="navbar">
     <div class="navbar-inner">
       <div class="container-fluid">
         {% if user.is_authenticated %}
-          <p class="navbar-text pull-right"><a href="/profile"><i class="icon-user"></i> My Account</a> | <a href="/logout">Logout</a></p>
+          <p class="navbar-text pull-right"><i class="icon-user"></i> <a href="/profile">My Account</a> | <a href="/logout">Logout</a></p>
         {% else %}
-          <p class="navbar-text pull-right"><a href="/profile"><i class="icon-user"></i> Login</a></p>
+          <p class="navbar-text pull-right"><i class="icon-user"></i> <a href="mailto:{{ADMIN_EMAIL}}?subject=Account request">Request account</a> | <a href="/profile">Login</a></p>
         {% endif %}
       </div>
     </div>
@@ -60,8 +46,8 @@
     <div class="row-fluid">
       <div class="span12">
         <hgroup class="span8">
-          <h1 id="main-title"><a href="/"><span class="main-title-pre">Lost Voices:</span> Du Chemin</a></h1>
-          <h2 id="tagline">Companion resource to The Chansons of Nicholas Du Chemin (1549-1568), hosted by the Centre d’Études Supérieures de la Renaissance in Tours, France.</h2>
+          <h1 id="main-title"><a href="/">The Lost Voices Project</a></h1>
+          <h2 id="tagline">Companion resource to <a href="http://ricercar.cesr.univ-tours.fr/3-programmes/EMN/duchemin/" style="color:inherit;text-decoration:inherit;">Les livres de Chansons Nouvelles de Nicolas Du&nbsp;Chemin (1549&ndash;1568)</a>, hosted by the Centre d’Études Supérieures de la Renaissance in Tours, France</h2>
         </hgroup>
         <a id="les-livres-link" class="btn btn-large btn-inverse" href="http://ricercar.cesr.univ-tours.fr/3-programmes/EMN/duchemin/"><i class="icon-book icon-white"></i> Explore <em>Les Livres</em></a>
       </div>
@@ -85,6 +71,7 @@
                 <li><a href="/about/sponsors">Sponsors</a></li>
               </ul>
             </li>
+            <!--RF May 2014:  New link to "discussions" in the dropdown list below.  It will go to main.html gallery of all current discussions via the comments feature -->
             <li class="dropdown top-level"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Browse <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li><a href="/books">Books</a></li>
@@ -93,12 +80,45 @@
               </ul>
             </li>
             <li class="top-level"><a href="/reconstructions">Reconstructions</a></li>
+            <li class="dropdown top-level"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Links <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+              <!-- RF May 2014:  new dropdown of "Links" to static urls as given -->
+                <li><a href="http://duchemin.haverford.edu/editorsforum/">Editor's Forum</a></li>
+                <li><a href="http://ricercar.cesr.univ-tours.fr/3-programmes/EMN/duchemin/">Facsimile Project</a></li>
+              </ul>
             <li class="top-level"><a href="/help">Help</a></li>
           </ul>
           <form class="navbar-search pull-right" action="/search" method="get">
             <input type="text" class="nav-search-query span2" placeholder="Search" name="q">
             <a href="/search" class="advanced-link">Advanced search &raquo;</a>
           </form>
+  <!-- RF May 2014:  Button to trigger Citation Tool modal 
+  <a href="#citationModal" role="button" class="btn pull-right" data-toggle="modal">Citation Tool</a>
+   --> 
+  
+  <!-- RF May 2014:  Citation Tool Modal.  resulting url can be pasted to any Note, Discussion, or other document -->
+  <div id="citationModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Citation Tool</h3>
+    </div>
+      <div class="modal-body">
+          <form class="form-inline" id="citationForm">
+              <fieldset>
+              <label id="dcNumber">DC Number</label>
+              <label id="startNumber">Start</label>
+              <label id="endNumber">End</label>
+              <div class="clearfix"></div>
+              <input class="input-small" type="text" placeholder="DC0514">
+              <input class="input-small" type="text">
+              <input class="input-small" type="text">
+              <div class="clearfix"></div>
+              <button class="btn btn-primary pull-right" data-dismiss="modal" aria-hidden="true">URL</button>
+              <button class="btn btn-primary pull-right">Show</button>
+              </fieldset>
+        </form>
+  </div>
+  </div>
         </div><!--/.nav-collapse -->
       </div>
     </div>
@@ -111,8 +131,17 @@
     <hr />
 
     <footer id="footer">
-      <p class="copyright">&copy; Copyright goes here 2012</p>
+    <p class="copyright"><a rel="license" href="http://creativecommons.org/licenses/by-nc/3.0/deed.en_US"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc/3.0/88x31.png" /></a></p>
+      <p class="copyright">&copy; Copyright Richard Freedman/Haverford College, 2012–2014<br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/3.0/deed.en_US">Creative Commons Attribution-NonCommercial 3.0 Unported License</a>.</p>
     </footer>
   </div><!--/.fluid-container-->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-2813987-11', 'auto');
+      ga('send', 'pageview');
+    </script>
 </body>
 </html>

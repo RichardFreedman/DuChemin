@@ -2,14 +2,22 @@
 import os
 from settings_production import *
 
-DEBUG = True
+DEBUG = False  # Should be not be True for production
 TEMPLATE_DEBUG = DEBUG
+
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    '.haverford.edu',
+    '.digitalduchemin.org',
+]
 
 PROJECT_DIR = os.path.dirname(__file__)
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
+
+ADMIN_EMAIL = 'admin@digitalduchemin.org'
 
 MANAGERS = ADMINS
 
@@ -30,14 +38,25 @@ SITE_ID = 1
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
-USE_I18N = True
+USE_I18N = False
 
 # If you set this to False, Django will not format dates, numbers and
 # calendars according to the current locale.
-USE_L10N = True
+USE_L10N = False
+
+DATE_FORMAT = 'Y-m-d'
+
+TIME_FORMAT = 'H:m'
+
+DATETIME_FORMAT = 'Y-m-d, H:m'
+
+SHORT_DATETIME_FORMAT = 'Y-m-d, H:m'
 
 # If you set this to False, Django will not use timezone-aware datetimes.
 USE_TZ = True
+
+# Make it acceptable for users to leave off a slash in URLs
+APPEND_SLASH = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
@@ -114,15 +133,25 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.flatpages',
     # Uncomment the next line to enable the admin:
+    'duchemin',
     'django.contrib.admin',
     'bootstrap-pagination',
-    'duchemin',
     'django_extensions',
     'south',
-    'crispy_forms'
+    'crispy_forms',
+    'rest_framework',
+    'rest_framework.authtoken'
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+        # 'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+}
 
 CRISPY_TEMPLATE_PACK = "bootstrap"
 
@@ -163,6 +192,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.static",
     "django.core.context_processors.csrf",
     "django.contrib.messages.context_processors.messages",
+    "duchemin.context_processors.admin_email",
 )
 
 SOLR_NUM_SEARCH_RESULTS = 10

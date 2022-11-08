@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% load template_dict %}
+{% load apostrophe %}
+
+{% block title %}
+<title>Lost Voices &mdash; Discussion on {{ piece.piece_id }}</title>
+{% endblock %}
+
+
+{% block wrap %}
+  <div class="row-fluid">
+    <div class="span12">
+      <div class="show-heading row-fluid">
+        <div class="span8">
+          <hgroup class="show-title page-title span12">
+            <h1>{{ piece.title|apostrophe }}</h1>
+            <h2><a href="/person/{{ piece.composer_id.person_id }}">{{ piece.composer_id.full_name|apostrophe }}</a></h2>
+            <h3>{{ piece.piece_id }}{% if is_logged_in %}
+                {% include "main/favourites/favourites.html" with is_favourite=is_favourite piece_id=piece.piece_id %}
+            {% endif %}</h3>
+          </hgroup>
+          <div class="row-fluid">
+            <div class="span12">
+              <table class="table table-bordered table-striped table-hover pull-up" style="margin-top:10px;">
+                <thead>
+                  <tr>
+                    <th colspan="2">Discussion</th>
+                  </tr>
+                </thead>
+                <tbody id="discussion-table">
+                  <!-- Comments from JavaScript go here. -->
+                </tbody>
+                {% if is_logged_in %}
+                  <thead>
+                    <tr>
+                      <td>
+                       <a href="/profile">{{ user.first_name }} {{ user.last_name }}</a>
+                      </td>
+                      <td>
+                        <form id="comment-form" style="margin-bottom:0px;">
+                          {% csrf_token %}
+                          <textarea id="comment-field" form="comment-form" name="text" rows="2" class="span12" style="margin-top:2px;">Type a comment here</textarea>
+                          <input type="hidden" name="piece_id" value="{{ piece.piece_id }}"/>
+                          <input type="submit" name="comment-submit" value="Comment"/>
+                        </form>
+                      </td>
+                    </tr>
+                  </thead>
+                {% endif %}
+              </table>
+            </div>
+          </div>
+        </div>
+        
+        <div class="span4">
+          <div class="well span12">
+            <dl class="well-list account-info-list">
+              <dt>Source:</dt>
+              <dd><a href="/book/{{ piece.book_id.book_id }}">{{ piece.book_id.title }}</a></dd>
+              <dt>View:</dt>
+              <dd><a href="{{ piece.pdf_link }}" target="_blank">Complete Modern Edition (PDF)</a><br/>
+              <a href="{{ piece.mei_link }}" target="_blank">MEI File</a></dd>
+              <dt>Listen:</dt>
+              <dd><a href="{{ piece.audio_link }}" target="_blank">Complete Recording (MP3)</a></dd>
+            </dl>
+          </div>
+          <div id="sidebar" class="span10">
+            <h3><a href="/piece/{{ piece.piece_id }}/">Return to Piece View</a></h3>
+            
+            {% if is_logged_in %}
+              <p>Note that all comments are permanent. If you need a comment to be removed, you can <a href="mailto:{{ADMIN_EMAIL}}?subject=Remove comment on Piece {{ piece.piece_id }}">contact the administrator</a>.</p>
+            {% endif %}
+          </div>
+        </div><!--/span-->
+      </div>
+    </div><!--/span-->
+
+  </div><!--/row-->
+
+  <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/themes/base/jquery-ui.css" rel="stylesheet"></link>
+  <script src="{{ STATIC_URL }}js/vendor/jquery.cookie.js"></script>
+  <script src="{{ STATIC_URL }}js/notation.js"></script>
+  <script src="{{ STATIC_URL }}js/favourites.js"></script>
+  <script src="{{ STATIC_URL }}js/comments.js"></script>
+
+  <script>
+    $(document).ready(function (){
+      startCommentFeed('{{piece.id}}');
+      attachCommentsAction();
+    });
+  </script>
+
+{% endblock %}

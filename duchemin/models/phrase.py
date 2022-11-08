@@ -19,4 +19,4 @@ class DCPhrase(models.Model):
     rhyme = models.CharField(max_length=64, blank=True, null=True)
 
     def __unicode__(self):
-        return u"{0}: {1}".format(self.phrase_num, self.phrase_text)
+        return u"{0}.{1}: {2}".format(self.piece_id.piece_id, self.phrase_num, self.phrase_text)

@@ -1,10 +1,16 @@
 {% extends "base.html" %}
+{% load apostrophe %}
+{% load figuredash %}
+
+{% block title %}
+<title>Lost Voices &mdash; {{ person.full_name }}</title>
+{% endblock %}
 
 {% block wrap %}
 {{ content }}
-<h1>{{ person.full_name }}
+<h1>{{ person.full_name|apostrophe }}
 {% if person.alt_spelling %}
-<em>({{ person.alt_spelling }})</em>
+<em>({{ person.alt_spelling|apostrophe }})</em>
 {% endif %}
 {% if analyses %}
     <small>(Analyst)</small>
@@ -12,18 +18,18 @@
 </h1>
 <h2>
 {% if person.birth_date %}
-    b. {{ person.birth_date }}
+    b. {{ person.birth_date|apostrophe|figuredash }}
 {% else %}
     b. ????
 {% endif %}
 &ndash;
 {% if person.death_date %}
-    d. {{ person.death_date }}
+    d. {{ person.death_date|apostrophe|figuredash }}
 {% else %}
     d. ????
 {% endif %}
 {% if person.active_date %}
-    (c. {{ person.active_date }})
+    (c. {{ person.active_date|apostrophe|figuredash }})
 {% endif %}
 </h2>
 

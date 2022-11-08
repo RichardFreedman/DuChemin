@@ -1,9 +1,13 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import generics
 from rest_framework.renderers import JSONRenderer
+from rest_framework import permissions
 
 from duchemin.serializers.person import DCPersonListSerializer, DCPersonDetailSerializer
+from rest_framework.response import Response
+from rest_framework import status
 from duchemin.models.person import DCPerson
+from django.contrib.auth.models import User
 from duchemin.renderers.custom_html_renderer import CustomHTMLRenderer
 
 
@@ -17,12 +21,14 @@ class PersonDetailHTMLRenderer(CustomHTMLRenderer):
 
 class PersonList(generics.ListAPIView):
     model = DCPerson
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     serializer_class = DCPersonListSerializer
     renderer_classes = (JSONRenderer, PersonListHTMLRenderer)
 
 
 class PersonDetail(generics.RetrieveAPIView):
     model = DCPerson
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     serializer_class = DCPersonDetailSerializer
     renderer_classes = (JSONRenderer, PersonDetailHTMLRenderer)
 
@@ -35,6 +41,21 @@ class PersonDetail(generics.RetrieveAPIView):
         obj = get_object_or_404(person)
         self.check_object_permissions(self.request, obj)
         return obj
+
+    def post(self, request, *args, **kwargs):
+        remarks_text = request.DATA.get('remarks', None)
+        current_user = User.objects.get(pk=request.user.id)
+        person = current_user.profile.person
+
+        if person:
+            person.remarks = remarks_text
+            person.save()
+
+            serialized = DCPersonDetailSerializer(person).data
+
+            return Response(serialized, status=status.HTTP_202_ACCEPTED)
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
 # def people(request):

@@ -3,15 +3,19 @@ from django.shortcuts import render
 from django.http import Http404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.views import password_change
 from django.http import HttpResponseRedirect
+from django.template import RequestContext
 
 from duchemin.forms.analysis_form import AnalysisForm
 from duchemin.models.piece import DCPiece
 from duchemin.models.phrase import DCPhrase
 from duchemin.models.analysis import DCAnalysis
 from duchemin.models.book import DCBook
+from duchemin.models.comment import DCComment
 from duchemin.models.reconstruction import DCReconstruction
 from duchemin.models.content_block import DCContentBlock
+from duchemin.templatetags.notetext import notetext
 
 
 def home(request):
@@ -81,9 +85,73 @@ def pieces(request):
 
 
 def piece(request, pk):
-    # note: this is not the *actual* pk, it's the piece_id. This field name just makes REST Framework happy.
+    def format_pk(string):
+        """Format piece_id with last character, if a letter, lowercase,
+        and all other letters uppercase.
+
+        >>> format_pk('dc0101')
+        'DC0101'
+
+        >>> format_pk('DC1203B')
+        'DC1203b'
+
+        """
+        if len(string) < 2:
+            return string
+        else:
+            return string[:-1].upper() + string[-1:].lower()
+
+    # note: this is not the *actual* pk, it's the piece_id.
+    # This field name just makes REST Framework happy.
+
+    # Redirect to url with uppercase letters
+    # (except for possible last letter, which is lowercase)
     try:
-        piece = DCPiece.objects.get(piece_id=pk)
+        if pk != format_pk(pk):
+            return HttpResponseRedirect("/piece/{0}/".format(format_pk(pk)))
+        try:
+            piece = DCPiece.objects.get(piece_id=pk)
+        except DCPiece.DoesNotExist:
+            raise Http404
+    except IndexError:
+        pass
+
+    is_favourite = False
+    is_logged_in = False
+    is_staff = False
+    if request.user.is_authenticated():
+        is_logged_in = True
+        is_staff = request.user.is_staff
+        profile = request.user.profile
+        if profile.favourited_piece.filter(id=piece.id):
+            is_favourite = True
+
+    phrases = DCPhrase.objects.filter(piece_id=pk).order_by('phrase_num')
+
+    analyses = DCAnalysis.objects.filter(composition_number=pk).order_by('phrase_number__phrase_num', 'start_measure')
+    reconstructions = DCReconstruction.objects.filter(piece=pk).order_by('piece')
+    comments = DCComment.objects.filter(piece=piece).order_by('created')
+
+    data = {
+        'piece': piece,
+        'piece_id' : pk,
+        'phrases': phrases,
+        'analyses': analyses,
+        'reconstructions': reconstructions,
+        'comments': comments,
+        'is_favourite': is_favourite,
+        'is_logged_in': is_logged_in,
+        'is_staff': is_staff
+    }
+    return render(request, 'main/piece.html', data, context_instance=RequestContext(request))
+
+
+def discussion(request, piece_id):
+    # Redirect to url with uppercase piece ID
+    if piece_id != piece_id.upper():
+        return HttpResponseRedirect("/piece/{0}/discussion/".format(piece_id.upper()))
+    try:
+        piece = DCPiece.objects.get(piece_id=piece_id)
     except DCPiece.DoesNotExist:
         raise Http404
 
@@ -97,25 +165,22 @@ def piece(request, pk):
         if profile.favourited_piece.filter(id=piece.id):
             is_favourite = True
 
-    phrases = DCPhrase.objects.filter(piece_id=pk).order_by('phrase_num')
-    analyses = DCAnalysis.objects.filter(composition_number=pk).order_by('phrase_number__phrase_num', 'start_measure')
-    reconstructions = DCReconstruction.objects.filter(piece=pk).order_by('piece')
+    comments = DCComment.objects.filter(piece=piece).order_by('created')
 
     data = {
+        'user': request.user,
         'piece': piece,
-        'piece_id' : pk,
-        'phrases': phrases,
-        'analyses': analyses,
-        'reconstructions': reconstructions,
+        'piece_id' : piece_id,
         'is_favourite': is_favourite,
         'is_logged_in': is_logged_in,
-        'is_staff': is_staff
+        'is_staff': is_staff,
+        'comments': comments,
     }
-    return render(request, 'main/piece.html', data)
+    return render(request, 'main/discussion.html', data, context_instance=RequestContext(request))
 
 
 def reconstructions(request):
-    reconstructions = DCReconstruction.objects.all().order_by('piece__title', 'reconstructor__surname')
+    reconstructions = DCReconstruction.objects.all().order_by('piece__piece_id', 'reconstructor__surname')
     paginator = Paginator(reconstructions, 25)
     page = request.GET.get('page')
     try:
@@ -140,6 +205,11 @@ def reconstruction(request, recon_id):
     return render(request, 'main/reconstruction.html', data)
 
 
+@login_required(login_url="/login/")
+def my_password_change(request):
+    return password_change(request, template_name='registration/password_change_form.html',
+        post_change_redirect="/profile/",)
+
 
 @login_required(login_url="/login/")
 def profile(request):
@@ -147,20 +217,35 @@ def profile(request):
 
     analyses = None
     reconstructions = None
+    discussed_pieces = []
+
     if profile.person:
-        analyses = DCAnalysis.objects.filter(analyst_id=profile.person.person_id).order_by('composition_number__title')
-        reconstructions = DCReconstruction.objects.filter(reconstructor=profile.person.person_id).order_by('piece__title')
+        analyses = DCAnalysis.objects.filter(analyst=profile.person.person_id).order_by('composition_number')
+        reconstructions = DCReconstruction.objects.filter(reconstructor=profile.person.person_id).order_by('piece')
+
+    comments_by_piece_id = DCComment.objects.filter(author=request.user).order_by('piece')
+    for comment in comments_by_piece_id:
+        if comment.piece not in discussed_pieces:
+            discussed_pieces.append(comment.piece)
+
+    pieces_with_notes = []
+    for piece in DCPiece.objects.all().order_by('piece_id'):
+    	if notetext(request.user, piece):
+    		pieces_with_notes.append(piece)
 
     data = {
         'user': request.user,
         'profile': profile,
-        'favourited_pieces': profile.favourited_piece.iterator(),
-        'favourited_analyses': profile.favourited_analysis.iterator(),
-        'favourited_reconstructions': profile.favourited_reconstruction.iterator(),
+        'favourited_pieces': profile.favourited_piece.order_by('piece_id'),
+        'favourited_analyses': profile.favourited_analysis.order_by('piece_id'),
+        'favourited_reconstructions': profile.favourited_reconstruction.order_by('piece'),
         'my_analyses': analyses,
-        'my_reconstructions': reconstructions
+        'my_reconstructions': reconstructions,
+        'my_comments': DCComment.objects.filter(author=request.user).order_by('-created'),
+        'discussed_pieces': discussed_pieces,
+        'pieces_with_notes': pieces_with_notes,
     }
-    return render(request, 'main/profile.html', data)
+    return render(request, 'main/profile.html', data, context_instance=RequestContext(request))
 
 
 def login(request):
@@ -169,8 +254,14 @@ def login(request):
 
 @login_required(login_url="/login/")
 def add_observation(request, piece_id):
+    # Redirect to url with uppercase piece ID
+    if piece_id != piece_id.upper():
+        return HttpResponseRedirect("/piece/{0}/add-observation/".format(piece_id.upper()))
     # return render(request, 'main/add_analysis.html', {})
-    piece = DCPiece.objects.get(piece_id=piece_id)
+    try:
+        piece = DCPiece.objects.get(piece_id=piece_id)
+    except DCPiece.DoesNotExist:
+        raise Http404
     if request.method == "POST":
         form_data = AnalysisForm(request.POST)
         if not form_data.is_valid():

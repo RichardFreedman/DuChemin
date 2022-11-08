@@ -35,7 +35,7 @@ if __name__ == "__main__":
     for piece in pieces:
         # fix the composer name
         composer_name = ""
-        if piece.composer_id.given_name != "":
+        if piece.composer_id.given_name:
             composer_name = u"{0}, {1}".format(piece.composer_id.surname, piece.composer_id.given_name)
         else:
             composer_name = u"{0}".format(piece.composer_id.surname)
@@ -49,7 +49,6 @@ if __name__ == "__main__":
             'book_id_title': "{0}_{1}".format(piece.book_id.book_id, piece.book_id.title),
             'title': piece.title,
             'composer': composer_name,
-            'pdf_link': piece.pdf_link
         }
 
         all_pieces.append(d)
@@ -73,10 +72,7 @@ if __name__ == "__main__":
         else:
             contributor_name = u"{0}".format(analysis.analyst.surname)
 
-        if analysis.cadence == "Yes":
-            cadence = True
-        else:
-            cadence = False
+        cadence = analysis.is_cadence
 
         if analysis.cadence_alter:
             cadence_alter = [x.strip() for x in analysis.cadence_alter.split(",")]

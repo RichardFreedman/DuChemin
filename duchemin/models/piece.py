@@ -4,7 +4,6 @@ from django.db.models.signals import post_save, post_delete
 
 from duchemin.models.book import DCBook
 from duchemin.models.person import DCPerson
-from duchemin.models.file import DCFile
 
 
 class DCPiece(models.Model):
@@ -22,11 +21,12 @@ class DCPiece(models.Model):
     forces = models.CharField(max_length=16, blank=True, null=True)
     print_concordances = models.CharField(max_length=128, blank=True, null=True)
     ms_concordances = models.CharField(max_length=128, blank=True, null=True)
-    pdf_link = models.URLField(max_length=255, blank=True, null=True)
-    attachments = models.ManyToManyField(DCFile, blank=True, null=True)
+    pdf_link = models.CharField(max_length=255, blank=True, null=True)
+    mei_link = models.CharField(max_length=255, blank=True, null=True)
+    audio_link = models.CharField(max_length=255, blank=True, null=True)
 
     def __unicode__(self):
-        return u"{0}".format(self.title)
+        return u"{0}: {1}".format(self.piece_id, self.title)
 
 
 @receiver(post_save, sender=DCPiece)
@@ -58,7 +58,7 @@ def solr_index(sender, instance, created, **kwargs):
         'book_id_title': "{0}_{1}".format(piece.book_id.book_id, piece.book_id.title),
         'title': piece.title,
         'composer': composer_name,
-        'pdf_link': piece.pdf_link
+        'pdf_link': piece.pdf_link,
     }
     solrconn.add(**d)
     solrconn.commit()

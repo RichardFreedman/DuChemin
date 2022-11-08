@@ -1,83 +1,94 @@
-
-
-function attachAnalysisClickEvents() {
-    $('.view-analysis').on({
-        'click': function(event) {
-            $('#analysis-modal').remove();
-            modal = $("<div />", {
-                "id": "analysis-modal"
-            }).appendTo("body");
-
-            $("#analysis-modal").dialog({
-                'height': 500,
-                'width': 920,
-                'modal': true,
-                'title': 'Analysis View'
-            });
-
-            ajaxRenderAnalysis($(this).attr('anid'));
-            return false; // prevent the page from jumping when the link is clicked
-        }
-    });
-}
-
 function attachPhraseClickEvents() {
     $('.view-phrase').on({
         'click': function(event) {
-            $("#analysis-modal").remove();
+            var is_analysis;
+            if ($(this).data('phrasenum')) {
+                is_analysis = false;
+            }
+            else {
+                is_analysis = true;
+            }
+
+            $("#phrase-modal").remove();
             var modal = $("<div />", {
-                "id": "analysis-modal"
+                "id": "phrase-modal",
             }).appendTo("body");
 
-            $("#analysis-modal").dialog({
-                'height': 500,
-                'width': 920,
-                'modal': true,
-                'title': 'Phrase View'
-            });
+            // Distinguish between Phrase and Analysis slices
+            var title_string;
+            if (is_analysis) {
+                title_string = ($(this).data('pieceid') + ', measures ' +
+                    $(this).data('start') + '–' + $(this).data('stop'))
+            }
+            else {
+                title_string = $(this).data('pieceid') + ', phrase ' +
+                    $(this).data('phrasenum')
+            }
 
-            ajaxRenderPhrase($(this).attr('phid'));
+            $("#phrase-modal").dialog({
+                'height': 520,
+                'width': 980,
+                'modal': true,
+                'title': title_string,
+            });
+            $("<div />", {
+                "class": "phrase-modal-body"
+            }).appendTo(modal);
+
+            ajaxRenderPhrase(
+                $(this).data('meilink'),
+                $(this).data('start'),
+                $(this).data('stop'),
+                is_analysis
+            );
             return false;
         }
     });
 }
 
-function ajaxRenderPhrase(pid) {
-    $.ajax({
-        url: '/data/phrase/' + pid,
-        dataType: 'json',
-        success: function(data, status, xhr) {
-            var modal = $("#analysis-modal");
+function ajaxRenderPhrase(mei_link, start, end, is_analysis) {
+    var loadedXML = meiView.Util.loadXMLDoc(mei_link);
+    var filteredXml = meiView.filterMei(loadedXML, { noSysBreak:true });
+    var meiDoc = new MeiLib.MeiDoc(filteredXml);
 
-            $("<div />", {
-                "id": "analysis-modal-body"
-            }).appendTo(modal);
+    var pagination = new meiView.Pages();
 
-            $("#analysis-modal-body").append(data['music']);
+    /* If you want scrolling: */
+    pagination.AddPage(start, end);
 
-            var MEI = $("#meiScore");
-            var cv = $('div#music canvas')[0];
-            render_notation(MEI, cv, data['dimensions'][0], data['dimensions'][1]);
+    /* If you want pagination rather than scrolling:
+
+    // Throughout, -1 appears because measures are not counted "logically"
+    var max_m = start;
+
+    while (max_m < end) {
+        if (end - (max_m - 1) < 8) {
+            // Less than 8 measures left: fit it all in
+            pagination.AddPage(max_m, end);
+            max_m = end;
         }
-    });
-}
-
-function ajaxRenderAnalysis(anid) {
-    $.ajax({
-        url: '/data/analysis/' + anid,
-        dataType: 'json',
-        success: function(data, status, xhr) {
-            var modal = $("#analysis-modal");
-
-            $("<div />", {
-                "id": "analysis-modal-body"
-            }).appendTo(modal);
-
-            $("#analysis-modal-body").append(data['music']);
-
-            var MEI = $("#meiScore");
-            var cv = $('div#music canvas')[0];
-            render_notation(MEI, cv, data['dimensions'][0], data['dimensions'][1]);
+        else if (end - (max_m - 1) < 12) {
+            // To avoid uneven cramming at the end, consider pages of 5
+            pagination.AddPage(max_m, max_m + 4);
+            max_m += 5;
         }
+        else {
+            pagination.AddPage(max_m, max_m + 3);
+            max_m += 4;
+        }
+    }
+    */
+
+    var modal_viewer = new meiView.CompactViewer({
+        maindiv: $('.phrase-modal-body'),
+        MEI: meiDoc,
+        pages: pagination,
+        title: "",
+        displayFirstPage: true,
+        scale: 0.8,
+        mode: meiView.Mode.SINGLE_PAGE,
+        pxpMeasure: 280,
     });
+
+    var modal = $("#phrase-modal");
 }
