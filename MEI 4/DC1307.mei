@@ -1,0 +1,2562 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<mei xmlns="http://www.music-encoding.org/ns/mei"
+     meiversion="4.0.1"
+     xml:id="m-c1c0f95e-9c35-4f38-81d9-91b72469dd2d">
+   <meiHead xml:id="m-e8b3038e-aa80-4746-b68b-06c43a0d184b">
+      <fileDesc xml:id="m-0346b3d9-0b50-4aa1-95e8-9ca73f9d0fce">
+         <titleStmt>
+            <title xml:id="m-7efda2c8-109c-4969-abff-8547e9a8a007">Je me plains, et lamente</title>
+            <composer xml:id="m-828cebb7-c883-4dd3-a5ff-0ba6009bb007">A. Cartier</composer>
+            <editor type="reconstructor" xml:id="Derycz"/>
+         </titleStmt>
+         <pubStmt>
+            <availability xml:id="m-77fb95a1-1779-4525-af99-edcd85b2dd12">
+               <useRestrict xml:id="m-78481afa-ca8e-48cc-abfc-e98deabc4a96">Copyright CESR and Haverford College, 2012-2014. Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.</useRestrict>
+            </availability>
+         </pubStmt>
+      </fileDesc>
+      <encodingDesc xml:id="m-7527e415-ed1b-4bb9-b0b8-13d1000bf5ec">
+         <appInfo xml:id="m-30149a6f-481a-4fb2-bfbe-75ac04b03f42">
+            <application version="7" xml:id="sibelius7">
+               <name xml:id="m-7d771ae0-9aa5-4b73-99a8-c1c95325d84e">Sibelius</name>
+            </application>
+            <application version="v1.0_beta" xml:id="app_2022313111635451">
+               <name>mei30To40.xsl</name>
+            </application>
+         </appInfo>
+      </encodingDesc>
+      <workList xml:id="m-a9beac76-2483-49b6-ad67-7d97b61cbb4a">
+         <work xml:id="m-94b4fba1-0dd3-40b6-8160-7084cb625396">
+            <title xml:id="m-4c618e10-b96c-4b0a-a2bf-8d9cfa60be88">Je me plains, et lamente</title>
+            <incip xml:id="m-e4e5b072-57f1-4c62-b3ad-f3e96549df0d">
+               <score xml:id="m-1bb8c2fd-daf6-4cd5-8f3e-13e30f0e280a">
+                  <scoreDef xml:id="m-e8eeecaf-7d2f-482c-86e1-a163f0b8902f">
+                     <staffGrp xml:id="m-c5911baf-105b-4548-96e0-73c77cb25007">
+                        <staffGrp n="1"
+                                  symbol="bracket"
+                                  xml:id="m-65ff865f-806e-49af-acc7-a82631c92931">
+                           <staffDef clef.line="1"
+                                     clef.shape="C"
+                                     key.sig="1f"
+                                     lines="5"
+                                     n="1"
+                                     xml:id="m-ded9ee3e-7650-4d52-b6b8-ccef0e8de3d6">
+                              <label>Superius</label>
+                           </staffDef>
+                           <staffDef clef.line="3"
+                                     clef.shape="C"
+                                     key.sig="1f"
+                                     lines="5"
+                                     n="4"
+                                     xml:id="m-160f259f-4b44-4e99-b995-0d69c0b8d134">
+                              <label>Tenor</label>
+                           </staffDef>
+                        </staffGrp>
+                     </staffGrp>
+                  </scoreDef>
+               </score>
+            </incip>
+         </work>
+      </workList>
+   </meiHead>
+   <music xml:id="m-2b843aa0-92cd-4257-9f2e-5910a67668be">
+      <body xml:id="m-244799fb-e6db-45f5-a185-c5b4b1b4b036">
+         <mdiv xml:id="m-c3d73e14-92ac-469b-ad41-b213136d3c58">
+            <score xml:id="m-0fb1c354-e404-4ca0-b4e1-ae7b637f4616">
+               <scoreDef meter.count="4"
+                         meter.sym="cut"
+                         meter.unit="2"
+                         xml:id="m-71161989-35a0-43e9-99ec-12e60878703d">
+                  <staffGrp xml:id="m-deeb951f-f592-41a1-bd9b-8d99e6258f7d">
+                     <staffGrp n="1"
+                               symbol="bracket"
+                               xml:id="m-cd5990a1-e53b-4c13-8c7e-7c8290328ac3">
+                        <staffDef clef.line="2"
+                                  clef.shape="G"
+                                  key.sig="1f"
+                                  lines="5"
+                                  n="1"
+                                  xml:id="sd1">
+                           <label>Superius</label>
+                        </staffDef>
+                        <staffDef clef.line="2"
+                                  clef.shape="G"
+                                  key.sig="1f"
+                                  lines="5"
+                                  n="2"
+                                  xml:id="sd2">
+                           <label>Contratenor</label>
+                        </staffDef>
+                        <staffDef clef.dis="8"
+                                  clef.dis.place="below"
+                                  clef.line="2"
+                                  clef.shape="G"
+                                  key.sig="1f"
+                                  lines="5"
+                                  n="3"
+                                  xml:id="sd3">
+                           <label>Contratenor_Reconstruction_Derycz</label>
+                        </staffDef>
+                        <staffDef clef.dis="8"
+                                  clef.dis.place="below"
+                                  clef.line="2"
+                                  clef.shape="G"
+                                  key.sig="1f"
+                                  lines="5"
+                                  n="4"
+                                  xml:id="sd4">
+                           <label>Tenor</label>
+                        </staffDef>
+                        <staffDef clef.line="4"
+                                  clef.shape="F"
+                                  key.sig="1f"
+                                  lines="5"
+                                  n="5"
+                                  xml:id="sd5">
+                           <label>Bassus</label>
+                        </staffDef>
+                        <staffDef clef.line="4"
+                                  clef.shape="F"
+                                  key.sig="1f"
+                                  lines="5"
+                                  n="6"
+                                  xml:id="sd6">
+                           <label>Bassus_Reconstruction_Derycz</label>
+                        </staffDef>
+                     </staffGrp>
+                  </staffGrp>
+               </scoreDef>
+               <section xml:id="m-4e9a5f16-3b78-4940-b1d8-62ad059f46ac">
+                  <measure label="1" n="1" xml:id="m-f1609f15-68d4-4939-9022-6fc8ec20862e">
+                     <staff n="1" xml:id="m-57cde0b5-d2b0-4fe2-ae55-bcdc0da2db7f">
+                        <layer n="1" xml:id="m-24fb708f-8c18-434d-ba24-50c80bea01e1">
+                           <note dur="1"
+                                 dur.ppq="1024"
+                                 oct="5"
+                                 pname="d"
+                                 xml:id="p1cdd5n0v1b2s1">
+                              <verse n="1" xml:id="m-67e09bce-f8b9-4bc1-a348-10c01a43004c">
+                                 <syl wordpos="t" xml:id="m-7d6c641b-a637-4455-b85b-5e1bc4f2b2ae">Je</syl>
+                              </verse>
+                           </note>
+                           <note dur="2"
+                                 dur.ppq="512"
+                                 oct="5"
+                                 pname="c"
+                                 xml:id="p1ccd5n1024v1b2s1">
+                              <verse n="1" xml:id="m-10d73398-95eb-4b92-b291-bdd2cc3eb582">
+                                 <syl wordpos="t" xml:id="m-c19bced1-0229-43bd-b41a-4d3e6481c4a1">me</syl>
+                              </verse>
+                           </note>
+                           <note dur="2"
+                                 dur.ppq="512"
+                                 oct="5"
+                                 pname="c"
+                                 xml:id="p1ccd5n1536v1b2s1">
+                              <verse n="1" xml:id="m-04f62507-9dd9-4d14-bb7b-faf02f6d30a4">
+                                 <syl wordpos="t" xml:id="m-96dc4f49-293c-4fea-bfc2-1d4e1605c3cc">plains,</syl>
+                              </verse>
+                           </note>
+                        </layer>
+                     </staff>
+                     <app n="2" xml:id="m-3a2e0a54-d662-49ae-a7db-d86f97173a1b">
+                        <rdg n="2" type="blank" xml:id="m-80e71997-5139-4f0d-a2ea-eb1de8120111">
+                           <staff n="2" xml:id="m-9eb6810d-1dc5-42ae-844e-4cb701c097cb">
+                              <layer n="1" xml:id="m-50b0b76e-46f3-4808-9cfa-24a306704326">
+                                 <mRest visible="false" xml:id="m-d1de6162-1410-4d35-91ba-7882f17e70c2"/>
+                              </layer>
+                           </staff>
+                        </rdg>
+                        <rdg n="3"
+                             resp="#Derycz"
+                             type="reconstruction"
+                             xml:id="m-ea59a05f-aa75-48a5-a360-05db39eef21e">
+                           <staff n="3" xml:id="m-2c1f9de1-8d72-4b49-8c14-a9bdfe35821f">
+                              <layer n="1" xml:id="m-ac1a54f0-fe73-476d-b6af-d6e302f186a0">
+                                 <note dur="1"
+                                       dur.ppq="1024"
+                                       oct="4"
+                                       pname="f"
+                                       xml:id="p1cfd4n0v1b2s3">
+                                    <verse n="1" xml:id="m-62e5e0d4-ef43-44e8-a702-475dd7c1154a">
+                                       <syl wordpos="t" xml:id="m-a4e8fdac-88fe-44fd-b515-fc089e80a04e">Je</syl>
+                                    </verse>
+                                 </note>
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="4"
+                                       pname="f"
+                                       xml:id="p1cfd4n1024v1b2s3">
+                                    <verse n="1" xml:id="m-f09e65f6-9e39-4fed-b35f-f8521ec78811">
+                                       <syl wordpos="t" xml:id="m-ca7330e9-42ba-4d6e-84d2-ae7c5bac0618">me</syl>
+                                    </verse>
+                                 </note>
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="4"
+                                       pname="f"
+                                       xml:id="p1cfd4n1536v1b2s3">
+                                    <verse n="1" xml:id="m-e772aafe-2b25-4745-bffe-3915d8678f03">
+                                       <syl wordpos="t" xml:id="m-44016225-a79d-4cfc-8848-3309e90222d6">plains,</syl>
+                                    </verse>
+                                 </note>
+                              </layer>
+                           </staff>
+                        </rdg>
+                     </app>
+                     <staff n="4" xml:id="m-015df654-e1b4-4223-bb61-b01405b82cbf">
+                        <layer n="1" xml:id="m-3645451e-b1a5-41ce-8a72-9a74dc2a8cb6">
+                           <note dur="1"
+                                 dur.ppq="1024"
+                                 oct="3"
+                                 pname="b"
+                                 xml:id="p1cbd3n0v1b2s4">
+                              <verse n="1" xml:id="m-0468c715-7984-4a6c-9ff1-7c6b506b833f">
+                                 <syl wordpos="t" xml:id="m-134b100e-bae9-4aa1-94ff-9b86f46da137">Je</syl>
+                              </verse>
+                           </note>
+                           <note dur="2"
+                                 dur.ppq="512"
+                                 oct="3"
+                                 pname="a"
+                                 xml:id="p1cad3n1024v1b2s4">
+                              <verse n="1" xml:id="m-146c2512-1dfb-4913-955c-ed91855e03a6">
+                                 <syl wordpos="t" xml:id="m-df15abec-c684-41b6-8495-8f3a65be53bd">me</syl>
+                              </verse>
+                           </note>
+                           <note dur="2"
+                                 dur.ppq="512"
+                                 oct="3"
+                                 pname="a"
+                                 xml:id="p1cad3n1536v1b2s4">
+                              <verse n="1" xml:id="m-307f55d3-7f81-4875-99bf-33f360efee57">
+                                 <syl wordpos="t" xml:id="m-4dd62ad8-923a-464c-92ee-3628e92b448f">plains,</syl>
+                              </verse>
+                           </note>
+                        </layer>
+                     </staff>
+                     <app n="5" xml:id="m-fe24e236-383e-4467-b5ea-862e91663a8c">
+                        <rdg n="5" type="blank" xml:id="m-acf7a234-0db9-4ced-8eac-c05bf5872e94">
+                           <staff n="5" xml:id="m-68a5193d-0936-458a-a030-f1d1a97b02f0">
+                              <layer n="1" xml:id="m-27eb67d2-0e0c-4cde-a147-8e2e8651a578">
+                                 <mRest visible="false" xml:id="m-65e2b0a3-2938-4c02-9fcd-29568b2b27cd"/>
+                              </layer>
+                           </staff>
+                        </rdg>
+                        <rdg n="6"
+                             resp="#Derycz"
+                             type="reconstruction"
+                             xml:id="m-fbbba7fe-a83e-4b7f-98d9-ef8465d4a4cb">
+                           <staff n="6" xml:id="m-53f8f2ac-3a60-493b-b637-1d4ab5af4118">
+                              <layer n="1" xml:id="m-3434f6f6-0d47-4fa7-bd9d-ae44aa08f064">
+                                 <note dur="1"
+                                       dur.ppq="1024"
+                                       oct="2"
+                                       pname="b"
+                                       xml:id="p1cbd2n0v1b2s6">
+                                    <verse n="1" xml:id="m-4e447232-5585-4a03-af80-3657b925880f">
+                                       <syl wordpos="t" xml:id="m-909b903f-a2f3-4bf3-94fb-891cd9ae8295">Je</syl>
+                                    </verse>
+                                 </note>
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="3"
+                                       pname="f"
+                                       xml:id="p1cfd3n1024v1b2s6">
+                                    <verse n="1" xml:id="m-90c337bd-c15a-49ee-b84e-5997d3d4d992">
+                                       <syl wordpos="t" xml:id="m-b07cfc3b-8da0-49bd-8f47-eb8ae63020e3">me</syl>
+                                    </verse>
+                                 </note>
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="3"
+                                       pname="f"
+                                       xml:id="p1cfd3n1536v1b2s6">
+                                    <verse n="1" xml:id="m-87bb1441-4521-42e9-92d7-3f4550288640">
+                                       <syl wordpos="t" xml:id="m-b962a5a9-81e2-4feb-a06d-905776c03aa0">plains,</syl>
+                                    </verse>
+                                 </note>
+                              </layer>
+                           </staff>
+                        </rdg>
+                     </app>
+                  </measure>
+                  <measure n="2" xml:id="m-5a70207c-4c8c-43b4-8e3c-902b169a032a">
+                     <staff n="1" xml:id="m-b1375880-a8d4-4251-a260-11862511bf6f">
+                        <layer n="1" xml:id="m-2ad22bbc-3474-4346-8d0e-d41cc23b8f04">
+                           <note dur="2"
+                                 dur.ppq="512"
+                                 oct="5"
+                                 pname="c"
+                                 xml:id="p1ccd5n0v1b3s1">
+                              <verse n="1" xml:id="m-b9caa0d6-1230-40a9-9f5e-a42cda727cdd">
+                                 <syl wordpos="t" xml:id="m-4cbbda24-27c1-4fc3-8c16-baaf744dd5d5">et</syl>
+                              </verse>
+                           </note>
+                           <note dur="2"
+                                 dur.ppq="512"
+                                 oct="5"
+                                 pname="c"
+                                 xml:id="p1ccd5n512v1b3s1">
+                              <verse n="1" xml:id="m-18f1c428-0eb7-47de-a278-cfc2bb81e1f8">
+                                 <syl con="d" wordpos="i" xml:id="m-d61ae65a-9ab7-4a79-9739-b326c128a403">la</syl>
+                              </verse>
+                           </note>
+                           <note dur="4"
+                                 dur.ppq="256"
+                                 oct="4"
+                                 pname="b"
+                                 xml:id="p1cbd4n1024v1b3s1">
+                              <verse n="1" xml:id="m-d9aef425-df28-4560-b04f-6eba2df02969">
+                                 <syl con="d" wordpos="i" xml:id="m-56f5091d-758e-4bda-a77b-c027989319ca">men</syl>
+                              </verse>
+                           </note>
+                           <note dur="4"
+                                 dur.ppq="256"
+                                 oct="4"
+                                 pname="a"
+                                 xml:id="p1cad4n1280v1b3s1"/>
+                           <note dur="4"
+                                 dur.ppq="256"
+                                 oct="4"
+                                 pname="g"
+                                 xml:id="p1cgd4n1536v1b3s1"/>
+                           <note dur="4"
+                                 dur.ppq="256"
+                                 oct="4"
+                                 pname="f"
+                                 xml:id="p1cfd4n1792v1b3s1"/>
+                        </layer>
+                     </staff>
+                     <app n="2" xml:id="m-dbec1cff-5b8f-459c-991b-a84e2b83a96a">
+                        <rdg n="2" type="blank" xml:id="m-ef1c0763-9061-47e9-9d52-abbdd61aba51">
+                           <staff n="2" xml:id="m-7d6f3c14-9e30-434e-90ce-43242407ede1">
+                              <layer n="1" xml:id="m-d2d3cabb-2916-4a23-86f6-4934fa0efefd">
+                                 <mRest visible="false" xml:id="m-896d8946-ef26-4633-856f-08fe97d2802d"/>
+                              </layer>
+                           </staff>
+                        </rdg>
+                        <rdg n="3"
+                             resp="#Derycz"
+                             type="reconstruction"
+                             xml:id="m-37a91e90-9464-48ff-b0f9-44e7cd52c252">
+                           <staff n="3" xml:id="m-7e1c24ed-3aba-422b-9731-6ff38a9a875c">
+                              <layer n="1" xml:id="m-3f05d6ba-b769-413d-ac76-e8696b39445b">
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="4"
+                                       pname="e"
+                                       xml:id="p1ced4n0v1b3s3">
+                                    <verse n="1" xml:id="m-1c9826ee-0aa1-4de1-a971-6fd121e709fc">
+                                       <syl wordpos="t" xml:id="m-9e95c878-1d6c-48e0-a01e-b4c97482561e">et</syl>
+                                    </verse>
+                                 </note>
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="4"
+                                       pname="e"
+                                       xml:id="p1ced4n512v1b3s3">
+                                    <verse n="1" xml:id="m-c9ab2d48-f358-461a-aa8b-3d56ebf920e7">
+                                       <syl con="d" wordpos="i" xml:id="m-de8c23a0-33dd-4488-8279-ce9b7b50e40c">la</syl>
+                                    </verse>
+                                 </note>
+                                 <note dur="1"
+                                       dur.ppq="1024"
+                                       oct="4"
+                                       pname="d"
+                                       tie="i"
+                                       xml:id="p1cdd4n1024v1b3s3">
+                                    <verse n="1" xml:id="m-8498a07b-a7f1-4a44-b333-bece2b4a3dec">
+                                       <syl con="d" wordpos="i" xml:id="m-7c145b95-3ca1-435a-a8c3-37c8ed08bc55">ment</syl>
+                                    </verse>
+                                 </note>
+                              </layer>
+                           </staff>
+                        </rdg>
+                     </app>
+                     <staff n="4" xml:id="m-03982a6b-bc70-4f83-8297-5958cd934790">
+                        <layer n="1" xml:id="m-1894fe71-341e-44bf-9d8b-49583786b721">
+                           <note dots="1"
+                                 dur="1"
+                                 dur.ppq="1536"
+                                 oct="3"
+                                 pname="g"
+                                 xml:id="p1cgd3n0v1b3s4">
+                              <verse n="1" xml:id="m-dbc81f73-153d-4dc7-92f1-8f188e1309c3">
+                                 <syl wordpos="t" xml:id="m-0beaa441-eb75-4b63-af91-1ff96ea41b55">et</syl>
+                              </verse>
+                           </note>
+                           <note dur="2"
+                                 dur.ppq="512"
+                                 oct="3"
+                                 pname="g"
+                                 xml:id="p1cgd3n1536v1b3s4">
+                              <verse n="1" xml:id="m-e7dde133-72eb-46d9-9f78-df42660c479d">
+                                 <syl con="d" wordpos="i" xml:id="m-c75d36e1-42c0-40a8-b2a7-538fef638e17">la</syl>
+                              </verse>
+                           </note>
+                        </layer>
+                     </staff>
+                     <app n="5" xml:id="m-a19ce532-9e7c-409c-ad84-8e2ba130e888">
+                        <rdg n="5" type="blank" xml:id="m-5731017a-c5b6-4be7-81e0-0db738b6ac78">
+                           <staff n="5" xml:id="m-16a4a711-f614-4f56-a063-c1192c1122da">
+                              <layer n="1" xml:id="m-55b7efe4-6df4-451d-8f34-818cdfe60483">
+                                 <mRest visible="false" xml:id="m-9672a41f-9202-4d3d-90b7-efec8989f389"/>
+                              </layer>
+                           </staff>
+                        </rdg>
+                        <rdg n="6"
+                             resp="#Derycz"
+                             type="reconstruction"
+                             xml:id="m-9dd806ea-c45a-4002-be77-997d6166a33b">
+                           <staff n="6" xml:id="m-dbfe38b7-40c3-4c9e-9330-e34365cc3dae">
+                              <layer n="1" xml:id="m-e9378276-0554-4e00-91b9-f3e3d8958994">
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="3"
+                                       pname="c"
+                                       xml:id="p1ccd3n0v1b3s6">
+                                    <verse n="1" xml:id="m-c68cf467-1d00-4c0b-9584-cdfa35c96db9">
+                                       <syl wordpos="t" xml:id="m-271f8a10-be5f-4497-9fab-bd02be09204d">et</syl>
+                                    </verse>
+                                 </note>
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="3"
+                                       pname="c"
+                                       xml:id="p1ccd3n512v1b3s6">
+                                    <verse n="1" xml:id="m-7f5edcc2-50a9-40a7-a53c-f7adcc0c919e">
+                                       <syl con="d" wordpos="i" xml:id="m-998564f2-92b0-4fe2-bdb9-ba3d594d22bf">la</syl>
+                                    </verse>
+                                 </note>
+                                 <note dur="1"
+                                       dur.ppq="1024"
+                                       oct="3"
+                                       pname="g"
+                                       tie="i"
+                                       xml:id="p1cgd3n1024v1b3s6">
+                                    <verse n="1" xml:id="m-1bf0c365-5093-4065-a604-edae9d979725">
+                                       <syl con="d" wordpos="i" xml:id="m-eb692caf-3baa-4952-84af-e884f7d610f3">men</syl>
+                                    </verse>
+                                 </note>
+                              </layer>
+                           </staff>
+                        </rdg>
+                     </app>
+                  </measure>
+                  <measure n="3" xml:id="m-49486fb0-72ec-4dd7-a533-201d0073286d">
+                     <staff n="1" xml:id="m-f8c28a00-1642-4b4e-b131-a1002461758d">
+                        <layer n="1" xml:id="m-d567f687-dc19-476a-b766-976aa13f0ba4">
+                           <note dur="1"
+                                 dur.ppq="1024"
+                                 oct="4"
+                                 pname="g"
+                                 xml:id="p1cgd4n0v1b4s1"/>
+                           <note dur="2"
+                                 dur.ppq="512"
+                                 oct="4"
+                                 pname="f"
+                                 xml:id="p1cfd4n1024v1b4s1">
+                              <verse n="1" xml:id="m-29695e78-ba44-4842-b2b0-c8357b1b551d">
+                                 <syl wordpos="t" xml:id="m-07086a4a-00e2-446e-a485-3c7bd44e551b">te,</syl>
+                              </verse>
+                           </note>
+                           <note dur="2"
+                                 dur.ppq="512"
+                                 oct="4"
+                                 pname="g"
+                                 xml:id="p1cgd4n1536v1b4s1">
+                              <verse n="1" xml:id="m-d0250cac-08c7-4bc5-86aa-64a13d70d528">
+                                 <syl con="d" wordpos="i" xml:id="m-0a0df12f-0858-4c05-a1d9-26d3d2a094b6">Con</syl>
+                              </verse>
+                           </note>
+                        </layer>
+                     </staff>
+                     <app n="2" xml:id="m-adb7ad02-9bae-4a96-8972-2e452a1db162">
+                        <rdg n="2" type="blank" xml:id="m-d5ab5856-5440-480f-a7b9-55f2658a7b67">
+                           <staff n="2" xml:id="m-b35263e2-a07a-4d39-a97f-80446240fddb">
+                              <layer n="1" xml:id="m-a1570bfb-9af5-4368-857a-08d163760286">
+                                 <mRest visible="false" xml:id="m-700bbde1-d5c9-4d49-b1a1-b590ca1dc519"/>
+                              </layer>
+                           </staff>
+                        </rdg>
+                        <rdg n="3"
+                             resp="#Derycz"
+                             type="reconstruction"
+                             xml:id="m-ff4caa64-4ae5-4cf3-b3c3-c0370f3ae810">
+                           <staff n="3" xml:id="m-119f90f1-d267-436b-95a3-5b9b121c261c">
+                              <layer n="1" xml:id="m-3f79c7f1-687c-484a-bcac-9005c82b7747">
+                                 <note dur="1"
+                                       dur.ppq="1024"
+                                       oct="4"
+                                       pname="d"
+                                       tie="t"
+                                       xml:id="p1cdd4n0v1b4s3"/>
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="4"
+                                       pname="d"
+                                       xml:id="p1cdd4n1024v1b4s3">
+                                    <verse n="1" xml:id="m-6b9cfe97-bfc9-485f-8714-944f612ac134">
+                                       <syl wordpos="t" xml:id="m-22645c00-a001-4d99-a41b-a43f4a1eafa9">te,</syl>
+                                    </verse>
+                                 </note>
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="4"
+                                       pname="d"
+                                       xml:id="p1cdd4n1536v1b4s3">
+                                    <verse n="1" xml:id="m-76b95204-f719-4065-85c9-2f105bd07235">
+                                       <syl con="d" wordpos="i" xml:id="m-ff364558-2bdb-4d34-9a0f-3389ca13254d">Con</syl>
+                                    </verse>
+                                 </note>
+                              </layer>
+                           </staff>
+                        </rdg>
+                     </app>
+                     <staff n="4" xml:id="m-89e58cff-63a7-45e0-b41d-7ff470e72204">
+                        <layer n="1" xml:id="m-ae40e6ac-1abb-4107-a835-6dbf6edef105">
+                           <note dur="1"
+                                 dur.ppq="1024"
+                                 oct="3"
+                                 pname="b"
+                                 xml:id="p1cbd3n0v1b4s4">
+                              <verse n="1" xml:id="m-bc55a9c4-34dc-4f81-8ab4-73c8ef6d529f">
+                                 <syl con="d" wordpos="i" xml:id="m-fad9fceb-f3ce-4675-b284-5a6bb1d9ecbb">men</syl>
+                              </verse>
+                           </note>
+                           <note dur="2"
+                                 dur.ppq="512"
+                                 oct="3"
+                                 pname="a"
+                                 xml:id="p1cad3n1024v1b4s4">
+                              <verse n="1" xml:id="m-d86590eb-6f88-4b7d-b787-0aa6367d3327">
+                                 <syl wordpos="t" xml:id="m-8ec959aa-657b-47e8-a6ae-65c5c32ac929">te,</syl>
+                              </verse>
+                           </note>
+                           <note dur="2"
+                                 dur.ppq="512"
+                                 oct="3"
+                                 pname="b"
+                                 xml:id="p1cbd3n1536v1b4s4">
+                              <verse n="1" xml:id="m-f10f60a4-1cdd-41ec-b462-f275f34ae86e">
+                                 <syl con="d" wordpos="i" xml:id="m-d7593a63-8c88-473a-acb8-41e24eddedd7">Con</syl>
+                              </verse>
+                           </note>
+                        </layer>
+                     </staff>
+                     <app n="5" xml:id="m-3cfb078f-f99d-4101-a713-75e524ec2d5f">
+                        <rdg n="5" type="blank" xml:id="m-84cc69f2-9d4d-4513-ac93-e43e077b1128">
+                           <staff n="5" xml:id="m-7a7042ae-04c1-4c8b-a703-782ef244c234">
+                              <layer n="1" xml:id="m-36c1edce-ca8e-4150-8c32-fbeb3abd501f">
+                                 <mRest visible="false" xml:id="m-be8bcf14-95ea-4717-91f5-be58b841aa8c"/>
+                              </layer>
+                           </staff>
+                        </rdg>
+                        <rdg n="6"
+                             resp="#Derycz"
+                             type="reconstruction"
+                             xml:id="m-36342a1f-a0d9-4f3d-864c-9e1f41aac614">
+                           <staff n="6" xml:id="m-0bfadbb8-44ac-4877-a0ed-9c980a2e7e7c">
+                              <layer n="1" xml:id="m-e35f503f-7df5-4a88-a054-a8f1210ee131">
+                                 <note dur="1"
+                                       dur.ppq="1024"
+                                       oct="3"
+                                       pname="g"
+                                       tie="t"
+                                       xml:id="p1cgd3n0v1b4s6"/>
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="3"
+                                       pname="d"
+                                       xml:id="p1cdd3n1024v1b4s6">
+                                    <verse n="1" xml:id="m-3d39598a-3b3a-4557-9d87-74caf8310acc">
+                                       <syl wordpos="t" xml:id="m-47b6ad52-42cb-41ee-b6d9-3c6cbff4af33">te,</syl>
+                                    </verse>
+                                 </note>
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="3"
+                                       pname="g"
+                                       xml:id="p1cgd3n1536v1b4s6">
+                                    <verse n="1" xml:id="m-0c529735-b4a3-4eb9-94e6-c7710284db58">
+                                       <syl con="d" wordpos="i" xml:id="m-ef4eb1a6-6b5d-4be2-82b3-4261aa727772">Con</syl>
+                                    </verse>
+                                 </note>
+                              </layer>
+                           </staff>
+                        </rdg>
+                     </app>
+                  </measure>
+                  <measure n="4" xml:id="m-388e1666-1672-46dd-8c19-1bf2096dd2ed">
+                     <staff n="1" xml:id="m-d5c0a8f9-7ccb-4a4a-aeeb-48c751efd2be">
+                        <layer n="1" xml:id="m-50694c18-46a8-47e8-9411-70fcb8c2572c">
+                           <note dur="4"
+                                 dur.ppq="256"
+                                 oct="4"
+                                 pname="a"
+                                 xml:id="p1cad4n0v1b5s1">
+                              <verse n="1" xml:id="m-4a6ceb32-62e7-4d1d-91c5-fe4258068f01">
+                                 <syl wordpos="t" xml:id="m-2c941236-f60a-45d3-8298-e2399a3c8206">tre</syl>
+                              </verse>
+                           </note>
+                           <note dur="4"
+                                 dur.ppq="256"
+                                 oct="4"
+                                 pname="g"
+                                 xml:id="p1cgd4n256v1b5s1">
+                              <verse n="1" xml:id="m-aebe0b88-3f52-47c2-941b-f3b589e2f30a">
+                                 <syl wordpos="t" xml:id="m-3e78b8d2-651e-4494-8a7e-88409161f036">tant</syl>
+                              </verse>
+                           </note>
+                           <note dur="1"
+                                 dur.ppq="1024"
+                                 oct="4"
+                                 pname="g"
+                                 xml:id="p1cgd4n512v1b5s1">
+                              <verse n="1" xml:id="m-1315fe71-1613-40a2-be7b-79f327f580b8">
+                                 <syl con="d" wordpos="i" xml:id="m-e458db5a-a1cd-4e60-b807-d1e8f47a444e">d'en</syl>
+                              </verse>
+                           </note>
+                           <note dur="2"
+                                 dur.ppq="512"
+                                 oct="4"
+                                 pname="f"
+                                 xml:id="p1cfd4n1536v1b5s1">
+                              <supplied reason="edit" xml:id="m-a58bd47a-4d05-4b04-8b36-3be14416e8aa">
+                                 <accid accid="s"
+                                        func="edit"
+                                        place="above"
+                                        xml:id="m-8685786d-da97-470a-b986-afeca25885ee"/>
+                              </supplied>
+                              <verse n="1" xml:id="m-22850d28-97b0-4013-8e81-1d727440fecf">
+                                 <syl con="d" wordpos="i" xml:id="m-ecbc274e-d229-400f-95bb-b387c4b1cc01">ne</syl>
+                              </verse>
+                           </note>
+                        </layer>
+                     </staff>
+                     <app n="2" xml:id="m-3a59c1cb-5d05-4331-8b98-471b40829b0f">
+                        <rdg n="2" type="blank" xml:id="m-d30331ac-e3e0-42f2-a4f2-c31aaecc898a">
+                           <staff n="2" xml:id="m-14bf09cc-3362-4d00-bb6e-afc857970e10">
+                              <layer n="1" xml:id="m-88e90de7-8933-422b-be94-fe46418a5bce">
+                                 <mRest visible="false" xml:id="m-440b37a8-9361-4251-8a66-7ac95ebeed84"/>
+                              </layer>
+                           </staff>
+                        </rdg>
+                        <rdg n="3"
+                             resp="#Derycz"
+                             type="reconstruction"
+                             xml:id="m-142ae03c-76df-4e6b-aa7a-f1782567211a">
+                           <staff n="3" xml:id="m-dbfe7549-187d-4a9c-a283-0aca7bc9bd87">
+                              <layer n="1" xml:id="m-075c818e-03b9-4fc2-b55b-8bc3f1aae9de">
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="4"
+                                       pname="f"
+                                       xml:id="p1cfd4n0v1b5s3">
+                                    <verse n="1" xml:id="m-9b74084a-1483-4b38-885d-af740d9fe2a4">
+                                       <syl wordpos="t" xml:id="m-5e7c27db-3ff1-40d2-ad0d-f5d3a247f1da">tre</syl>
+                                    </verse>
+                                 </note>
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="4"
+                                       pname="d"
+                                       xml:id="p1cdd4n512v1b5s3">
+                                    <verse n="1" xml:id="m-9d4b05a5-9945-4fec-9ee0-6e0736803046">
+                                       <syl wordpos="t" xml:id="m-a6ecec51-f651-4c4e-9289-39e661ceb4b2">tant</syl>
+                                    </verse>
+                                 </note>
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="4"
+                                       pname="d"
+                                       xml:id="p1cdd4n1024v1b5s3">
+                                    <verse n="1" xml:id="m-2fcf3c40-5585-4251-9c56-648d3c8ef6e6">
+                                       <syl con="d" wordpos="i" xml:id="m-af618cd2-3884-4963-a7b0-1325a1f31923">d'en</syl>
+                                    </verse>
+                                 </note>
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="4"
+                                       pname="d"
+                                       xml:id="p1cdd4n1536v1b5s3">
+                                    <verse n="1" xml:id="m-21e6535b-e7ce-4a6a-883a-3546fc379479">
+                                       <syl con="d" wordpos="i" xml:id="m-7ce8b176-1ab8-4413-adc2-44d3c8ad7388">ne</syl>
+                                    </verse>
+                                 </note>
+                              </layer>
+                           </staff>
+                        </rdg>
+                     </app>
+                     <staff n="4" xml:id="m-cd5a3df2-be6d-47c7-a68c-3e392c90626e">
+                        <layer n="1" xml:id="m-a1b10a1f-ac30-462d-9af8-9e5b143cc7a8">
+                           <note dur="2"
+                                 dur.ppq="512"
+                                 oct="4"
+                                 pname="c"
+                                 xml:id="p1ccd4n0v1b5s4">
+                              <verse n="1" xml:id="m-776c70c2-5150-4629-86cd-e1da0b789a8a">
+                                 <syl wordpos="t" xml:id="m-c63ffef2-3584-41c2-9e2c-9e50ea96490d">tre</syl>
+                              </verse>
+                           </note>
+                           <note dur="2"
+                                 dur.ppq="512"
+                                 oct="3"
+                                 pname="b"
+                                 xml:id="p1cbd3n512v1b5s4">
+                              <verse n="1" xml:id="m-45d17c75-d763-407e-9749-36f3197a4886">
+                                 <syl wordpos="t" xml:id="m-cfce2193-b8af-440a-9bd6-0aad07d83e12">tant</syl>
+                              </verse>
+                           </note>
+                           <note dur="2"
+                                 dur.ppq="512"
+                                 oct="3"
+                                 pname="a"
+                                 xml:id="p1cad3n1024v1b5s4">
+                              <verse n="1" xml:id="m-60120b36-c766-4c91-ab90-cba2fa45ef5f">
+                                 <syl con="d" wordpos="i" xml:id="m-af52cb6b-3b84-46f9-985e-d5c3d0a0d85c">d'en</syl>
+                              </verse>
+                           </note>
+                           <note dur="2"
+                                 dur.ppq="512"
+                                 oct="3"
+                                 pname="a"
+                                 xml:id="p1cad3n1536v1b5s4">
+                              <verse n="1" xml:id="m-9abee431-93b1-46a2-8971-0332a5557859">
+                                 <syl con="d" wordpos="i" xml:id="m-77bf9ed2-5190-41e5-8f5c-8b3f0f772b04">ne</syl>
+                              </verse>
+                           </note>
+                        </layer>
+                     </staff>
+                     <app n="5" xml:id="m-8683a7c2-ca03-41bd-b9c6-97ee4fffa86b">
+                        <rdg n="5" type="blank" xml:id="m-2ee1d0b7-4c06-4a90-8f3f-e88a44fe77e0">
+                           <staff n="5" xml:id="m-dd237633-0b8a-4c2d-89d6-ef400f397f90">
+                              <layer n="1" xml:id="m-7936814c-cf9a-4652-bb1c-7a0b126012c1">
+                                 <mRest visible="false" xml:id="m-2d96f526-0cea-4259-98a5-c17372350989"/>
+                              </layer>
+                           </staff>
+                        </rdg>
+                        <rdg n="6"
+                             resp="#Derycz"
+                             type="reconstruction"
+                             xml:id="m-56fc4588-7e29-4c13-8715-a1949624c5c6">
+                           <staff n="6" xml:id="m-83c5fc5f-151e-4d64-83b1-d914ace6c040">
+                              <layer n="1" xml:id="m-83947618-37c3-4788-82b5-bc5a9623ad13">
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="3"
+                                       pname="f"
+                                       xml:id="p1cfd3n0v1b5s6">
+                                    <verse n="1" xml:id="m-e679926b-922d-4f84-a0d0-1c9184edaea7">
+                                       <syl wordpos="t" xml:id="m-77bd6013-2522-4d6a-897f-83b0a23f5c98">tre</syl>
+                                    </verse>
+                                 </note>
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="3"
+                                       pname="g"
+                                       xml:id="p1cgd3n512v1b5s6">
+                                    <verse n="1" xml:id="m-932a2848-791e-408c-9700-f5e2c7a0e5ef">
+                                       <syl wordpos="t" xml:id="m-cf63b039-ee12-4ae2-b47e-07462ff56022">tant</syl>
+                                    </verse>
+                                 </note>
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="3"
+                                       pname="d"
+                                       xml:id="p1cdd3n1024v1b5s6">
+                                    <verse n="1" xml:id="m-a5b5acc7-1930-4d9a-b8a8-1cff3afc4764">
+                                       <syl con="d" wordpos="i" xml:id="m-52dfae71-666f-4d31-950b-e78f9c43194e">d'en</syl>
+                                    </verse>
+                                 </note>
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="3"
+                                       pname="d"
+                                       xml:id="p1cdd3n1536v1b5s6">
+                                    <verse n="1" xml:id="m-cdebf434-10ec-4aa8-88a6-d8462ff8e08a">
+                                       <syl con="d" wordpos="i" xml:id="m-bc811ebe-2f26-4e5c-8744-c16cc7dfbd0c">ne</syl>
+                                    </verse>
+                                 </note>
+                              </layer>
+                           </staff>
+                        </rdg>
+                     </app>
+                  </measure>
+                  <measure n="5" xml:id="m-e9d9f935-4492-40a1-ae7c-18bf839ed07f">
+                     <staff n="1" xml:id="m-3e210ba4-5362-4a04-8750-40e7fc73eced">
+                        <layer n="1" xml:id="m-20e7d9d8-9da7-410d-be25-a1b8d4b53848">
+                           <note dur="1"
+                                 dur.ppq="1024"
+                                 oct="4"
+                                 pname="g"
+                                 xml:id="p1cgd4n0v1b6s1">
+                              <verse n="1" xml:id="m-ccd3336b-3e0f-4849-bd75-597f55abb62e">
+                                 <syl wordpos="t" xml:id="m-62990e54-ab82-4934-a177-b0b5fdbb0f9a">mys,</syl>
+                              </verse>
+                           </note>
+                           <rest dur="2" dur.ppq="512" xml:id="p1r1024v1b6s1"/>
+                           <note dur="2"
+                                 dur.ppq="512"
+                                 oct="5"
+                                 pname="d"
+                                 xml:id="p1cdd5n1536v1b6s1">
+                              <verse n="1" xml:id="m-b6086b70-e8b8-448d-8248-9a0b30eafe55">
+                                 <syl wordpos="t" xml:id="m-fe666fc2-b8be-455c-bdd2-d481bf6f6921">Qui</syl>
+                              </verse>
+                           </note>
+                        </layer>
+                     </staff>
+                     <app n="2" xml:id="m-799a5979-eb88-4ac8-876a-29d9f1c25f81">
+                        <rdg n="2" type="blank" xml:id="m-d6800362-a7ec-4567-9276-2344c8ab2390">
+                           <staff n="2" xml:id="m-35b7b925-27f9-4547-8904-7c21f1e6793c">
+                              <layer n="1" xml:id="m-b81da673-19aa-4f64-bfa3-e6fcd267bcda">
+                                 <mRest visible="false" xml:id="m-48b23038-bb9b-4b1d-869c-4d182d87ce26"/>
+                              </layer>
+                           </staff>
+                        </rdg>
+                        <rdg n="3"
+                             resp="#Derycz"
+                             type="reconstruction"
+                             xml:id="m-61ec59f6-f7a2-475a-b672-24bc3c6881c3">
+                           <staff n="3" xml:id="m-b7cf7092-3375-4755-a017-36cff3c212ae">
+                              <layer n="1" xml:id="m-dec23413-2c72-4e38-b41a-f69619804ea0">
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="4"
+                                       pname="d"
+                                       xml:id="p1cdd4n0v1b6s3">
+                                    <verse n="1" xml:id="m-527e537a-9d63-4aa6-ac1d-3bf24ae49ad1">
+                                       <syl wordpos="t" xml:id="m-f027f1a6-2e96-4492-abaa-bd6f0f08b6df">mys,</syl>
+                                    </verse>
+                                 </note>
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="4"
+                                       pname="g"
+                                       xml:id="p1cgd4n512v1b6s3">
+                                    <verse n="1" xml:id="m-d355d0ec-c65e-4c70-9dc7-c870edd0d767">
+                                       <syl wordpos="t" xml:id="m-13ec2dea-a607-4e76-b9c8-1432aea0207b">Qui</syl>
+                                    </verse>
+                                 </note>
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="4"
+                                       pname="f"
+                                       xml:id="p1cfd4n1024v1b6s3">
+                                    <verse n="1" xml:id="m-528967a9-13f0-44da-ab91-f36f8f5b2865">
+                                       <syl wordpos="t" xml:id="m-fdf2c53b-8253-46ab-ab96-193d350cbb2d">sans</syl>
+                                    </verse>
+                                 </note>
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="4"
+                                       pname="f"
+                                       xml:id="p1cfd4n1536v1b6s3">
+                                    <verse n="1" xml:id="m-00f0f28c-9ec3-456b-ae27-9fc10e36810b">
+                                       <syl con="d" wordpos="i" xml:id="m-60a2c178-4fc5-4889-a956-809f7f0fa1d5">ces</syl>
+                                    </verse>
+                                 </note>
+                              </layer>
+                           </staff>
+                        </rdg>
+                     </app>
+                     <staff n="4" xml:id="m-29f0d3c5-3d87-4b76-b3fa-4d6000f48247">
+                        <layer n="1" xml:id="m-ceba8bc5-eb09-4040-bd59-d4338fe888a6">
+                           <note dur="1"
+                                 dur.ppq="1024"
+                                 oct="3"
+                                 pname="g"
+                                 xml:id="p1cgd3n0v1b6s4">
+                              <verse n="1" xml:id="m-613c8125-fcb8-4a6c-83d1-f60472190b7f">
+                                 <syl wordpos="t" xml:id="m-234bed83-f728-4d35-80c8-4e6425756d76">mys,</syl>
+                              </verse>
+                           </note>
+                           <rest dur="2" dur.ppq="512" xml:id="p1r1024v1b6s4"/>
+                           <note dur="2"
+                                 dur.ppq="512"
+                                 oct="3"
+                                 pname="b"
+                                 xml:id="p1cbd3n1536v1b6s4">
+                              <verse n="1" xml:id="m-a0ae495e-ac01-4d26-8693-11221584f666">
+                                 <syl wordpos="t" xml:id="m-bf6db1a0-66fe-44b9-9da8-e8949f2b792f">Qui</syl>
+                              </verse>
+                           </note>
+                        </layer>
+                     </staff>
+                     <app n="5" xml:id="m-10ba66d0-510f-4efd-9e30-0249163a561f">
+                        <rdg n="5" type="blank" xml:id="m-d56da132-a7c8-4891-a6d0-a1c8b00ae9b8">
+                           <staff n="5" xml:id="m-70519119-a9a2-4821-88be-31d701cb774b">
+                              <layer n="1" xml:id="m-2f9b1b07-7f51-4108-9d32-39c17664ba69">
+                                 <mRest visible="false" xml:id="m-be7c56f9-c021-47b8-a5ac-cd492ca75f71"/>
+                              </layer>
+                           </staff>
+                        </rdg>
+                        <rdg n="6"
+                             resp="#Derycz"
+                             type="reconstruction"
+                             xml:id="m-7fb350ee-f9e1-49b8-a018-4ca4df2be8c6">
+                           <staff n="6" xml:id="m-33d62d65-3f06-458c-b954-07aeea12a2ad">
+                              <layer n="1" xml:id="m-3e45c18b-de8e-4b75-a673-7c6baeae271f">
+                                 <note dur="1"
+                                       dur.ppq="1024"
+                                       oct="2"
+                                       pname="g"
+                                       xml:id="p1cgd2n0v1b6s6">
+                                    <verse n="1" xml:id="m-40f07f41-1224-4d9f-99a2-1b73409cf11d">
+                                       <syl wordpos="t" xml:id="m-c15f594c-ec0c-4758-8988-7befea6c0a2e">mys,</syl>
+                                    </verse>
+                                 </note>
+                                 <rest dur="2" dur.ppq="512" xml:id="p1r1024v1b6s6"/>
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="2"
+                                       pname="b"
+                                       xml:id="p1cbd2n1536v1b6s6">
+                                    <verse n="1" xml:id="m-3562384d-9c4c-4e44-b3f7-9c27157417d7">
+                                       <syl wordpos="t" xml:id="m-fc781624-2ae4-4f80-bba3-757e1b37f1d9">Qui</syl>
+                                    </verse>
+                                 </note>
+                              </layer>
+                           </staff>
+                        </rdg>
+                     </app>
+                  </measure>
+                  <measure n="6" xml:id="m-272a44a2-ec29-4e54-9922-9012b9ff403f">
+                     <staff n="1" xml:id="m-5b05b0d0-2713-4746-bd9e-2428fc1c31fa">
+                        <layer n="1" xml:id="m-112d08fa-ea0f-444d-b54b-06fc1f80e94a">
+                           <note dur="2"
+                                 dur.ppq="512"
+                                 oct="5"
+                                 pname="c"
+                                 xml:id="p1ccd5n0v1b7s1">
+                              <verse n="1" xml:id="m-f29873ed-1084-4701-8010-c4f80a1c124f">
+                                 <syl wordpos="t" xml:id="m-26462ebf-4c99-4a53-88f9-97a845fdb303">sans</syl>
+                              </verse>
+                           </note>
+                           <note dur="2"
+                                 dur.ppq="512"
+                                 oct="5"
+                                 pname="c"
+                                 xml:id="p1ccd5n512v1b7s1">
+                              <verse n="1" xml:id="m-74e3d67e-91d1-46fd-aea6-0b677ee81b96">
+                                 <syl con="d" wordpos="i" xml:id="m-e2bb6e96-376b-4834-9a8e-6d04ea348854">ces</syl>
+                              </verse>
+                           </note>
+                           <note dur="2"
+                                 dur.ppq="512"
+                                 oct="5"
+                                 pname="c"
+                                 xml:id="p1ccd5n1024v1b7s1">
+                              <verse n="1" xml:id="m-806d64fa-7f95-496c-ae55-d962f91224ed">
+                                 <syl wordpos="t" xml:id="m-3496e8f4-2f72-4d3e-af03-a49653f87503">se</syl>
+                              </verse>
+                           </note>
+                           <note dur="2"
+                                 dur.ppq="512"
+                                 oct="5"
+                                 pname="c"
+                                 xml:id="p1ccd5n1536v1b7s1">
+                              <verse n="1" xml:id="m-01986755-795a-4b53-8c33-bdecd0b3f321">
+                                 <syl con="d" wordpos="i" xml:id="m-6eae5b79-09d2-4acb-9105-126fee14e46b">tour</syl>
+                              </verse>
+                           </note>
+                        </layer>
+                     </staff>
+                     <app n="2" xml:id="m-77c73632-af96-46a9-aae4-0f9e0c37a66b">
+                        <rdg n="2" type="blank" xml:id="m-e5f25ba7-9148-4464-b849-11dac1079f77">
+                           <staff n="2" xml:id="m-f18b39ec-6410-4b28-a115-bd6fe6683664">
+                              <layer n="1" xml:id="m-342461a9-2e3f-40d8-a04d-43c4e5cb39cd">
+                                 <mRest visible="false" xml:id="m-0a38c0dc-0a0c-4711-a399-0e684d650dc1"/>
+                              </layer>
+                           </staff>
+                        </rdg>
+                        <rdg n="3"
+                             resp="#Derycz"
+                             type="reconstruction"
+                             xml:id="m-923e324f-0f75-44ad-a6f8-0ca7eb4182de">
+                           <staff n="3" xml:id="m-b10acf56-41ba-4333-9ee5-11f866bb28dc">
+                              <layer n="1" xml:id="m-a889fdaf-dacc-4e5e-806b-094c25312791">
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="4"
+                                       pname="f"
+                                       xml:id="p1cfd4n0v1b7s3">
+                                    <verse n="1" xml:id="m-f8e8a102-8861-4d62-8c25-79c40ef76d1e">
+                                       <syl wordpos="t" xml:id="m-73c7cdb9-bd58-4fa4-a053-a8fd640f90e5">se</syl>
+                                    </verse>
+                                 </note>
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="4"
+                                       pname="f"
+                                       xml:id="p1cfd4n512v1b7s3">
+                                    <verse n="1" xml:id="m-3df9b9a5-71e8-46c5-97ff-b8eb3d27d5b2">
+                                       <syl con="d" wordpos="i" xml:id="m-c7e4fe21-89b9-4811-9113-768605ae79d0">tour</syl>
+                                    </verse>
+                                 </note>
+                                 <note dur="1"
+                                       dur.ppq="1024"
+                                       oct="4"
+                                       pname="e"
+                                       xml:id="p1ced4n1024v1b7s3">
+                                    <verse n="1" xml:id="m-65cf2614-8dda-415d-98b1-3b93248281ba">
+                                       <syl con="d" wordpos="i" xml:id="m-df49d4b8-f471-4c09-b4df-84f763f98c7a">men</syl>
+                                    </verse>
+                                 </note>
+                              </layer>
+                           </staff>
+                        </rdg>
+                     </app>
+                     <staff n="4" xml:id="m-e4c33fbf-4d6e-440f-b473-230512fd55e9">
+                        <layer n="1" xml:id="m-0a592785-ed80-43aa-8936-309c8ae40574">
+                           <note dur="2"
+                                 dur.ppq="512"
+                                 oct="3"
+                                 pname="a"
+                                 xml:id="p1cad3n0v1b7s4">
+                              <verse n="1" xml:id="m-e799f011-7a21-4e2d-bebc-340f8b052122">
+                                 <syl wordpos="t" xml:id="m-b7711aac-0cc3-49f8-8c4c-f8f26e77abd6">sans</syl>
+                              </verse>
+                           </note>
+                           <note dur="2"
+                                 dur.ppq="512"
+                                 oct="3"
+                                 pname="a"
+                                 xml:id="p1cad3n512v1b7s4">
+                              <verse n="1" xml:id="m-3bdb0b28-e50d-44f0-88a5-189d66fa0c1a">
+                                 <syl con="d" wordpos="i" xml:id="m-224a17a9-38b5-43ca-89ec-21c872274507">ces</syl>
+                              </verse>
+                           </note>
+                           <note dur="1"
+                                 dur.ppq="1024"
+                                 oct="3"
+                                 pname="g"
+                                 tie="i"
+                                 xml:id="p1cgd3n1024v1b7s4">
+                              <verse n="1" xml:id="m-d22b375b-9c79-42f0-a464-aec809f1c92e">
+                                 <syl con="u" wordpos="t" xml:id="m-ea047197-4fe1-4933-9c9d-a0be8d3d8dd9">se</syl>
+                              </verse>
+                           </note>
+                        </layer>
+                     </staff>
+                     <app n="5" xml:id="m-34622c2a-5db8-45b4-a0d6-5de548a3539a">
+                        <rdg n="5" type="blank" xml:id="m-fd14c683-ce88-425b-b889-2ef8d3b25aa6">
+                           <staff n="5" xml:id="m-67796c93-5e66-4919-aef6-614103e91c77">
+                              <layer n="1" xml:id="m-a9de0dbc-2fd9-4baf-abbd-4dff5c2276a4">
+                                 <mRest visible="false" xml:id="m-f0cd5ab0-6f12-4e9b-b657-eeba5b8d3eb9"/>
+                              </layer>
+                           </staff>
+                        </rdg>
+                        <rdg n="6"
+                             resp="#Derycz"
+                             type="reconstruction"
+                             xml:id="m-2324e109-4e02-4da1-8e9e-05e539333e56">
+                           <staff n="6" xml:id="m-7caecb28-ca69-46cb-8a80-fbdb6c3a9841">
+                              <layer n="1" xml:id="m-8903d88b-8e47-4859-a7be-86cdbb1c444c">
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="3"
+                                       pname="f"
+                                       xml:id="p1cfd3n0v1b7s6">
+                                    <verse n="1" xml:id="m-286d3dad-adac-46eb-8743-8c171937d9a2">
+                                       <syl wordpos="t" xml:id="m-ed4ea0af-fcf1-406a-be04-4bfa15daf0b8">sans</syl>
+                                    </verse>
+                                 </note>
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="3"
+                                       pname="f"
+                                       xml:id="p1cfd3n512v1b7s6">
+                                    <verse n="1" xml:id="m-d1449f85-243b-4cf2-9396-107aa5b9d8eb">
+                                       <syl con="d" wordpos="i" xml:id="m-3930fb77-6293-4f75-8c67-508e4cf36b47">ces</syl>
+                                    </verse>
+                                 </note>
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="3"
+                                       pname="c"
+                                       xml:id="p1ccd3n1024v1b7s6">
+                                    <verse n="1" xml:id="m-fe78f624-4749-43bd-ba4b-95f5aee74173">
+                                       <syl wordpos="t" xml:id="m-4ec9acaf-f97c-4cd4-9d60-1c1a99f5fab3">se</syl>
+                                    </verse>
+                                 </note>
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="3"
+                                       pname="c"
+                                       xml:id="p1ccd3n1536v1b7s6">
+                                    <verse n="1" xml:id="m-e8178e44-2548-4be6-b053-74202a7a9db7">
+                                       <syl con="d" wordpos="i" xml:id="m-bafda7f9-c5c2-4506-8d08-2e004a111c83">tou</syl>
+                                    </verse>
+                                 </note>
+                              </layer>
+                           </staff>
+                        </rdg>
+                     </app>
+                  </measure>
+                  <measure n="7" xml:id="m-fa551a95-046c-4262-b77e-b5619b59a4a5">
+                     <staff n="1" xml:id="m-2eff193f-e7a5-4e6d-93b4-a96df3a8b172">
+                        <layer n="1" xml:id="m-2b68db43-e775-46a0-b9b0-7aa3bc0565ad">
+                           <note dur="4"
+                                 dur.ppq="256"
+                                 oct="4"
+                                 pname="b"
+                                 xml:id="p1cbd4n0v1b8s1">
+                              <verse n="1" xml:id="m-5c2d1d8e-627b-40f6-83ec-67ff0c851506">
+                                 <syl con="d" wordpos="i" xml:id="m-d6185902-c42d-43c6-be30-88efcd35607f">men</syl>
+                              </verse>
+                           </note>
+                           <note dur="4"
+                                 dur.ppq="256"
+                                 oct="4"
+                                 pname="a"
+                                 xml:id="p1cad4n256v1b8s1"/>
+                           <note dur="4"
+                                 dur.ppq="256"
+                                 oct="4"
+                                 pname="g"
+                                 xml:id="p1cgd4n512v1b8s1"/>
+                           <note dur="4"
+                                 dur.ppq="256"
+                                 oct="4"
+                                 pname="f"
+                                 xml:id="p1cfd4n768v1b8s1"/>
+                           <note dur="1"
+                                 dur.ppq="1024"
+                                 oct="4"
+                                 pname="g"
+                                 xml:id="p1cgd4n1024v1b8s1"/>
+                        </layer>
+                     </staff>
+                     <app n="2" xml:id="m-842ca574-1941-423e-8f72-8cdb5760640d">
+                        <rdg n="2" type="blank" xml:id="m-ba38d1ed-261b-4062-bca3-7054e349a98a">
+                           <staff n="2" xml:id="m-ca41cf0a-0b89-46d8-8bf3-92cdd83219a9">
+                              <layer n="1" xml:id="m-a5050ef9-5cb9-47d1-bf69-a6566dcf358c">
+                                 <mRest visible="false" xml:id="m-6f396818-6b06-411c-aea7-a3649154ff4a"/>
+                              </layer>
+                           </staff>
+                        </rdg>
+                        <rdg n="3"
+                             resp="#Derycz"
+                             type="reconstruction"
+                             xml:id="m-bdd9bc8a-3a32-485d-9ec6-f97d79d4f55a">
+                           <staff n="3" xml:id="m-bd68fcf0-a84a-47ea-9196-dec4a3f21c5f">
+                              <layer n="1" xml:id="m-8933dc1f-662a-42da-b63a-7684307094e9">
+                                 <note dur="1"
+                                       dur.ppq="1024"
+                                       oct="4"
+                                       pname="d"
+                                       xml:id="p1cdd4n0v1b8s3">
+                                    <verse n="1" xml:id="m-e79d9c91-5649-4268-8709-cedae4725e33">
+                                       <syl wordpos="t" xml:id="m-4f72de31-1e77-4aad-ab35-fa45e9841202">te</syl>
+                                    </verse>
+                                 </note>
+                                 <rest dur="1" dur.ppq="1024" xml:id="p1r1024v1b8s3"/>
+                              </layer>
+                           </staff>
+                        </rdg>
+                     </app>
+                     <staff n="4" xml:id="m-33d37e78-a70b-4194-9e32-92e183729e47">
+                        <layer n="1" xml:id="m-9e0c915c-ae24-4b43-889b-ea08043236b2">
+                           <note dur="2"
+                                 dur.ppq="512"
+                                 oct="3"
+                                 pname="g"
+                                 tie="t"
+                                 xml:id="p1cgd3n0v1b8s4"/>
+                           <note dur="2"
+                                 dur.ppq="512"
+                                 oct="3"
+                                 pname="g"
+                                 xml:id="p1cgd3n512v1b8s4">
+                              <verse n="1" xml:id="m-79174b95-df04-4903-b109-e890a6694dd8">
+                                 <syl con="d" wordpos="i" xml:id="m-e8759f7e-cc95-4c34-b490-27fc603ee45a">tour</syl>
+                              </verse>
+                           </note>
+                           <note dur="1"
+                                 dur.ppq="1024"
+                                 oct="3"
+                                 pname="b"
+                                 xml:id="p1cbd3n1024v1b8s4">
+                              <verse n="1" xml:id="m-f3dd2247-38df-42cd-ac77-b288d6391f7a">
+                                 <syl con="d" wordpos="i" xml:id="m-7f23efb8-60dd-4a89-a079-d809046a4212">men</syl>
+                              </verse>
+                           </note>
+                        </layer>
+                     </staff>
+                     <app n="5" xml:id="m-c93cea71-fc14-4a29-8e28-9fc202bfaf16">
+                        <rdg n="5" type="blank" xml:id="m-6ecb486b-8d64-423c-a8b9-16b4c16e585d">
+                           <staff n="5" xml:id="m-368fbf74-2174-4dd1-9f71-1c7e44305f21">
+                              <layer n="1" xml:id="m-cc12f728-1778-4ab3-a282-e2b7b0185c62">
+                                 <mRest visible="false" xml:id="m-82eb35b0-69ad-4f60-ac41-67ba4def1ab0"/>
+                              </layer>
+                           </staff>
+                        </rdg>
+                        <rdg n="6"
+                             resp="#Derycz"
+                             type="reconstruction"
+                             xml:id="m-916478e5-8ff5-4933-a2f7-9fcf7d50fe0a">
+                           <staff n="6" xml:id="m-f0b77c67-32ce-4275-a200-6da1e73522a7">
+                              <layer n="1" xml:id="m-db25acc8-7f6b-4541-8f68-a191fc28cc8f">
+                                 <note dur="breve"
+                                       dur.ppq="2048"
+                                       oct="3"
+                                       pname="g"
+                                       xml:id="p1cgd3n0v1b8s6">
+                                    <verse n="1" xml:id="m-a8ffd91a-6c8f-487e-a35a-3ca32396f809">
+                                       <syl con="d" wordpos="i" xml:id="m-44c211f7-c7dd-408c-b28d-5a17f2dd42ad">men</syl>
+                                    </verse>
+                                 </note>
+                              </layer>
+                           </staff>
+                        </rdg>
+                     </app>
+                  </measure>
+                  <measure n="8" xml:id="m-031af836-e70b-4337-b77c-62425df12954">
+                     <staff n="1" xml:id="m-22820b7d-df0b-4683-a27c-5cf219695e01">
+                        <layer n="1" xml:id="m-3563dbe2-807b-491c-9ff1-5d096ed4fede">
+                           <note dur="2"
+                                 dur.ppq="512"
+                                 oct="4"
+                                 pname="f"
+                                 xml:id="p1cfd4n0v1b9s1">
+                              <verse n="1" xml:id="m-773dcfc1-3ae3-4467-8b07-2288bfe7cc3b">
+                                 <syl wordpos="t" xml:id="m-65ad5012-b3d6-43b1-8554-acee4609e213">te</syl>
+                              </verse>
+                           </note>
+                           <note dur="2"
+                                 dur.ppq="512"
+                                 oct="4"
+                                 pname="g"
+                                 xml:id="p1cgd4n512v1b9s1">
+                              <verse n="1" xml:id="m-0e0c40aa-ab7d-4a69-9c72-ca4846977a93">
+                                 <syl wordpos="t" xml:id="m-c7a49bd2-3f4b-4af6-ba4d-263585463526">C'il,</syl>
+                              </verse>
+                           </note>
+                           <note dur="4"
+                                 dur.ppq="256"
+                                 oct="4"
+                                 pname="a"
+                                 xml:id="p1cad4n1024v1b9s1">
+                              <verse n="1" xml:id="m-609df8f8-2703-4400-8663-2f0f4fe86af1">
+                                 <syl wordpos="t" xml:id="m-7758d370-e815-448e-bfd0-b8fac80387de">qui</syl>
+                              </verse>
+                           </note>
+                           <note dur="4"
+                                 dur.ppq="256"
+                                 oct="4"
+                                 pname="g"
+                                 xml:id="p1cgd4n1280v1b9s1">
+                              <verse n="1" xml:id="m-868c8a00-5608-4561-85e9-4ef2d6550ab6">
+                                 <syl wordpos="t" xml:id="m-c318244f-c778-4050-beb1-64b549ba7cd5">s'est</syl>
+                              </verse>
+                           </note>
+                           <note dur="2"
+                                 dur.ppq="512"
+                                 oct="4"
+                                 pname="g"
+                                 tie="i"
+                                 xml:id="p1cgd4n1536v1b9s1">
+                              <verse n="1" xml:id="m-ab9d7ac7-69ab-4482-8b91-1ccc768fed95">
+                                 <syl con="u" wordpos="t" xml:id="m-8bca473a-5816-415b-82f3-29679fc4b3e7">du</syl>
+                              </verse>
+                           </note>
+                        </layer>
+                     </staff>
+                     <app n="2" xml:id="m-1c648dd3-686c-46a1-bdab-ded42b259b21">
+                        <rdg n="2" type="blank" xml:id="m-cb6ce2b5-88f8-4c14-82ce-2949caa03559">
+                           <staff n="2" xml:id="m-090aa027-9350-491a-a442-430d07ea2fcd">
+                              <layer n="1" xml:id="m-d4b8dfe0-44a4-42fa-b2c9-518e95f2470f">
+                                 <mRest visible="false" xml:id="m-79a02dfb-962b-4592-9b29-f46d0dae474a"/>
+                              </layer>
+                           </staff>
+                        </rdg>
+                        <rdg n="3"
+                             resp="#Derycz"
+                             type="reconstruction"
+                             xml:id="m-92350b95-911f-4ccf-a3e9-df9d6ec3a4d9">
+                           <staff n="3" xml:id="m-6a352859-26b5-4134-b494-44fbe85ef256">
+                              <layer n="1" xml:id="m-3edc878a-27d4-4f8d-96cf-62c587b3e978">
+                                 <rest dur="2" dur.ppq="512" xml:id="p1r0v1b9s3"/>
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="4"
+                                       pname="d"
+                                       xml:id="p1cdd4n512v1b9s3">
+                                    <verse n="1" xml:id="m-3381be09-7a51-48c0-a407-953bc14a6b1e">
+                                       <syl wordpos="t" xml:id="m-7fe50798-4aa1-4037-9938-efb87f6825b0">C'il</syl>
+                                    </verse>
+                                 </note>
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="4"
+                                       pname="f"
+                                       xml:id="p1cfd4n1024v1b9s3">
+                                    <verse n="1" xml:id="m-ea9c4767-bb80-41dc-8f4f-5ddb0539ee45">
+                                       <syl wordpos="t" xml:id="m-c233ebff-1214-486c-b945-7549280c253e">qui</syl>
+                                    </verse>
+                                 </note>
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="4"
+                                       pname="d"
+                                       xml:id="p1cdd4n1536v1b9s3">
+                                    <verse n="1" xml:id="m-c98e6f2e-9e4b-4544-95cf-20b964464809">
+                                       <syl wordpos="t" xml:id="m-e6189ea6-f4a9-4f96-bfa1-8b9be86852c6">s'est</syl>
+                                    </verse>
+                                 </note>
+                              </layer>
+                           </staff>
+                        </rdg>
+                     </app>
+                     <staff n="4" xml:id="m-abd9d841-1716-4480-9be6-f3a48676468b">
+                        <layer n="1" xml:id="m-2345b2f1-75ef-479a-b739-0b0df0516b86">
+                           <note dur="2"
+                                 dur.ppq="512"
+                                 oct="3"
+                                 pname="a"
+                                 xml:id="p1cad3n0v1b9s4">
+                              <verse n="1" xml:id="m-fea58d7e-5a1e-40bb-bc6a-dfc54f13316b">
+                                 <syl wordpos="t" xml:id="m-ab7492bd-7070-4734-b592-7d6be9da0f04">te</syl>
+                              </verse>
+                           </note>
+                           <note dur="2"
+                                 dur.ppq="512"
+                                 oct="3"
+                                 pname="b"
+                                 xml:id="p1cbd3n512v1b9s4">
+                              <verse n="1" xml:id="m-89fec02f-8558-41be-bde6-7be340d29df3">
+                                 <syl wordpos="t" xml:id="m-39703d40-6e58-4cbf-8948-70a5909deec4">C'il,</syl>
+                              </verse>
+                           </note>
+                           <note dur="2"
+                                 dur.ppq="512"
+                                 oct="4"
+                                 pname="c"
+                                 xml:id="p1ccd4n1024v1b9s4">
+                              <verse n="1" xml:id="m-a95f6b75-a009-45a6-a174-b3860e8eca68">
+                                 <syl wordpos="t" xml:id="m-7d7c8890-729f-4b39-92dd-b0a176535241">qui</syl>
+                              </verse>
+                           </note>
+                           <note dur="2"
+                                 dur.ppq="512"
+                                 oct="3"
+                                 pname="b"
+                                 xml:id="p1cbd3n1536v1b9s4">
+                              <verse n="1" xml:id="m-55f51e1d-dc4a-44aa-9d03-932df9d403c5">
+                                 <syl wordpos="t" xml:id="m-c85bd9b1-b4ed-41db-8c6d-35447253398b">s'est</syl>
+                              </verse>
+                           </note>
+                        </layer>
+                     </staff>
+                     <app n="5" xml:id="m-81878e4c-7a58-4f85-9a63-6bc9a1f3c96e">
+                        <rdg n="5" type="blank" xml:id="m-64b81e65-8e2d-4a88-bb78-a9a46b1a157e">
+                           <staff n="5" xml:id="m-752dffa3-db83-49d1-a311-8030d0100711">
+                              <layer n="1" xml:id="m-81bba6a5-6b12-45c9-906d-edbaf2118ddd">
+                                 <mRest visible="false" xml:id="m-29a67369-aef0-4491-8868-4d5d1e7c9f9f"/>
+                              </layer>
+                           </staff>
+                        </rdg>
+                        <rdg n="6"
+                             resp="#Derycz"
+                             type="reconstruction"
+                             xml:id="m-8e3b2d1c-d6ec-443a-9029-743e432cde5b">
+                           <staff n="6" xml:id="m-7c2258fb-afa6-4c15-81ed-60c0e314c920">
+                              <layer n="1" xml:id="m-251738aa-f60d-4d16-865c-b6e860219da9">
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="3"
+                                       pname="d"
+                                       xml:id="p1cdd3n0v1b9s6">
+                                    <verse n="1" xml:id="m-9c5a9812-b413-4735-a3c4-9a189e656d37">
+                                       <syl wordpos="t" xml:id="m-f9e840f6-07f4-45f8-b69c-09224be5354f">te</syl>
+                                    </verse>
+                                 </note>
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="3"
+                                       pname="g"
+                                       xml:id="p1cgd3n512v1b9s6">
+                                    <verse n="1" xml:id="m-930f9c34-b0b4-4afa-be88-22ced0ee60ff">
+                                       <syl wordpos="t" xml:id="m-e1a11f7c-a3f7-4ad2-a8df-6e75c7294fb4">C'il</syl>
+                                    </verse>
+                                 </note>
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="3"
+                                       pname="f"
+                                       xml:id="p1cfd3n1024v1b9s6">
+                                    <verse n="1" xml:id="m-d1aa7007-6f83-4450-a1ec-79765a9105c6">
+                                       <syl wordpos="t" xml:id="m-6444f719-9104-4655-9c1b-9b0a3a1e4076">qui</syl>
+                                    </verse>
+                                 </note>
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="3"
+                                       pname="g"
+                                       xml:id="p1cgd3n1536v1b9s6">
+                                    <verse n="1" xml:id="m-32931f45-e997-4eff-93bb-b6150c26848d">
+                                       <syl wordpos="t" xml:id="m-77598d34-2e5b-446e-bd44-bb789ae76b1c">s'est</syl>
+                                    </verse>
+                                 </note>
+                              </layer>
+                           </staff>
+                        </rdg>
+                     </app>
+                  </measure>
+                  <measure n="9" xml:id="m-a8dacf16-b33c-4666-bde8-8a6fb4387906">
+                     <staff n="1" xml:id="m-5769dfb9-1110-446e-b994-4058d0bac85a">
+                        <layer n="1" xml:id="m-30b4f773-348f-4321-b1af-227fb17111ce">
+                           <note dur="2"
+                                 dur.ppq="512"
+                                 oct="4"
+                                 pname="g"
+                                 tie="t"
+                                 xml:id="p1cgd4n0v1b10s1"/>
+                           <note dur="2"
+                                 dur.ppq="512"
+                                 oct="4"
+                                 pname="f"
+                                 xml:id="p1cfd4n512v1b10s1">
+                              <supplied reason="edit" xml:id="m-22dffa14-d6c1-4e6a-83b5-4c196926a0ee">
+                                 <accid accid="s"
+                                        func="edit"
+                                        place="above"
+                                        xml:id="m-c2b230e7-ac0d-4699-a0c7-d3ef1d1367c0"/>
+                              </supplied>
+                              <verse n="1" xml:id="m-46418634-aac6-4c34-811b-8d17b9d6f9df">
+                                 <syl wordpos="t" xml:id="m-4c11da6d-4244-4f4b-abfa-bf3b6fcb914a">tout</syl>
+                              </verse>
+                           </note>
+                           <note dur="1"
+                                 dur.ppq="1024"
+                                 oct="4"
+                                 pname="g"
+                                 xml:id="p1cgd4n1024v1b10s1">
+                              <verse n="1" xml:id="m-ddd1b966-4197-48ca-a9d7-dd93e8ca332e">
+                                 <syl wordpos="t" xml:id="m-df88b1db-f40b-4f74-adfc-f09dba1cb94e">mis</syl>
+                              </verse>
+                           </note>
+                        </layer>
+                     </staff>
+                     <app n="2" xml:id="m-27d43b4b-d3ec-4805-aecc-eb22e96bbc20">
+                        <rdg n="2" type="blank" xml:id="m-518a2994-5409-41a3-a5dd-33e0fb2ef755">
+                           <staff n="2" xml:id="m-1d49d556-bb0b-41d3-810f-88cfd51b77c1">
+                              <layer n="1" xml:id="m-8be760ef-f6b0-4b85-8e37-ab3bcaa845b5">
+                                 <mRest visible="false" xml:id="m-da8fba54-f5ed-4cdf-b2c3-1814ebc70b3b"/>
+                              </layer>
+                           </staff>
+                        </rdg>
+                        <rdg n="3"
+                             resp="#Derycz"
+                             type="reconstruction"
+                             xml:id="m-6df47f4f-ba22-4d6e-8c10-eae52420d78f">
+                           <staff n="3" xml:id="m-ae56939a-a146-4783-b92d-6304a2d41f8e">
+                              <layer n="1" xml:id="m-dff34e4f-5906-4bf6-82e6-242ac8ebceb0">
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="4"
+                                       pname="d"
+                                       xml:id="p1cdd4n0v1b10s3">
+                                    <verse n="1" xml:id="m-928a7304-0124-41a3-8339-5c300549107b">
+                                       <syl wordpos="t" xml:id="m-6fa985ec-38f9-451b-b45c-e9af86144569">du</syl>
+                                    </verse>
+                                 </note>
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="4"
+                                       pname="d"
+                                       xml:id="p1cdd4n512v1b10s3">
+                                    <verse n="1" xml:id="m-727e586f-f1a0-429a-9ef8-eacb9b73429c">
+                                       <syl wordpos="t" xml:id="m-74dc1ee1-994d-4b51-a4ab-a58ecbfe6f0c">tout</syl>
+                                    </verse>
+                                 </note>
+                                 <note dur="1"
+                                       dur.ppq="1024"
+                                       oct="4"
+                                       pname="d"
+                                       xml:id="p1cdd4n1024v1b10s3">
+                                    <verse n="1" xml:id="m-4efb2a99-2dd1-457c-9b13-98d123ddc2b1">
+                                       <syl wordpos="t" xml:id="m-3bc8bd4e-e7a5-4b36-85ee-f03eb1fe495c">mis</syl>
+                                    </verse>
+                                 </note>
+                              </layer>
+                           </staff>
+                        </rdg>
+                     </app>
+                     <staff n="4" xml:id="m-1542214f-da65-4a4c-bc38-eceb056d2f1f">
+                        <layer n="1" xml:id="m-19caf1a8-b6c6-469c-9891-ad0e4aa0b9c8">
+                           <note dur="2"
+                                 dur.ppq="512"
+                                 oct="3"
+                                 pname="a"
+                                 xml:id="p1cad3n0v1b10s4">
+                              <verse n="1" xml:id="m-466db1d8-ee9f-48db-86a6-5ee01e90f97f">
+                                 <syl wordpos="t" xml:id="m-4c527598-0845-46a0-bffd-357057738cdc">du</syl>
+                              </verse>
+                           </note>
+                           <note dur="2"
+                                 dur.ppq="512"
+                                 oct="3"
+                                 pname="a"
+                                 xml:id="p1cad3n512v1b10s4">
+                              <verse n="1" xml:id="m-b47be585-6372-4958-aab4-d5950c572719">
+                                 <syl wordpos="t" xml:id="m-20fd2d0e-c7d3-47a9-9ff7-40e9a0bd92a5">tout</syl>
+                              </verse>
+                           </note>
+                           <note dur="1"
+                                 dur.ppq="1024"
+                                 oct="3"
+                                 pname="g"
+                                 xml:id="p1cgd3n1024v1b10s4">
+                              <verse n="1" xml:id="m-5623f4c6-714e-400b-883d-81526a4e0334">
+                                 <syl wordpos="t" xml:id="m-322c377e-3e5b-4311-90cd-6ab97214e775">mis</syl>
+                              </verse>
+                           </note>
+                        </layer>
+                     </staff>
+                     <app n="5" xml:id="m-da3a12d6-ccd6-46ff-9095-af33be777664">
+                        <rdg n="5" type="blank" xml:id="m-dc03f8ef-7a73-49fe-95c3-aed8762e9188">
+                           <staff n="5" xml:id="m-1002a2ce-370c-456c-868f-81a35afa446f">
+                              <layer n="1" xml:id="m-97bd3d0e-7d26-40cc-a358-687a59bc5b94">
+                                 <mRest visible="false" xml:id="m-dd18fcdf-9e28-44fe-bbf6-7472e6843b7b"/>
+                              </layer>
+                           </staff>
+                        </rdg>
+                        <rdg n="6"
+                             resp="#Derycz"
+                             type="reconstruction"
+                             xml:id="m-fe897c08-296f-4e80-9543-f56d13b2285c">
+                           <staff n="6" xml:id="m-7798a108-294c-465b-a337-c04b2bc1e806">
+                              <layer n="1" xml:id="m-e992a9d4-b647-476d-8d64-58f1de73fae1">
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="3"
+                                       pname="d"
+                                       xml:id="p1cdd3n0v1b10s6">
+                                    <verse n="1" xml:id="m-328e10f4-5f03-4d8a-a30c-2bd511128d8b">
+                                       <syl wordpos="t" xml:id="m-6564228b-5fd6-4650-9686-2199152c4624">du</syl>
+                                    </verse>
+                                 </note>
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="3"
+                                       pname="d"
+                                       xml:id="p1cdd3n512v1b10s6">
+                                    <verse n="1" xml:id="m-6e1aa1c9-eadb-4ff0-baac-52e755601b78">
+                                       <syl wordpos="t" xml:id="m-5482f86a-b729-445e-a312-438b155f5ea1">tout</syl>
+                                    </verse>
+                                 </note>
+                                 <note dur="1"
+                                       dur.ppq="1024"
+                                       oct="2"
+                                       pname="g"
+                                       xml:id="p1cgd2n1024v1b10s6">
+                                    <verse n="1" xml:id="m-7bcb103d-abc5-42fc-aa60-d4454145f47e">
+                                       <syl wordpos="t" xml:id="m-832bddf7-a638-4755-ad01-af52cb0f1cdc">mis</syl>
+                                    </verse>
+                                 </note>
+                              </layer>
+                           </staff>
+                        </rdg>
+                     </app>
+                  </measure>
+                  <measure left="rptstart"
+                           n="10"
+                           xml:id="m-92292fb2-4458-417a-b207-f2b2124a58b8">
+                     <staff n="1" xml:id="m-54144696-9520-4c15-a226-64364f80c2a2">
+                        <layer n="1" xml:id="m-641eefe1-4718-4034-9cc6-3783e0c4930a">
+                           <rest dur="2" dur.ppq="512" xml:id="p1r0v1b11s1"/>
+                           <note dur="2"
+                                 dur.ppq="512"
+                                 oct="4"
+                                 pname="d"
+                                 xml:id="p1cdd4n512v1b11s1">
+                              <verse n="1" xml:id="m-aa2618f7-e6dd-4cf1-821a-231d946475b4">
+                                 <syl wordpos="t" xml:id="m-98579eee-bda9-472a-be57-05cdc2180219">Au</syl>
+                              </verse>
+                           </note>
+                           <note dur="4"
+                                 dur.ppq="256"
+                                 oct="4"
+                                 pname="f"
+                                 xml:id="p1cfd4n1024v1b11s1">
+                              <verse n="1" xml:id="m-142af4bd-3ae5-4913-a839-26b63727ab81">
+                                 <syl con="u" wordpos="t" xml:id="m-a24fadf5-32b0-46dc-9e71-fa26ab486b05">reng</syl>
+                              </verse>
+                           </note>
+                           <note dur="4"
+                                 dur.ppq="256"
+                                 oct="4"
+                                 pname="g"
+                                 xml:id="p1cgd4n1280v1b11s1"/>
+                           <note dur="4"
+                                 dur.ppq="256"
+                                 oct="4"
+                                 pname="a"
+                                 xml:id="p1cad4n1536v1b11s1"/>
+                           <note dur="4"
+                                 dur.ppq="256"
+                                 oct="4"
+                                 pname="f"
+                                 xml:id="p1cfd4n1792v1b11s1"/>
+                        </layer>
+                     </staff>
+                     <app n="2" xml:id="m-94c3d19f-3f7c-4949-97cf-ff3c6b99714f">
+                        <rdg n="2" type="blank" xml:id="m-0c91cca9-76f6-4820-baa5-1e82c94cfe71">
+                           <staff n="2" xml:id="m-0feccf5e-8056-4c97-976d-1ca570ab1a9a">
+                              <layer n="1" xml:id="m-a525f060-ce9c-41d9-8e5d-7a17af90c872">
+                                 <mRest visible="false" xml:id="m-786ff1b5-5747-41ef-8502-51de9133594c"/>
+                              </layer>
+                           </staff>
+                        </rdg>
+                        <rdg n="3"
+                             resp="#Derycz"
+                             type="reconstruction"
+                             xml:id="m-820cf27f-6e2c-4216-8658-d4f3e82f37a1">
+                           <staff n="3" xml:id="m-4048e43a-c1f2-49b1-9e64-f43a495f0b64">
+                              <layer n="1" xml:id="m-ee6a8d1c-2594-4c95-90c4-bbfe8632fef3">
+                                 <note dur="1"
+                                       dur.ppq="1024"
+                                       oct="4"
+                                       pname="d"
+                                       xml:id="p1cdd4n0v1b11s3">
+                                    <verse n="1" xml:id="m-ef0621e2-a8ab-4955-8ca0-baa3e98a2ac4">
+                                       <syl wordpos="t" xml:id="m-0c32b269-d59f-419c-b014-654dcf102ea3">Au</syl>
+                                    </verse>
+                                 </note>
+                                 <note dur="4"
+                                       dur.ppq="256"
+                                       oct="4"
+                                       pname="d"
+                                       xml:id="p1cdd4n1024v1b11s3">
+                                    <verse n="1" xml:id="m-3bd6ea2b-9d7e-4ebb-a575-3c600490eddb">
+                                       <syl con="u" wordpos="t" xml:id="m-8d43799d-0877-4491-9d92-e4da3efc4159">reng</syl>
+                                    </verse>
+                                 </note>
+                                 <note dur="4"
+                                       dur.ppq="256"
+                                       oct="4"
+                                       pname="e"
+                                       xml:id="p1ced4n1280v1b11s3"/>
+                                 <note dur="4"
+                                       dur.ppq="256"
+                                       oct="4"
+                                       pname="f"
+                                       xml:id="p1cfd4n1536v1b11s3"/>
+                                 <note dur="4"
+                                       dur.ppq="256"
+                                       oct="4"
+                                       pname="e"
+                                       xml:id="p1ced4n1792v1b11s3"/>
+                              </layer>
+                           </staff>
+                        </rdg>
+                     </app>
+                     <staff n="4" xml:id="m-32b17e42-63f2-452b-9a68-717abb861a37">
+                        <layer n="1" xml:id="m-3d78a8df-10a9-4bd9-9eca-e4301443db9a">
+                           <rest dur="2" dur.ppq="512" xml:id="p1r0v1b11s4"/>
+                           <note dur="2"
+                                 dur.ppq="512"
+                                 oct="3"
+                                 pname="a"
+                                 xml:id="p1cad3n512v1b11s4">
+                              <verse n="1" xml:id="m-ec3b3706-203b-410d-9b0a-d592351c43e1">
+                                 <syl wordpos="t" xml:id="m-12e68479-187c-44fa-bd6c-90484a4419be">Au</syl>
+                              </verse>
+                           </note>
+                           <note dur="2"
+                                 dur.ppq="512"
+                                 oct="3"
+                                 pname="a"
+                                 xml:id="p1cad3n1024v1b11s4">
+                              <verse n="1" xml:id="m-4c1ddc5e-6219-45e3-9088-428c61dbf920">
+                                 <syl wordpos="t" xml:id="m-be59273a-4b01-4ec6-80e1-31e6a4f8d090">reng</syl>
+                              </verse>
+                           </note>
+                           <note dur="2"
+                                 dur.ppq="512"
+                                 oct="3"
+                                 pname="a"
+                                 xml:id="p1cad3n1536v1b11s4">
+                              <verse n="1" xml:id="m-0bf5051e-d9ac-4066-8563-e5b950a8036d">
+                                 <syl wordpos="t" xml:id="m-48889985-88f8-407a-b9e5-0866f7fdd5f9">d'un</syl>
+                              </verse>
+                           </note>
+                        </layer>
+                     </staff>
+                     <app n="5" xml:id="m-e93b8bea-59c2-4337-bd50-48007204f36f">
+                        <rdg n="5" type="blank" xml:id="m-ca0c05c1-81ec-420c-834e-5f4d575074ee">
+                           <staff n="5" xml:id="m-53848598-00c8-4fb6-8e21-52aad9df116e">
+                              <layer n="1" xml:id="m-23df093c-d817-42cd-a7ee-1e6795486551">
+                                 <mRest visible="false" xml:id="m-0f9f144c-035a-448a-86d0-3019a4207ffe"/>
+                              </layer>
+                           </staff>
+                        </rdg>
+                        <rdg n="6"
+                             resp="#Derycz"
+                             type="reconstruction"
+                             xml:id="m-6bcaecbf-90bb-4062-b2b4-5e3138c894b8">
+                           <staff n="6" xml:id="m-15bc018a-e498-4ac1-bad1-feac6cecb270">
+                              <layer n="1" xml:id="m-2ed13052-7183-408e-8b0a-2ec75b399076">
+                                 <rest dur="2" dur.ppq="512" xml:id="p1r0v1b11s6"/>
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="3"
+                                       pname="d"
+                                       xml:id="p1cdd3n512v1b11s6">
+                                    <verse n="1" xml:id="m-244b10ce-168c-4a02-87ac-b915f982758f">
+                                       <syl wordpos="t" xml:id="m-784d4281-4260-4e7e-8334-66bf1ba96bf9">Au</syl>
+                                    </verse>
+                                 </note>
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="3"
+                                       pname="d"
+                                       xml:id="p1cdd3n1024v1b11s6">
+                                    <verse n="1" xml:id="m-e5120409-a2b8-440e-a2aa-f4ebaebc508d">
+                                       <syl wordpos="t" xml:id="m-c7d5b81f-b385-4fb6-82d1-1b84922062fd">reng</syl>
+                                    </verse>
+                                 </note>
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="3"
+                                       pname="d"
+                                       xml:id="p1cdd3n1536v1b11s6">
+                                    <verse n="1" xml:id="m-a858c601-0314-4217-b289-624ab02be65f">
+                                       <syl wordpos="t" xml:id="m-6cddf3c4-7ea5-4f85-8217-234ff6e075b5">d'un</syl>
+                                    </verse>
+                                 </note>
+                              </layer>
+                           </staff>
+                        </rdg>
+                     </app>
+                  </measure>
+                  <measure n="11" xml:id="m-0f2f4375-3bd5-49be-8a9c-e59967a4026b">
+                     <staff n="1" xml:id="m-d0d371be-ef3f-4934-90ed-cd2c66f5e787">
+                        <layer n="1" xml:id="m-4f7dc409-4317-46cf-badd-1ed5d3eab2e4">
+                           <note dur="4"
+                                 dur.ppq="256"
+                                 oct="4"
+                                 pname="g"
+                                 xml:id="p1cgd4n0v1b12s1"/>
+                           <note dur="4"
+                                 dur.ppq="256"
+                                 oct="4"
+                                 pname="f"
+                                 xml:id="p1cfd4n256v1b12s1"/>
+                           <note dur="2"
+                                 dur.ppq="512"
+                                 oct="4"
+                                 pname="b"
+                                 xml:id="p1cbd4n512v1b12s1">
+                              <verse n="1" xml:id="m-137296a3-0179-4cf9-a217-4241f2129bd3">
+                                 <syl wordpos="t" xml:id="m-e3318e76-92fa-489f-a62f-69ef4ea9c0b9">d'un</syl>
+                              </verse>
+                           </note>
+                           <note dur="2"
+                                 dur.ppq="512"
+                                 oct="4"
+                                 pname="b"
+                                 xml:id="p1cbd4n1024v1b12s1">
+                              <verse n="1" xml:id="m-fc580de5-7615-4068-9d6c-b7d7861b0249">
+                                 <syl con="d" wordpos="i" xml:id="m-87fbe5f0-5a4e-478f-bd78-7485aba1e04f">ser</syl>
+                              </verse>
+                           </note>
+                           <note dur="2"
+                                 dur.ppq="512"
+                                 oct="4"
+                                 pname="a"
+                                 xml:id="p1cad4n1536v1b12s1">
+                              <verse n="1" xml:id="m-8149fd60-3f45-4456-926d-5b40d40b52c1">
+                                 <syl con="d" wordpos="i" xml:id="m-ae21d1e4-ad8b-4065-89cf-5c6fb0ebbc5c">vi</syl>
+                              </verse>
+                           </note>
+                        </layer>
+                     </staff>
+                     <app n="2" xml:id="m-77198ba6-06b9-4872-a6b7-dff7ff55965c">
+                        <rdg n="2" type="blank" xml:id="m-584bc05c-5195-43dd-ba6b-43892231b200">
+                           <staff n="2" xml:id="m-0cfcf74e-a998-4b6a-9ef8-4926767a3519">
+                              <layer n="1" xml:id="m-99671118-0518-4ea3-b4c1-7a6a9eca516e">
+                                 <mRest visible="false" xml:id="m-ee4a0e5c-f9ee-4d8c-a564-33413dcf4842"/>
+                              </layer>
+                           </staff>
+                        </rdg>
+                        <rdg n="3"
+                             resp="#Derycz"
+                             type="reconstruction"
+                             xml:id="m-5f7e7aae-34e8-42b3-b1ac-07a3bff0467e">
+                           <staff n="3" xml:id="m-3b4dd180-566a-4299-aecb-f36ed1cc46bf">
+                              <layer n="1" xml:id="m-5e3bac4c-f702-46b5-a5a2-f76bc91eee27">
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="4"
+                                       pname="d"
+                                       xml:id="p1cdd4n0v1b12s3"/>
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="4"
+                                       pname="g"
+                                       xml:id="p1cgd4n512v1b12s3">
+                                    <verse n="1" xml:id="m-79eef576-639b-421d-ab34-e81311a50e6e">
+                                       <syl wordpos="t" xml:id="m-97e188a7-8526-4884-aedc-90e757fed6a8">d'un</syl>
+                                    </verse>
+                                 </note>
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="4"
+                                       pname="c"
+                                       xml:id="p1ccd4n1024v1b12s3">
+                                    <verse n="1" xml:id="m-835bedeb-34e7-4aed-97d2-21e80ce2c107">
+                                       <syl con="d" wordpos="i" xml:id="m-1cba5e29-b37f-4038-a348-fd82e2aa0528">ser</syl>
+                                    </verse>
+                                 </note>
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="4"
+                                       pname="f"
+                                       xml:id="p1cfd4n1536v1b12s3">
+                                    <verse n="1" xml:id="m-445bd2ce-296f-48af-8bcc-84c0a7064247">
+                                       <syl con="d" wordpos="i" xml:id="m-df2cf99c-c61c-4f85-bc8c-3344103e81d1">vi</syl>
+                                    </verse>
+                                 </note>
+                              </layer>
+                           </staff>
+                        </rdg>
+                     </app>
+                     <staff n="4" xml:id="m-832dc414-f171-4372-9feb-4fe3a9c0463d">
+                        <layer n="1" xml:id="m-14586304-5b7c-4329-9492-9cb7aa34c0b4">
+                           <note dur="4"
+                                 dur.ppq="256"
+                                 oct="3"
+                                 pname="b"
+                                 xml:id="p1cbd3n0v1b12s4">
+                              <verse n="1" xml:id="m-801c496b-ca02-47cf-a551-88bee99c3f19">
+                                 <syl con="d" wordpos="i" xml:id="m-fd30c6a4-f3a4-4ca2-8f53-3ab1f568c820">ser</syl>
+                              </verse>
+                           </note>
+                           <note dur="4"
+                                 dur.ppq="256"
+                                 oct="4"
+                                 pname="c"
+                                 xml:id="p1ccd4n256v1b12s4"/>
+                           <note dur="4"
+                                 dur.ppq="256"
+                                 oct="4"
+                                 pname="d"
+                                 xml:id="p1cdd4n512v1b12s4"/>
+                           <note dur="4"
+                                 dur.ppq="256"
+                                 oct="3"
+                                 pname="b"
+                                 xml:id="p1cbd3n768v1b12s4"/>
+                           <note dur="2"
+                                 dur.ppq="512"
+                                 oct="4"
+                                 pname="c"
+                                 xml:id="p1ccd4n1024v1b12s4"/>
+                           <note dur="2"
+                                 dur.ppq="512"
+                                 oct="4"
+                                 pname="d"
+                                 tie="i"
+                                 xml:id="p1cdd4n1536v1b12s4"/>
+                        </layer>
+                     </staff>
+                     <app n="5" xml:id="m-1e782bd8-390b-478e-a122-55ceeb7b5ca5">
+                        <rdg n="5" type="blank" xml:id="m-f8e55ae1-05e0-44dc-ad4f-604fd1777b7a">
+                           <staff n="5" xml:id="m-68cf3128-f1bc-44e4-9446-b64b06009254">
+                              <layer n="1" xml:id="m-3182799d-2192-4655-b88d-1bc340ebd07f">
+                                 <mRest visible="false" xml:id="m-91bc3e2c-21cd-456e-92c3-7f4045d611b9"/>
+                              </layer>
+                           </staff>
+                        </rdg>
+                        <rdg n="6"
+                             resp="#Derycz"
+                             type="reconstruction"
+                             xml:id="m-781b404e-8022-4c8b-82a6-b27d1f6cc483">
+                           <staff n="6" xml:id="m-a7e79d09-a34c-40ae-85f7-488b1e93708c">
+                              <layer n="1" xml:id="m-6d065759-98df-4a8e-9165-0435b3f1b9a9">
+                                 <note dur="4"
+                                       dur.ppq="256"
+                                       oct="3"
+                                       pname="g"
+                                       xml:id="p1cgd3n0v1b12s6">
+                                    <verse n="1" xml:id="m-a6076b47-f5c7-4db3-9502-89f400cc659e">
+                                       <syl con="d" wordpos="i" xml:id="m-d5f5c2be-21cf-4060-9695-679770b37017">ser</syl>
+                                    </verse>
+                                 </note>
+                                 <note dur="4"
+                                       dur.ppq="256"
+                                       oct="3"
+                                       pname="a"
+                                       xml:id="p1cad3n256v1b12s6"/>
+                                 <note dur="4"
+                                       dur.ppq="256"
+                                       oct="3"
+                                       pname="b"
+                                       xml:id="p1cbd3n512v1b12s6"/>
+                                 <note dur="4"
+                                       dur.ppq="256"
+                                       oct="3"
+                                       pname="g"
+                                       xml:id="p1cgd3n768v1b12s6"/>
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="3"
+                                       pname="f"
+                                       xml:id="p1cfd3n1024v1b12s6"/>
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="3"
+                                       pname="d"
+                                       xml:id="p1cdd3n1536v1b12s6">
+                                    <verse n="1" xml:id="m-0d7a0911-be8d-4638-b439-272d6ba4054a">
+                                       <syl con="d" wordpos="i" xml:id="m-fd339191-8406-434c-b391-d56a4a91215a">vi</syl>
+                                    </verse>
+                                 </note>
+                              </layer>
+                           </staff>
+                        </rdg>
+                     </app>
+                  </measure>
+                  <measure n="12" xml:id="m-24bc7c5f-fbb8-4a11-9c8d-1f61def4a93c">
+                     <staff n="1" xml:id="m-3ad3b185-4e90-4174-98dd-1734d7abe9b2">
+                        <layer n="1" xml:id="m-d54edfb5-771e-476d-a84e-79166db6a083">
+                           <note dur="1"
+                                 dur.ppq="1024"
+                                 oct="4"
+                                 pname="b"
+                                 xml:id="p1cbd4n0v1b13s1">
+                              <verse n="1" xml:id="m-9c9d7667-ad44-4e27-8127-05fbceba8660">
+                                 <syl wordpos="t" xml:id="m-831fad2b-e910-4fea-b5fa-1df018e209b6">teur,</syl>
+                              </verse>
+                           </note>
+                           <rest dur="2" dur.ppq="512" xml:id="p1r1024v1b13s1"/>
+                           <note dur="2"
+                                 dur.ppq="512"
+                                 oct="4"
+                                 pname="b"
+                                 xml:id="p1cbd4n1536v1b13s1">
+                              <verse n="1" xml:id="m-f9c73479-ccac-4dc5-994e-5c9fe15faae5">
+                                 <syl wordpos="t" xml:id="m-752db387-c208-4a6a-ade4-c62b57d89f18">Dont</syl>
+                              </verse>
+                           </note>
+                        </layer>
+                     </staff>
+                     <app n="2" xml:id="m-28678f0d-601c-4328-837f-8f0e90d62e7d">
+                        <rdg n="2" type="blank" xml:id="m-47974ca6-cb56-4b8d-b044-7e7d03999bf7">
+                           <staff n="2" xml:id="m-9616ceaf-7b0c-419e-bc1c-7326a18199f4">
+                              <layer n="1" xml:id="m-91418ea8-9b0b-40b5-98ea-ba08039b7150">
+                                 <mRest visible="false" xml:id="m-ef923a0c-7b63-425a-be9e-50d4b7203da1"/>
+                              </layer>
+                           </staff>
+                        </rdg>
+                        <rdg n="3"
+                             resp="#Derycz"
+                             type="reconstruction"
+                             xml:id="m-98a99d81-55d2-42ac-be09-fdaf77369b3a">
+                           <staff n="3" xml:id="m-0f5abc9e-a52b-4c22-8de3-4ec4c55936c6">
+                              <layer n="1" xml:id="m-a8c33341-5434-471a-b79d-b959c60d7b3a">
+                                 <note dur="1"
+                                       dur.ppq="1024"
+                                       oct="4"
+                                       pname="g"
+                                       xml:id="p1cgd4n0v1b13s3">
+                                    <verse n="1" xml:id="m-5cbb738b-6495-4e09-8e3d-fa4650440169">
+                                       <syl wordpos="t" xml:id="m-7f5e37de-e632-4280-9111-5f09234a9b5b">teur,</syl>
+                                    </verse>
+                                 </note>
+                                 <rest dur="2" dur.ppq="512" xml:id="p1r1024v1b13s3"/>
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="4"
+                                       pname="d"
+                                       xml:id="p1cdd4n1536v1b13s3">
+                                    <verse n="1" xml:id="m-e559a6fa-a44f-49aa-925a-db49d427533b">
+                                       <syl wordpos="t" xml:id="m-347d62cc-7efa-431a-93cd-3e93c2d82055">Dont</syl>
+                                    </verse>
+                                 </note>
+                              </layer>
+                           </staff>
+                        </rdg>
+                     </app>
+                     <staff n="4" xml:id="m-bee44c68-5ea1-4457-bfaa-307527b33e20">
+                        <layer n="1" xml:id="m-486e944d-6615-474a-8296-562160e7b87c">
+                           <note dur="4"
+                                 dur.ppq="256"
+                                 oct="4"
+                                 pname="d"
+                                 tie="t"
+                                 xml:id="p1cdd4n0v1b13s4"/>
+                           <note dur="4"
+                                 dur.ppq="256"
+                                 oct="4"
+                                 pname="c"
+                                 xml:id="p1ccd4n256v1b13s4"/>
+                           <note dur="4"
+                                 dur.ppq="256"
+                                 oct="3"
+                                 pname="b"
+                                 xml:id="p1cbd3n512v1b13s4"/>
+                           <note dur="4"
+                                 dur.ppq="256"
+                                 oct="3"
+                                 pname="a"
+                                 xml:id="p1cad3n768v1b13s4"/>
+                           <note dur="2"
+                                 dur.ppq="512"
+                                 oct="3"
+                                 pname="b"
+                                 xml:id="p1cbd3n1024v1b13s4"/>
+                           <note dur="2"
+                                 dur.ppq="512"
+                                 oct="3"
+                                 pname="b"
+                                 xml:id="p1cbd3n1536v1b13s4">
+                              <verse n="1" xml:id="m-84afe1a8-f71d-4789-9753-bc5fadf241b6">
+                                 <syl con="d" wordpos="i" xml:id="m-b6b68135-937f-43fd-85a6-7d3f429e1ba0">vi</syl>
+                              </verse>
+                           </note>
+                        </layer>
+                     </staff>
+                     <app n="5" xml:id="m-9f08a90c-637e-42f9-abeb-a97e90371188">
+                        <rdg n="5" type="blank" xml:id="m-aed60960-9712-44af-85a7-d86abe0d21cc">
+                           <staff n="5" xml:id="m-b8973e26-7ba8-4d0d-bb19-a8f230510ae8">
+                              <layer n="1" xml:id="m-7b1c13f1-931c-4491-a011-a422311a78a3">
+                                 <mRest visible="false" xml:id="m-a55f48da-47e8-4999-a12c-d02cdd8845fe"/>
+                              </layer>
+                           </staff>
+                        </rdg>
+                        <rdg n="6"
+                             resp="#Derycz"
+                             type="reconstruction"
+                             xml:id="m-15e7142e-8782-4f98-a2d0-64954b31bf04">
+                           <staff n="6" xml:id="m-642a6c1c-aa82-4a7d-8631-96d7f7c85ef8">
+                              <layer n="1" xml:id="m-61a2f9b2-75b7-4283-b447-484e2b812168">
+                                 <note dots="1"
+                                       dur="1"
+                                       dur.ppq="1536"
+                                       oct="3"
+                                       pname="g"
+                                       xml:id="p1cgd3n0v1b13s6">
+                                    <verse n="1" xml:id="m-c5e8f9c4-e61c-4af9-995f-4ffe4c4e7d95">
+                                       <syl wordpos="t" xml:id="m-13e97b8c-639b-4f4a-bcec-cc44ee18a744">teur,</syl>
+                                    </verse>
+                                 </note>
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="3"
+                                       pname="g"
+                                       xml:id="p1cgd3n1536v1b13s6">
+                                    <verse n="1" xml:id="m-e8162e79-f412-4073-9b69-9ba1f2bb7ac1">
+                                       <syl wordpos="t" xml:id="m-402fd079-acc2-4c20-8b8a-0b55f2b66bcc">Dont</syl>
+                                    </verse>
+                                 </note>
+                              </layer>
+                           </staff>
+                        </rdg>
+                     </app>
+                  </measure>
+                  <measure n="13" xml:id="m-023ec130-212c-4ef7-ae99-714e5756d7b3">
+                     <staff n="1" xml:id="m-5689800d-c69d-4ea9-964e-d263887ec52b">
+                        <layer n="1" xml:id="m-1039c91b-f8b6-472d-b6bc-bb5494b3c662">
+                           <note dur="2"
+                                 dur.ppq="512"
+                                 oct="5"
+                                 pname="c"
+                                 xml:id="p1ccd5n0v1b14s1">
+                              <verse n="1" xml:id="m-5c466e0e-4722-4cdc-b0b4-b1df7ef9a23f">
+                                 <syl wordpos="t" xml:id="m-58e31e35-bad3-41b9-8b08-3ce4a477e2e3">tu</syl>
+                              </verse>
+                           </note>
+                           <note dots="1"
+                                 dur="2"
+                                 dur.ppq="768"
+                                 oct="5"
+                                 pname="d"
+                                 xml:id="p1cdd5n512v1b14s1">
+                              <verse n="1" xml:id="m-de47d071-8bc5-4d7f-804e-a09d0af458df">
+                                 <syl con="u" wordpos="t" xml:id="m-273f05d5-2661-44c0-a5d1-b90e5f17d6ac">est</syl>
+                              </verse>
+                           </note>
+                           <note dur="4"
+                                 dur.ppq="256"
+                                 oct="5"
+                                 pname="c"
+                                 xml:id="p1ccd5n1280v1b14s1"/>
+                           <note dur="2"
+                                 dur.ppq="512"
+                                 oct="4"
+                                 pname="b"
+                                 xml:id="p1cbd4n1536v1b14s1"/>
+                        </layer>
+                     </staff>
+                     <app n="2" xml:id="m-26f280d9-859b-4a3c-9d45-1dfe3204ca98">
+                        <rdg n="2" type="blank" xml:id="m-2c72c415-9549-4515-96bd-5d46f2b858a7">
+                           <staff n="2" xml:id="m-729d2dc0-4971-4dd5-ad60-15a9451fae37">
+                              <layer n="1" xml:id="m-184b7b06-2108-4a7f-bec7-31a711caa25f">
+                                 <mRest visible="false" xml:id="m-d813b8c9-c31a-412c-adc1-fb7d56b509fa"/>
+                              </layer>
+                           </staff>
+                        </rdg>
+                        <rdg n="3"
+                             resp="#Derycz"
+                             type="reconstruction"
+                             xml:id="m-79e2a384-49a9-4c30-8fa5-eb170470bd57">
+                           <staff n="3" xml:id="m-9f567758-48f8-4c9b-b746-3f4267b99cb3">
+                              <layer n="1" xml:id="m-fe306f0a-0bb2-460d-a1eb-f2444b3f35b9">
+                                 <note dots="1"
+                                       dur="2"
+                                       dur.ppq="768"
+                                       oct="4"
+                                       pname="f"
+                                       xml:id="p1cfd4n0v1b14s3">
+                                    <verse n="1" xml:id="m-dd255fbb-2a95-45ac-93b6-89f05dec5f92">
+                                       <syl con="u" wordpos="t" xml:id="m-2587c9f9-dbef-4d25-ae6c-792aaffa7d9d">tu</syl>
+                                    </verse>
+                                 </note>
+                                 <beam xml:id="m-d74c1b4c-b85d-43a8-939c-3aaf04c0f266">
+                                    <note dur="8"
+                                          dur.ppq="128"
+                                          oct="4"
+                                          pname="g"
+                                          xml:id="p1cgd4n768v1b14s3"/>
+                                    <note dur="8"
+                                          dur.ppq="128"
+                                          oct="4"
+                                          pname="a"
+                                          xml:id="p1cad4n896v1b14s3"/>
+                                 </beam>
+                                 <note dur="4"
+                                       dur.ppq="256"
+                                       oct="4"
+                                       pname="b"
+                                       xml:id="p1cbd4n1024v1b14s3"/>
+                                 <note dur="4"
+                                       dur.ppq="256"
+                                       oct="4"
+                                       pname="a"
+                                       xml:id="p1cad4n1280v1b14s3"/>
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="4"
+                                       pname="g"
+                                       xml:id="p1cgd4n1536v1b14s3">
+                                    <verse n="1" xml:id="m-8a650552-c756-412d-8e7b-bbe0e2b54f71">
+                                       <syl wordpos="t" xml:id="m-0c618444-7b41-4eae-a2e0-4976bf0aefe5">es</syl>
+                                    </verse>
+                                 </note>
+                              </layer>
+                           </staff>
+                        </rdg>
+                     </app>
+                     <staff n="4" xml:id="m-3461a252-9ab4-44fc-9dc4-4285e8a18a0f">
+                        <layer n="1" xml:id="m-208f8fb4-294c-4928-adf2-36aaaa32fdc8">
+                           <note dur="2"
+                                 dur.ppq="512"
+                                 oct="3"
+                                 pname="a"
+                                 xml:id="p1cad3n0v1b14s4">
+                              <verse n="1" xml:id="m-0daf5ce0-7bb8-4d61-bc0a-40d2c4c95ebe">
+                                 <syl wordpos="t" xml:id="m-86db12ae-d54b-4d52-ba46-12b38e6a2624">teur,</syl>
+                              </verse>
+                           </note>
+                           <note dur="2"
+                                 dur.ppq="512"
+                                 oct="3"
+                                 pname="a"
+                                 xml:id="p1cad3n512v1b14s4">
+                              <verse n="1" xml:id="m-1682d75a-84dd-4141-b07d-52a7bfc03d15">
+                                 <syl wordpos="t" xml:id="m-62bfd0e9-e41f-4564-90b9-a20efd1c186d">Dont</syl>
+                              </verse>
+                           </note>
+                           <note dur="2"
+                                 dur.ppq="512"
+                                 oct="4"
+                                 pname="d"
+                                 xml:id="p1cdd4n1024v1b14s4">
+                              <verse n="1" xml:id="m-44662641-f4ea-413c-a283-23318dedde99">
+                                 <syl wordpos="t" xml:id="m-8057267b-18a5-476f-819e-d31ad94c130a">tu</syl>
+                              </verse>
+                           </note>
+                           <note dur="2"
+                                 dur.ppq="512"
+                                 oct="4"
+                                 pname="d"
+                                 xml:id="p1cdd4n1536v1b14s4">
+                              <verse n="1" xml:id="m-4dccc2ce-63a5-4a85-acba-dba1a292c66a">
+                                 <syl wordpos="t" xml:id="m-334826da-3789-4064-a3cd-a3edc1c94ca3">es</syl>
+                              </verse>
+                           </note>
+                        </layer>
+                     </staff>
+                     <app n="5" xml:id="m-31a1c9af-e86c-454f-844f-a403179b43a5">
+                        <rdg n="5" type="blank" xml:id="m-a8a13154-8f70-438a-99ff-fb67e1f5d052">
+                           <staff n="5" xml:id="m-88f0e759-7b16-46c0-ab93-b6b3c5993d0d">
+                              <layer n="1" xml:id="m-e3dc9d6c-7928-4666-9e84-bed3c9b86234">
+                                 <mRest visible="false" xml:id="m-1d94fb75-f783-49e9-bfc0-c75accb6c096"/>
+                              </layer>
+                           </staff>
+                        </rdg>
+                        <rdg n="6"
+                             resp="#Derycz"
+                             type="reconstruction"
+                             xml:id="m-54889bfe-82ed-4c81-a62e-b2cc1a07c535">
+                           <staff n="6" xml:id="m-9dd91701-b848-4506-82e7-6839973e27a6">
+                              <layer n="1" xml:id="m-f36b7145-a55a-4d14-a6b3-dbd41d0079f3">
+                                 <note dur="4"
+                                       dur.ppq="256"
+                                       oct="3"
+                                       pname="f"
+                                       xml:id="p1cfd3n0v1b14s6">
+                                    <verse n="1" xml:id="m-1e21fc50-6f31-44d5-8dc8-5b0043e87480">
+                                       <syl con="u" wordpos="t" xml:id="m-e602fe67-d21a-4c9f-b1da-aeba656521e0">tu</syl>
+                                    </verse>
+                                 </note>
+                                 <note dur="4"
+                                       dur.ppq="256"
+                                       oct="3"
+                                       pname="e"
+                                       xml:id="p1ced3n256v1b14s6"/>
+                                 <note dur="4"
+                                       dur.ppq="256"
+                                       oct="3"
+                                       pname="d"
+                                       xml:id="p1cdd3n512v1b14s6"/>
+                                 <beam xml:id="m-881a2e03-b48e-4b43-98e4-12d2cd2ab658">
+                                    <note dur="8"
+                                          dur.ppq="128"
+                                          oct="3"
+                                          pname="e"
+                                          xml:id="p1ced3n768v1b14s6"/>
+                                    <note dur="8"
+                                          dur.ppq="128"
+                                          oct="3"
+                                          pname="f"
+                                          xml:id="p1cfd3n896v1b14s6"/>
+                                    <note dur="8"
+                                          dur.ppq="128"
+                                          oct="3"
+                                          pname="a"
+                                          xml:id="p1cad3n1792v1b14s6"/>
+                                    <note dur="8"
+                                          dur.ppq="128"
+                                          oct="3"
+                                          pname="g"
+                                          xml:id="p1cgd3n1920v1b14s6"/>
+                                 </beam>
+                                 <note dur="4"
+                                       dur.ppq="256"
+                                       oct="3"
+                                       pname="g"
+                                       xml:id="p1cgd3n1024v1b14s6"/>
+                                 <note dur="4"
+                                       dur.ppq="256"
+                                       oct="3"
+                                       pname="a"
+                                       xml:id="p1cad3n1280v1b14s6"/>
+                                 <note dur="4"
+                                       dur.ppq="256"
+                                       oct="3"
+                                       pname="b"
+                                       xml:id="p1cbd3n1536v1b14s6"/>
+                              </layer>
+                           </staff>
+                        </rdg>
+                     </app>
+                  </measure>
+                  <measure n="14" xml:id="m-12499bbf-df4e-4d5e-96d3-973ead8ca76e">
+                     <staff n="1" xml:id="m-e7db400e-eb79-4c71-bc2a-7876aa720aca">
+                        <layer n="1" xml:id="m-c5f24510-454e-4d54-be5c-ca66afb365ab">
+                           <note dur="4"
+                                 dur.ppq="256"
+                                 oct="4"
+                                 pname="a"
+                                 xml:id="p1cad4n0v1b15s1"/>
+                           <note dur="4"
+                                 dur.ppq="256"
+                                 oct="4"
+                                 pname="g"
+                                 xml:id="p1cgd4n256v1b15s1"/>
+                           <note dur="1"
+                                 dur.ppq="1024"
+                                 oct="4"
+                                 pname="g"
+                                 xml:id="p1cgd4n512v1b15s1">
+                              <verse n="1" xml:id="m-9b6cb68d-377c-4a9e-aa27-47f9b2542e4e">
+                                 <syl wordpos="t" xml:id="m-831e3686-0bfe-4f49-a6b6-07240c8c8580">le</syl>
+                              </verse>
+                           </note>
+                           <note dur="2"
+                                 dur.ppq="512"
+                                 oct="4"
+                                 pname="f"
+                                 xml:id="p1cfd4n1536v1b15s1">
+                              <supplied reason="edit" xml:id="m-08780e7f-8b6b-4003-90ed-fdc52152cba5">
+                                 <accid accid="s"
+                                        func="edit"
+                                        place="above"
+                                        xml:id="m-f0e8c1b6-8ee2-4ca5-a24d-5433cacca2e6"/>
+                              </supplied>
+                              <verse n="1" xml:id="m-44d184ef-29e2-404b-bac6-178e78b1f7cd">
+                                 <syl con="d" wordpos="i" xml:id="m-6585fd20-6f23-4943-81ab-66537801e15d">sei</syl>
+                              </verse>
+                           </note>
+                        </layer>
+                     </staff>
+                     <app n="2" xml:id="m-b58f85fa-4d13-4c96-9011-28cf102e8db0">
+                        <rdg n="2" type="blank" xml:id="m-cfdb9cff-199d-444f-bf1d-a8de09c53447">
+                           <staff n="2" xml:id="m-496327c3-3ecd-47c2-bfd3-c0c37eebef9a">
+                              <layer n="1" xml:id="m-3686242f-fc7f-4a95-9c39-d3ccad274bf1">
+                                 <mRest visible="false" xml:id="m-0056647c-5134-40c2-a388-4d7b78a3e9c9"/>
+                              </layer>
+                           </staff>
+                        </rdg>
+                        <rdg n="3"
+                             resp="#Derycz"
+                             type="reconstruction"
+                             xml:id="m-49938353-4a0b-4ecf-9672-d4d1b6c5afbe">
+                           <staff n="3" xml:id="m-830b1716-bec4-4d52-ae4d-f9cdc5ab6b97">
+                              <layer n="1" xml:id="m-7c7001ca-27be-4dbf-913e-cd1c646d208b">
+                                 <note dur="4"
+                                       dur.ppq="256"
+                                       oct="4"
+                                       pname="f"
+                                       xml:id="p1cfd4n0v1b15s3">
+                                    <verse n="1" xml:id="m-eb640aec-fb95-4e78-8225-8d443b2a1a01">
+                                       <syl con="u" wordpos="t" xml:id="m-192431e5-1fda-4581-9667-ec5a13909f0d">le</syl>
+                                    </verse>
+                                 </note>
+                                 <note dur="4"
+                                       dur.ppq="256"
+                                       oct="4"
+                                       pname="e"
+                                       xml:id="p1ced4n256v1b15s3">
+                                    <accid accid="f" xml:id="m-abfac2cb-cb04-4c94-a628-8764f2dd43eb"/>
+                                 </note>
+                                 <note dur="4"
+                                       dur.ppq="256"
+                                       oct="4"
+                                       pname="d"
+                                       xml:id="p1cdd4n512v1b15s3"/>
+                                 <note dur="4"
+                                       dur.ppq="256"
+                                       oct="4"
+                                       pname="c"
+                                       xml:id="p1ccd4n768v1b15s3"/>
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="4"
+                                       pname="d"
+                                       xml:id="p1cdd4n1024v1b15s3"/>
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="4"
+                                       pname="d"
+                                       xml:id="p1cdd4n1536v1b15s3">
+                                    <verse n="1" xml:id="m-3dd6c697-1c2b-43e7-8bd5-29317b03899a">
+                                       <syl con="d" wordpos="i" xml:id="m-f0ecaa99-8277-405c-8091-9205b82f6840">sei</syl>
+                                    </verse>
+                                 </note>
+                              </layer>
+                           </staff>
+                        </rdg>
+                     </app>
+                     <staff n="4" xml:id="m-d4ca4d60-cbe6-471d-a0ce-8cba29af4bbe">
+                        <layer n="1" xml:id="m-1c431588-5b35-4d1f-8b32-c99195576ca0">
+                           <note dur="4"
+                                 dur.ppq="256"
+                                 oct="4"
+                                 pname="c"
+                                 xml:id="p1ccd4n0v1b15s4">
+                              <verse n="1" xml:id="m-9e4f20d7-ad34-4fbe-b2e8-08f4b26ad74e">
+                                 <syl con="u" wordpos="t" xml:id="m-0661ab04-f082-4051-b4ef-47ee58299087">le</syl>
+                              </verse>
+                           </note>
+                           <note dur="4"
+                                 dur.ppq="256"
+                                 oct="3"
+                                 pname="b"
+                                 xml:id="p1cbd3n256v1b15s4"/>
+                           <note dur="4"
+                                 dur.ppq="256"
+                                 oct="3"
+                                 pname="b"
+                                 xml:id="p1cbd3n512v1b15s4"/>
+                           <beam xml:id="m-0be2e63c-c405-4ffa-9bb5-9d4bd008b5af">
+                              <note dur="8"
+                                    dur.ppq="128"
+                                    oct="3"
+                                    pname="a"
+                                    xml:id="p1cad3n768v1b15s4"/>
+                              <note dur="8"
+                                    dur.ppq="128"
+                                    oct="3"
+                                    pname="g"
+                                    xml:id="p1cgd3n896v1b15s4"/>
+                           </beam>
+                           <note dur="2"
+                                 dur.ppq="512"
+                                 oct="3"
+                                 pname="a"
+                                 xml:id="p1cad3n1024v1b15s4"/>
+                           <note dur="2"
+                                 dur.ppq="512"
+                                 oct="3"
+                                 pname="a"
+                                 xml:id="p1cad3n1536v1b15s4">
+                              <verse n="1" xml:id="m-37936c82-ddc6-407c-b1e5-01b00f419613">
+                                 <syl con="d" wordpos="i" xml:id="m-765b6186-930d-49e4-9905-7a381ae089db">sei</syl>
+                              </verse>
+                           </note>
+                        </layer>
+                     </staff>
+                     <app n="5" xml:id="m-b04d2d53-7e28-4397-a663-7d309244908d">
+                        <rdg n="5" type="blank" xml:id="m-71e73fcd-9dde-4ca0-9a5d-917d40d57dbe">
+                           <staff n="5" xml:id="m-94ea9edb-69bc-46a1-826c-11e452ee82c9">
+                              <layer n="1" xml:id="m-e98517b5-af5c-4f84-b027-d0d60d925684">
+                                 <mRest visible="false" xml:id="m-bd4d8d26-0ff6-407e-8329-efb4be3f3c38"/>
+                              </layer>
+                           </staff>
+                        </rdg>
+                        <rdg n="6"
+                             resp="#Derycz"
+                             type="reconstruction"
+                             xml:id="m-e67a3a32-9fb4-4ce0-9e32-c9804462de6d">
+                           <staff n="6" xml:id="m-9e8cca3b-ad5e-4ae2-a231-4aaed4af8a9e">
+                              <layer n="1" xml:id="m-024eeebc-937a-4a22-a20f-e7dd56e8f383">
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="3"
+                                       pname="f"
+                                       xml:id="p1cfd3n0v1b15s6">
+                                    <verse n="1" xml:id="m-83109513-071a-4798-8dcc-58db5740f1a1">
+                                       <syl wordpos="t" xml:id="m-7e9aee81-e29f-4aba-9bde-d4ba262e1137">es</syl>
+                                    </verse>
+                                 </note>
+                                 <note dur="4"
+                                       dur.ppq="256"
+                                       oct="3"
+                                       pname="g"
+                                       xml:id="p1cgd3n512v1b15s6">
+                                    <verse n="1" xml:id="m-5c2fb966-e93e-4562-bbe6-da5a633c08b4">
+                                       <syl con="u" wordpos="t" xml:id="m-39642849-a551-42e7-b337-dc6bd878d596">le</syl>
+                                    </verse>
+                                 </note>
+                                 <note dur="4"
+                                       dur.ppq="256"
+                                       oct="3"
+                                       pname="e"
+                                       xml:id="p1ced3n768v1b15s6">
+                                    <accid accid="f" xml:id="m-adc7fe23-6b76-42a7-913f-63fdd25129d9"/>
+                                 </note>
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="3"
+                                       pname="d"
+                                       xml:id="p1cdd3n1024v1b15s6"/>
+                                 <note dur="2"
+                                       dur.ppq="512"
+                                       oct="3"
+                                       pname="d"
+                                       xml:id="p1cdd3n1536v1b15s6">
+                                    <verse n="1" xml:id="m-c45308b2-c27d-494b-8975-79f6e1a9f56c">
+                                       <syl con="d" wordpos="i" xml:id="m-94f019a9-6921-44a7-9c87-550cdde7e4d5">sei</syl>
+                                    </verse>
+                                 </note>
+                              </layer>
+                           </staff>
+                        </rdg>
+                     </app>
+                  </measure>
+                  <measure n="15" right="end" xml:id="m-698a9929-c435-46fe-af0b-8210537c719d">
+                     <staff n="1" xml:id="m-65149e9d-f394-4aca-8e4f-68729c423d96">
+                        <layer n="1" xml:id="m-af51a45f-f6c3-442a-a7d9-837103f69913">
+                           <note dur="long"
+                                 dur.ppq="4096"
+                                 oct="4"
+                                 pname="g"
+                                 xml:id="p1cgd4n0v1b16s1">
+                              <verse n="1" xml:id="m-a3509909-a75b-4f89-97d6-9238ab4af17a">
+                                 <syl wordpos="t" xml:id="m-87f12bb5-9701-4303-9d2e-102d8fef4807">gneur.</syl>
+                              </verse>
+                           </note>
+                        </layer>
+                     </staff>
+                     <app n="2" xml:id="m-482e2e1c-e630-4c9d-ad4e-8738daca5241">
+                        <rdg n="2" type="blank" xml:id="m-055a66e0-2d66-4e40-9478-a0dc19ddcd3f">
+                           <staff n="2" xml:id="m-08795131-6d45-49a3-a1c6-3438a11eab2c">
+                              <layer n="1" xml:id="m-6aec8a51-a03e-4879-84ae-048dd4ea0f56">
+                                 <mRest visible="false" xml:id="m-33f0134c-e070-41d4-a260-41dc4561384b"/>
+                              </layer>
+                           </staff>
+                        </rdg>
+                        <rdg n="3"
+                             resp="#Derycz"
+                             type="reconstruction"
+                             xml:id="m-dadf6df2-e247-4b3d-9a8a-8d1213322692">
+                           <staff n="3" xml:id="m-1687887b-f6d7-4c7c-9a7e-14632ae4ad68">
+                              <layer n="1" xml:id="m-92268111-2f71-4cda-824b-ef27e61a0ec2">
+                                 <note dur="long"
+                                       dur.ppq="4096"
+                                       oct="4"
+                                       pname="d"
+                                       xml:id="p1cdd4n0v1b16s3">
+                                    <verse n="1" xml:id="m-bc49bff9-7957-44b7-ab60-72c4005c8ba7">
+                                       <syl wordpos="t" xml:id="m-627b2ba2-fa75-49f9-a7b8-2739419193df">gneur.</syl>
+                                    </verse>
+                                 </note>
+                              </layer>
+                           </staff>
+                        </rdg>
+                     </app>
+                     <staff n="4" xml:id="m-cb1c19cc-7a87-4b9a-b71f-e0500bc04526">
+                        <layer n="1" xml:id="m-6a2d59f5-2d0c-46dd-8348-1d91788ed86e">
+                           <note dur="long"
+                                 dur.ppq="4096"
+                                 oct="3"
+                                 pname="g"
+                                 xml:id="p1cgd3n0v1b16s4">
+                              <verse n="1" xml:id="m-573004e4-9118-4e98-a348-b17299f2ca71">
+                                 <syl wordpos="t" xml:id="m-2696d8f9-0738-47d7-9679-9b20c57bf339">gneur.</syl>
+                              </verse>
+                           </note>
+                        </layer>
+                     </staff>
+                     <app n="5" xml:id="m-66fc3917-9801-4351-bb43-0e4c16bff616">
+                        <rdg n="5" type="blank" xml:id="m-7d530779-cc2e-40f8-a822-11a0602a43c9">
+                           <staff n="5" xml:id="m-bf777da4-4202-4841-9973-be3fa66da782">
+                              <layer n="1" xml:id="m-451a0a6c-5733-440b-9a43-048419d95ab7">
+                                 <mRest visible="false" xml:id="m-e81e5537-f726-4732-97a1-7093a5757e62"/>
+                              </layer>
+                           </staff>
+                        </rdg>
+                        <rdg n="6"
+                             resp="#Derycz"
+                             type="reconstruction"
+                             xml:id="m-e96bb06e-fdfa-4587-b44f-208ec8949c3f">
+                           <staff n="6" xml:id="m-4a044b2e-70a4-4e8a-bac7-265f9620f63d">
+                              <layer n="1" xml:id="m-cf454580-2a72-4670-a842-7bee273a7de4">
+                                 <note dur="long"
+                                       dur.ppq="4096"
+                                       oct="2"
+                                       pname="g"
+                                       xml:id="p1cgd2n0v1b16s6">
+                                    <verse n="1" xml:id="m-98b50d81-2a6c-4ffb-b4ba-9e906daca831">
+                                       <syl wordpos="t" xml:id="m-3627d0fe-1c74-4303-82ca-23950b0263e5">gneur.</syl>
+                                    </verse>
+                                 </note>
+                              </layer>
+                           </staff>
+                        </rdg>
+                     </app>
+                  </measure>
+               </section>
+            </score>
+         </mdiv>
+      </body>
+   </music>
+</mei>
