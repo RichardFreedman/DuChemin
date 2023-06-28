@@ -1,20 +1,23 @@
 # Django settings for duchemin project.
 import os
-from settings_production import *
+from .settings_production import *
 
-DEBUG = False  # Should be not be True for production
+DEBUG = True  # Should be not be True for production
 TEMPLATE_DEBUG = DEBUG
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
     '.haverford.edu',
     '.digitalduchemin.org',
+    'localhost:8000',
+    'localhost:8983',
+    '*'
 ]
 
 PROJECT_DIR = os.path.dirname(__file__)
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    # ('Edgar Leon', 'eleon@haverford.edu'),
 )
 
 ADMIN_EMAIL = 'admin@digitalduchemin.org'
@@ -28,7 +31,7 @@ LOGIN_URL = '/login/'
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
 # In a Windows environment this must be set to your system time zone.
-TIME_ZONE = 'America/Montreal'
+TIME_ZONE = 'America/Chicago'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
@@ -95,6 +98,35 @@ STATICFILES_FINDERS = (
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '-bpbyo7m3d0rsvek5qrh2$3862(2#t4yoe3wc6341r)6z256i9'
 
+
+
+
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+            # Always use forward slashes, even on Windows.
+            # Don't forget to use absolute paths, not relative paths.
+        ],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                "django.contrib.auth.context_processors.auth",
+                "django.template.context_processors.request",
+                "django.template.context_processors.debug",
+                "django.template.context_processors.media",
+                "django.template.context_processors.static",
+                "django.template.context_processors.csrf",
+                "django.contrib.messages.context_processors.messages",
+                "duchemin.context_processors.admin_email",
+            ],
+        },
+    },
+]
+
+
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
@@ -102,13 +134,14 @@ TEMPLATE_LOADERS = (
 #     'django.template.loaders.eggs.Loader',
 )
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware'
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
@@ -118,13 +151,9 @@ ROOT_URLCONF = 'duchemin.urls'
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'duchemin.wsgi.application'
 
-TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-)
 
 INSTALLED_APPS = (
+	'haystack',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -135,15 +164,24 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable the admin:
     'duchemin',
     'django.contrib.admin',
-    'bootstrap-pagination',
+    'bootstrap_pagination',
     'django_extensions',
-    'south',
+    #'south',
     'crispy_forms',
     'rest_framework',
     'rest_framework.authtoken'
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )
+
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
+        'URL': 'http://127.0.0.1:8983/solr/',
+    },
+}
+
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -184,16 +222,7 @@ LOGGING = {
     }
 }
 
-TEMPLATE_CONTEXT_PROCESSORS = (
-    "django.contrib.auth.context_processors.auth",
-    "django.core.context_processors.request",
-    "django.core.context_processors.debug",
-    "django.core.context_processors.media",
-    "django.core.context_processors.static",
-    "django.core.context_processors.csrf",
-    "django.contrib.messages.context_processors.messages",
-    "duchemin.context_processors.admin_email",
-)
+
 
 SOLR_NUM_SEARCH_RESULTS = 10
 

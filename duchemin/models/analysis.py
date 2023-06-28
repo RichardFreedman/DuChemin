@@ -14,9 +14,9 @@ class DCAnalysis(models.Model):
         verbose_name_plural = "Observations"
 
     timestamp = models.CharField(max_length=64, blank=True, null=True)
-    analyst = models.ForeignKey(DCPerson, to_field='person_id', db_index=True, related_name="analyses")
-    composition_number = models.ForeignKey(DCPiece, to_field='piece_id', db_index=True, related_name="pieces")
-    phrase_number = models.ForeignKey(DCPhrase, to_field='phrase_id', db_index=True, related_name="phrases")
+    analyst = models.ForeignKey(DCPerson, on_delete=models.CASCADE, to_field='person_id', db_index=True, related_name="analyses")
+    composition_number = models.ForeignKey(DCPiece, on_delete=models.CASCADE, to_field='piece_id', db_index=True, related_name="pieces")
+    phrase_number = models.ForeignKey(DCPhrase, on_delete=models.CASCADE, to_field='phrase_id', db_index=True, related_name="phrases")
     start_measure = models.IntegerField(blank=True, null=True)
     stop_measure = models.IntegerField(blank=True, null=True)
     is_cadence = models.BooleanField()
@@ -61,7 +61,7 @@ class DCAnalysis(models.Model):
 
 @receiver(post_save, sender=DCAnalysis)
 def solr_index(sender, instance, created, **kwargs):
-    print "Indexing in solr"
+    print("Indexing in solr")
     import uuid
     from django.conf import settings
     import solr
@@ -70,7 +70,7 @@ def solr_index(sender, instance, created, **kwargs):
     record = solrconn.query("analysis_id:{0}".format(instance.id))
     if record:
         # the record already exists, so we'll remove it first.
-        print "Deleting ".format(record.results[0]['id'])
+        print ("Deleting ".format(record.results[0]['id']))
         solrconn.delete(record.results[0]['id'])
 
     # make it clear what we're working with...
@@ -162,7 +162,7 @@ def solr_delete(sender, instance, **kwargs):
     record = solrconn.query("analysis_id:{0}".format(instance.id))
     if record:
         # the record already exists, so we'll remove it first.
-        print "Deleting ".format(record.results[0]['id'])
+        print("Deleting ".format(record.results[0]['id']))
         solrconn.delete(record.results[0]['id'])
 
     # def __unicode__(self):

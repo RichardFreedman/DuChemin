@@ -1,6 +1,5 @@
 from rest_framework.renderers import TemplateHTMLRenderer
-
-
+from django.template import RequestContext
 class CustomHTMLRenderer(TemplateHTMLRenderer):
     def render(self, data, accepted_media_type=None, renderer_context=None):
         """
@@ -23,5 +22,8 @@ class CustomHTMLRenderer(TemplateHTMLRenderer):
             template_names = self.get_template_names(response, view)
             template = self.resolve_template(template_names)
 
-        context = self.resolve_context({'content': data}, request, response)
-        return template.render(context)
+        context = {'content': data}
+        return template.render(context,request=request)
+
+
+

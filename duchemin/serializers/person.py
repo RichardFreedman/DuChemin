@@ -9,29 +9,31 @@ from rest_framework import serializers
 class DCPieceAnalysisSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = DCPiece
-
+        fields = '__all__'
 
 class DCPhraseAnalysisSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = DCPhrase
-
+        fields = '__all__'
 
 class DCPersonAnalysesSerializer(serializers.HyperlinkedModelSerializer):
     composition_number = DCPieceAnalysisSerializer()
     phrase_number = DCPhraseAnalysisSerializer()
     class Meta:
         model = DCAnalysis
+        fields = '__all__'
 
 
 class DCPersonListSerializer(serializers.HyperlinkedModelSerializer):
-    full_name = serializers.Field(source="full_name")
+    full_name = serializers.CharField()
     class Meta:
         model = DCPerson
-        # fields = ('url',)
+        fields = '__all__'
 
 
 class DCPersonDetailSerializer(serializers.HyperlinkedModelSerializer):
-    full_name = serializers.Field(source="full_name")
-    analyses = DCPersonAnalysesSerializer()
+    full_name = serializers.CharField()
+    analyses = DCPersonAnalysesSerializer(many=True)
     class Meta:
         model = DCPerson
+        fields = '__all__'

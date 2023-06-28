@@ -1,11 +1,11 @@
 from django.conf import settings
 from duchemin.helpers.solrpaginate import SolrPaginator, SolrGroupedPaginator
-import solr
+import pysolr
 
 
 class DCSolrSearch(object):
     def __init__(self, request):
-        self.server = solr.Solr(settings.SOLR_SERVER)
+        self.server = pysolr.Solr(settings.SOLR_SERVER)
         self.request = request
         self.parsed_request = {}
         self.prepared_query = u""
@@ -13,10 +13,13 @@ class DCSolrSearch(object):
         self._parse_request()
         self._prep_q()
 
-    def search(self, **kwargs):
+    def search(self, q=None, **kwargs):
+        if q:
+            self.solr_params['q'] = q
         self.solr_params.update(kwargs)
         res = self._do_query()
         return SolrPaginator(res)
+
 
     def facets(self, facet_fields=settings.SOLR_FACET_FIELDS, **kwargs):
         facet_params = {
@@ -42,7 +45,8 @@ class DCSolrSearch(object):
         return SolrGroupedPaginator(res)
 
     def _do_query(self):
-        return self.server.select(self.prepared_query, **self.solr_params)
+        return self.server.search(self.prepared_query, **self.solr_params)
+
 
     def _parse_prestypes(self):
         prestype = []
@@ -197,7 +201,7 @@ class DCSolrSearch(object):
     def _prep_q(self):
         if self.parsed_request:
             arr = []
-            for k, v in self.parsed_request.iteritems():
+            for k, v in self.parsed_request.items():
                 if not v:
                     continue
                 if k == 'q':

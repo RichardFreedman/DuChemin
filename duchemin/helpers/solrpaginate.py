@@ -12,7 +12,7 @@ class SolrPaginator(object):
     For example:
     >>> from solr import SolrConnection, SolrPaginator
     >>>
-    >>> conn = SolrConnection('http://localhost:8083/solr')
+    >>> conn = SolrConnection('http://localhost:8983/solr')
     >>> response = conn.query('title:huckleberry')
     >>> paginator = SolrPaginator(response)
     >>> print paginator.num_pages
@@ -113,7 +113,7 @@ class SolrGroupedPaginator(object):
     For example:
     >>> from solr import SolrConnection, SolrPaginator
     >>>
-    >>> conn = SolrConnection('http://localhost:8083/solr')
+    >>> conn = SolrConnection('http://localhost:8000/solr')
     >>> response = conn.query('title:huckleberry')
     >>> paginator = SolrPaginator(response)
     >>> print paginator.num_pages

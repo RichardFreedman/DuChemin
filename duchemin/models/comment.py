@@ -3,8 +3,8 @@ from django.contrib.auth.models import User
 
 
 class DCComment(models.Model):
-    piece = models.ForeignKey("duchemin.DCPiece", related_name="comments")
-    author = models.ForeignKey(User, related_name="comments")
+    piece = models.ForeignKey("duchemin.DCPiece", on_delete=models.CASCADE, related_name="comments")
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comments")
 
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
