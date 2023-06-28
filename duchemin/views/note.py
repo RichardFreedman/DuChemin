@@ -1,4 +1,4 @@
-import urlparse
+from urllib.parse import urlparse
 from rest_framework import generics
 from rest_framework.renderers import JSONRenderer
 from rest_framework import permissions
@@ -6,7 +6,7 @@ from rest_framework import status
 from rest_framework.response import Response
 
 from django.contrib.auth.models import User
-from django.core.urlresolvers import resolve
+from django.urls import resolve
 from django.shortcuts import get_object_or_404
 from django.http import Http404
 

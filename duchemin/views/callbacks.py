@@ -106,7 +106,7 @@ def _fetch_work_results(request):
         is_logged_in = True
         profile = request.user.profile
         favourite_pieces = [f[0] for f in profile.favourited_piece.all().values_list('piece_id')]
-        print favourite_pieces
+        print(favourite_pieces)
         if favourite_pieces:
             for piece in work_results.object_list:
                 if piece.piece_id in favourite_pieces:
@@ -171,7 +171,7 @@ def _fetch_facet_results(request):
 
     filtered_facets.sort()
 
-    print filtered_facets
+    print(filtered_facets)
 
     data = {
         'facet_results': filtered_facets

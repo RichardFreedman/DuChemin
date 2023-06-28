@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.http import Http404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.views import password_change
+from django.contrib.auth.views import PasswordChangeView
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
 
@@ -23,7 +23,7 @@ def home(request):
     front_page_blocks = front_page_blocks[0:3]
     news_blocks = DCContentBlock.objects.filter(published=True, content_type="news").order_by('position')
     is_logged_in = False
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         is_logged_in = True
     data = {
         'user': request.user,
@@ -63,7 +63,7 @@ def pieces(request):
     paginator = Paginator(pieces, 25)
 
     is_logged_in = False
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         is_logged_in = True
         profile = request.user.profile
         favourite_pieces = profile.favourited_piece.all()
@@ -119,7 +119,7 @@ def piece(request, pk):
     is_favourite = False
     is_logged_in = False
     is_staff = False
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         is_logged_in = True
         is_staff = request.user.is_staff
         profile = request.user.profile
@@ -143,7 +143,7 @@ def piece(request, pk):
         'is_logged_in': is_logged_in,
         'is_staff': is_staff
     }
-    return render(request, 'main/piece.html', data, context_instance=RequestContext(request))
+    return render(request, 'main/piece.html', data)
 
 
 def discussion(request, piece_id):
@@ -158,7 +158,7 @@ def discussion(request, piece_id):
     is_favourite = False
     is_logged_in = False
     is_staff = False
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         is_logged_in = True
         is_staff = request.user.is_staff
         profile = request.user.profile
@@ -176,7 +176,7 @@ def discussion(request, piece_id):
         'is_staff': is_staff,
         'comments': comments,
     }
-    return render(request, 'main/discussion.html', data, context_instance=RequestContext(request))
+    return render(request, 'main/discussion.html', data)
 
 
 def reconstructions(request):
@@ -283,7 +283,7 @@ def add_observation(request, piece_id):
         del form_data.cleaned_data['cadence_alter_other']
 
         other_contrapuntal = form_data.cleaned_data.get('other_contrapuntal', None)
-        print "Other: ", other_contrapuntal
+        print ("Other: ", other_contrapuntal)
         if other_contrapuntal:
             if "Other" in other_contrapuntal:
                 other_contrapuntal = [c for c in other_contrapuntal if c != "Other"]
