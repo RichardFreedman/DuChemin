@@ -153,7 +153,7 @@ WSGI_APPLICATION = 'duchemin.wsgi.application'
 
 
 INSTALLED_APPS = (
-	'haystack',
+
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -175,12 +175,19 @@ INSTALLED_APPS = (
 )
 
 
-HAYSTACK_CONNECTIONS = {
+
+
+
+
+
+SOLR_CONNECTIONS = {
     'default': {
-        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
-        'URL': 'http://127.0.0.1:8983/solr/',
-    },
+        'URL': 'http://localhost:8080/duchemin-solr',
+        'COLLECTION': 'name',
+        'CONFIGSET': '_default'
+    }
 }
+
 
 
 REST_FRAMEWORK = {

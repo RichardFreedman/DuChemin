@@ -6,15 +6,16 @@
     </div>
     <div id="book-section" class="accordion-body collapse">
         <div class="accordion-inner">
-            <ul class="column-checklist three-columns">
-            {% for book in book_info %}
-            <li>
-                <label class="checkbox" for="book{{ forloop.counter }}">
-                    <input type="checkbox" id="book{{ forloop.counter }}" name="b" value="{{ book.0 }}" /> {{ book.1 }}
-                </label>
-            </li>
-            {% endfor %}
-            </ul>
+<ul class="column-checklist three-columns">
+    {% for book in book_info %}
+    <li>
+        <label class="checkbox" for="book{{ forloop.counter }}">
+            <input type="checkbox" id="book{{ forloop.counter }}" name="b" value="{{ book.0 }}" /> {{ book.1 }}
+        </label>
+    </li>
+    {% endfor %}
+</ul>
+
         </div>
     </div>
 </div>
