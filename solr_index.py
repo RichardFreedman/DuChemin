@@ -4,6 +4,12 @@ import sys
 import solr
 import uuid
 
+import django
+
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "duchemin.settings")
+django.setup()
+
+
 
 if __name__ == "__main__":
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "duchemin.settings")
@@ -12,12 +18,12 @@ if __name__ == "__main__":
     from duchemin.models.piece import DCPiece
     from django.conf import settings
 
-    print "Using: {0}".format(settings.SOLR_SERVER)
+    print ("Using: {0}".format(settings.SOLR_SERVER))
     solrconn = solr.SolrConnection(settings.SOLR_SERVER)
 
     books = DCBook.objects.all()
     all_books = []
-    print "Adding books"
+    print("Adding books")
     for book in books:
         d = {
             'type': 'duchemin_book',
@@ -28,7 +34,7 @@ if __name__ == "__main__":
         all_books.append(d)
     solrconn.add_many(all_books)
     solrconn.commit()
-    print "Done adding books"
+    print("Done adding books")
 
     pieces = DCPiece.objects.all()
     all_pieces = []
@@ -54,7 +60,7 @@ if __name__ == "__main__":
         all_pieces.append(d)
     solrconn.add_many(all_pieces)
     solrconn.commit()
-    print "Done adding pieces"
+    print("Done adding pieces")
 
     analyses = DCAnalysis.objects.all()
     for i, analysis in enumerate(analyses):
@@ -137,6 +143,6 @@ if __name__ == "__main__":
         if i % 100 == 0:
             solrconn.commit()
     solrconn.commit()
-    print "Done adding analyses"
+    print ("Done adding analyses")
 
     sys.exit()
