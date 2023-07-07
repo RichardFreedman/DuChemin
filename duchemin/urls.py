@@ -14,6 +14,8 @@ from django.conf.urls.static import static
 from duchemin.views.data import *
 from duchemin.views.callbacks import *
 from duchemin.views.search import *
+from django.urls import path
+
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -90,7 +92,11 @@ if 'django.contrib.admin' in settings.INSTALLED_APPS:
         path('about/', flatpage, {'url':'/about/'},name="about")
 ]
 
-    #urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
 
 # urlpatterns = patterns('',
 #     # Examples:
