@@ -12,6 +12,8 @@ from duchemin.views.auth import SessionAuth, SessionStatus, SessionClose
 from duchemin.views.main import *
 from django.conf.urls.static import static
 from duchemin.views.data import *
+from django.views.static import serve
+from django.conf.urls import url
 from duchemin.views.callbacks import *
 from duchemin.views.search import *
 from django.urls import path
@@ -25,13 +27,15 @@ admin.autodiscover()
 
 urlpatterns = []
 
+
+
 if 'django.contrib.admin' in settings.INSTALLED_APPS:
     urlpatterns += [
         path('admin/', admin.site.urls)
     ]
 
     urlpatterns += [
-        path('', home, name='home'),
+    	path('', home, name='home'),
         path('auth/token/', obtain_auth_token),
         path('auth/session/', SessionAuth.as_view()),
         path('auth/status/', SessionStatus.as_view()),
@@ -44,6 +48,7 @@ if 'django.contrib.admin' in settings.INSTALLED_APPS:
         path('book/<int:pk>/', book, name="dcbook-detail"),
         path('books/', books, name="dcbook-list"),
 
+        
         path('profile/', profile),
 
         path('reconstructions/', reconstructions),
@@ -68,33 +73,29 @@ if 'django.contrib.admin' in settings.INSTALLED_APPS:
         path('note/<str:pk>/', NoteDetail.as_view(), name='dcnote-detail'),
 
         path('password_change/', my_password_change),
-    ]
-
-    urlpatterns += [
+        
         path('search/', search, name="search"),
-    ]
-
-    urlpatterns += [
+        
         path('data/analysis/<int:anid>/', analysis),
-        path('data/phrase/<str:piece_id>/<int:phrase_id>/', phrase)
-    ]
-
-    urlpatterns += [
+        path('data/phrase/<str:piece_id>/<int:phrase_id>/', phrase),
+        
         path('search/results/<str:restype>/', result_callback),
-        path('favourite/<str:ftype>/<str:fid>/', favourite_callback)
-        ]
-
-    urlpatterns += [
+        path('favourite/<str:ftype>/<str:fid>/', favourite_callback),
+        
+        path('about/', flatpage, {'url':'/about/'},name="about"),
+        
         path('login/', auth_views.LoginView.as_view(extra_context={'next': '/profile'}), name='login'),
-        path('logout/', auth_views.LogoutView.as_view(next_page='/'), name='logout')]
+        path('logout/', auth_views.LogoutView.as_view(next_page='/'), name='logout'),
+        
+        path('mei/<path:path>/', serve, {'document_root': settings.MEI_ROOT}),
+        
+        path('audio/<path:path>/', serve, {'document_root': settings.MP3_ROOT})
+    ]
+    
 
-    urlpatterns += [
-        path('about/', flatpage, {'url':'/about/'},name="about")
-]
 
 
 
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
 
