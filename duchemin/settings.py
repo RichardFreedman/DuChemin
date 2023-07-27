@@ -9,8 +9,6 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
     '.haverford.edu',
     '.digitalduchemin.org',
-    'localhost:8000',
-    'localhost:8983',
     '*'
 ]
 
@@ -114,6 +112,7 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+            
                 "django.contrib.auth.context_processors.auth",
                 "django.template.context_processors.request",
                 "django.template.context_processors.debug",
@@ -176,14 +175,9 @@ INSTALLED_APPS = (
 )
 
 
-
-
-
-
-
 SOLR_CONNECTIONS = {
     'default': {
-        'URL': 'http://localhost:8080/duchemin-solr',
+        'URL': 'http://solr:8080/duchemin-solr',
         'COLLECTION': 'name',
         'CONFIGSET': '_default'
     }

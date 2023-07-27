@@ -1,0 +1,42 @@
+version: '3'
+services:
+  db:
+    image: postgres:15
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    networks:
+      - duchemin_network
+    environment:
+      - "POSTGRES_HOST_AUTH_METHOD=trust"
+    ports:
+      - "5432:5432"
+
+  solr:
+    build: ./solr
+    ports:
+      - "8080:8080" # Map Tomcat port
+    volumes:
+      - ./solr/duchemin-solr.war:/usr/local/tomcat/webapps/duchemin-solr.war
+    networks:
+      - duchemin_network
+
+  django_app:
+    build: .
+    ports:
+      - "8000:8000"
+    depends_on:
+      - solr
+      - db
+    volumes:
+      - ./duchemin/data:/app/duchemin/data
+    command: /app/entrypoint.sh
+    networks:
+      - duchemin_network
+
+volumes:
+  postgres_data:
+  duchemin-solr.war:
+  data:
+
+networks:
+  duchemin_network:
