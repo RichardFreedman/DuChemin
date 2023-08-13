@@ -27,3 +27,5 @@ WORKDIR /usr/local/lib/python3.9/site-packages
 COPY pagination.html /usr/local/lib/python3.9/site-packages/bootstrap_pagination/templates/bootstrap_pagination/pagination.html
 
 COPY pager.html /usr/local/lib/python3.9/site-packages/bootstrap_pagination/templates/bootstrap_pagination/pager.html
+
+WORKDIR /app
