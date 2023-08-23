@@ -17,10 +17,7 @@ services:
     networks:
       - duchemin_network
     environment:
-      # - "POSTGRES_HOST_AUTH_METHOD=trust"
-      - POSTGRES_DB=db
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      - "POSTGRES_HOST_AUTH_METHOD=trust"
     ports:
       - "5432:5432"
 
