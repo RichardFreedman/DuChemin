@@ -9,6 +9,9 @@ RUN apt-get update && apt-get install -y default-jdk maven
 RUN apt-get update \
     && apt-get -y install libpq-dev gcc \
     && pip install psycopg2==2.9.6
+RUN apt-get install -y git \
+    && git clone --branch dev_Edgar https://github.com/DuChemin/DuChemin.git .
+
 
 COPY requirements.txt /app/
 COPY /scripts/entrypoint.sh /app/entrypoint.sh
