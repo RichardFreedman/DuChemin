@@ -3,11 +3,13 @@
 set -e
 
 # Start Solr service using the provided command
+cd /app/solr/
 mvn tomcat:run-war &
+
 
 # Wait for Solr to start (adjust this delay as needed)
 sleep 10
-
+cd ..
 python manage.py makemigrations
 python manage.py migrate
 # Apply migrations and run the Django development server
