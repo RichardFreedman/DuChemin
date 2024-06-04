@@ -2,26 +2,14 @@
 
 set -e
 
-# Start Solr service using the provided command
-# cd /app/solr/
-# mvn tomcat:run-war &
+# Navigate to the project directory
+cd /app
 
+# Activate virtual environment (if you're using one)
+# source venv/bin/activate
 
-# Wait for Solr to start (adjust this delay as needed)
-# sleep 10
-# cd ..
-python manage.py makemigrations
-python manage.py migrate
-# Apply migrations and run the Django development server
-# python manage.py loaddata /app/duchemin/data/duchemin_dcperson.json
-# python manage.py loaddata /app/duchemin/data/duchemin_dcbook.json
-# python manage.py loaddata /app/duchemin/data/duchemin_dccontentblock.json
-# python manage.py loaddata /app/duchemin/data/duchemin_dcpiece.json
-# python manage.py loaddata /app/duchemin/data/duchemin_dcreconstruction.json
-# python manage.py loaddata /app/duchemin/data/duchemin_dcphrase.json
-# python manage.py loaddata /app/duchemin/data/duchemin_dcanalysis.json
-# python manage.py loaddata /app/duchemin/data/duchemin_dcnote.json
+# Load data into the database
+./load_data.sh
 
-
-#python manage.py runserver 0.0.0.0:8000
+# Start the Django application using Gunicorn
 gunicorn duchemin.wsgi:application --bind 0.0.0.0:8000
