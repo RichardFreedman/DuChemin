@@ -222,6 +222,8 @@ SEARCH_PARAM_MAP = {
     'm': 'cadence_alter',
     't': 'text_treatment',
     'lf': 'repeat_kind',
+    'opt': 'other_pres_type',
+    'rev': 'repeat_exact_varied',
     'cadence_role_cantz': 'cadence_role_cantz',
     'cadence_role_tenz': 'cadence_role_tenz',
     'intpatt_other': 'other_formulas',
