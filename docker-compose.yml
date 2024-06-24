@@ -4,8 +4,6 @@ services:
     build: ./nginx
     volumes:
       - ./duchemin/static:/app/duchemin/static
-    ports:
-      - "80:80"
     depends_on:
       - django_app
     networks:
