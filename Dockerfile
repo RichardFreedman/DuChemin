@@ -54,9 +54,6 @@ COPY. /app/
 
 RUN pip install -r requirements.txt
 
-EXPOSE 8000
-EXPOSE 5432
-EXPOSE 5433
 
 WORKDIR /usr/local/lib/python3.9/site-packages
 
