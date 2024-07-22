@@ -1,3 +1,4 @@
+# NOTE: django is currently at v5
 Django==3.1.14
 Werkzeug==2.3.4
 django-bootstrap-pagination==1.7.1
@@ -6,7 +7,8 @@ django-extensions==3.1.0
 djangorestframework==3.12.2
 httplib2==0.22.0
 ipython==8.13.2
-lxml==4.9.2
+# NOTE: We upgraded this to 4.9.4 from 4.9.2 so it will build (latest is v5)
+lxml==4.9.4
 gunicorn==21.2.0
 solrpy==1.0.0
 # wsgiref
