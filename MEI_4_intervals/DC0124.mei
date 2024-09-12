@@ -1,76 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mei meiversion="4.0.1" xml:id="m-6d7155cd-c0c0-4298-92e9-56e741401da5" xmlns="http://www.music-encoding.org/ns/mei">
- <meiHead xml:id="m-72b43b64-350e-431b-897d-f13c2d594dad">
-  <fileDesc xml:id="m-9ad3dc6d-a4d6-4f6f-86be-4d3376888adc">
-   <titleStmt>
-    <title xml:id="m-8f1c64b8-9d06-4882-a639-63c047c84512">
-     Je sens l’affection qui à moy se vient rendre
-    </title>
-    <composer xml:id="m-079b5950-4b0e-4c05-a875-2251a0372fda">
-     Goudimel
-    </composer>
-    <editor type="emendation" xml:id="Tanguy"/>
-   </titleStmt>
-   <pubStmt>
-    <availability xml:id="m-44c54569-f426-49f5-9b54-831e319d1a72">
-     <useRestrict xml:id="m-16508feb-f7a9-4995-a3dc-eac661d25037">
-      Copyright CESR and Haverford College, 2012-2014. Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
-     </useRestrict>
-    </availability>
-   </pubStmt>
-  </fileDesc>
-  <encodingDesc xml:id="m-daa44672-122c-4833-818a-e4549aacaf74">
-   <appInfo xml:id="m-fefe32c5-fd16-4ad0-883e-6bcb304b91b0">
-    <application version="7" xml:id="sibelius7">
-     <name xml:id="m-305610ff-ad1f-462a-b6df-f0727132552c">
-      Sibelius
-     </name>
-    </application>
-    <application version="v1.0_beta" xml:id="app_202231310564483">
-     <name>
-      mei30To40.xsl
-     </name>
-    </application>
-   </appInfo>
-  </encodingDesc>
-  <workList xml:id="m-f1185e1b-744f-47ae-b502-48d58076342c">
-   <work xml:id="m-c3c43b27-bc64-4b07-8460-ff478d462124">
-    <title xml:id="m-7d5e2fbc-de62-4914-935d-0b29e786736a">
-     Je sens l’affection qui à moy se vient rendre
-    </title>
-    <incip xml:id="m-689f50ec-f46f-4c27-a182-e69d2db185a9">
-     <score xml:id="m-cf23d4c5-e09d-4106-a504-23d677dec28b">
-      <scoreDef xml:id="m-6fcb28af-18e5-4b39-a50a-f78dd932838b">
-       <staffGrp xml:id="m-3fb77425-4422-4885-889b-ac02e8b10fe4">
-        <staffGrp n="1" symbol="bracket" xml:id="m-57144785-73c4-4367-9b51-7f96ec505994">
-         <staffDef clef.line="2" clef.shape="G" key.sig="0" lines="5" n="1" xml:id="m-342acb5b-8be5-4fe4-b489-af511a4c938e">
-          <label>
-           Superius
-          </label>
-         </staffDef>
-         <staffDef clef.line="2" clef.shape="C" key.sig="0" lines="5" n="2" xml:id="m-e4cb2324-b4f7-4e10-90d9-2d53ed3a3b98">
-          <label>
-           Contratenor
-          </label>
-         </staffDef>
-         <staffDef clef.line="3" clef.shape="C" key.sig="0" lines="5" n="3" xml:id="m-30983a79-bf94-4d1e-b050-5fadc7dbf743">
-          <label>
-           Tenor
-          </label>
-         </staffDef>
-         <staffDef clef.line="3" clef.shape="F" key.sig="0" lines="5" n="4" xml:id="m-eec17fa9-ee82-4a40-b4ae-653104c0de8a">
-          <label>
-           Bassus
-          </label>
-         </staffDef>
-        </staffGrp>
-       </staffGrp>
-      </scoreDef>
-     </score>
-    </incip>
-   </work>
-  </workList>
- </meiHead>
+   <meiHead xml:id="m-72b43b64-350e-431b-897d-f13c2d594dad">
+      <fileDesc xml:id="m-9ad3dc6d-a4d6-4f6f-86be-4d3376888adc">
+         <titleStmt>
+            <title xml:id="m-8f1c64b8-9d06-4882-a639-63c047c84512">
+               Je sens l’affection qui à moy se vient rendre
+            </title>
+            <composer xml:id="m-079b5950-4b0e-4c05-a875-2251a0372fda">
+               Goudimel
+            </composer>
+            <editor type="emendation" xml:id="Tanguy"/>
+         </titleStmt>
+         <pubStmt>
+            <availability xml:id="m-44c54569-f426-49f5-9b54-831e319d1a72">
+               <useRestrict xml:id="m-16508feb-f7a9-4995-a3dc-eac661d25037">
+                  Copyright CESR and Haverford College, 2012-2014. Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
+               </useRestrict>
+            </availability>
+         </pubStmt>
+      </fileDesc>
+      <encodingDesc xml:id="m-daa44672-122c-4833-818a-e4549aacaf74">
+         <appInfo xml:id="m-fefe32c5-fd16-4ad0-883e-6bcb304b91b0">
+            <application version="7" xml:id="sibelius7">
+               <name xml:id="m-305610ff-ad1f-462a-b6df-f0727132552c">
+                  Sibelius
+               </name>
+            </application>
+            <application version="v1.0_beta" xml:id="app_202231310564483">
+               <name>
+                  mei30To40.xsl
+               </name>
+            </application>
+            <application xml:id="aehi845" enddate="2024-09-12T17:51:04" startdate="2024-09-12T17:51:02" version="1.0.14p">
+               <name xml:id="ny1awb4">mei-friend</name>
+               <p xml:id="pstihi6">First edit by mei-friend 1.0.14p, 3 September 2024.</p>
+            </application>
+         </appInfo>
+      </encodingDesc>
+      <workList xml:id="m-f1185e1b-744f-47ae-b502-48d58076342c">
+         <work xml:id="m-c3c43b27-bc64-4b07-8460-ff478d462124">
+            <title xml:id="m-7d5e2fbc-de62-4914-935d-0b29e786736a">
+               Je sens l’affection qui à moy se vient rendre
+            </title>
+            <incip xml:id="m-689f50ec-f46f-4c27-a182-e69d2db185a9">
+               <score xml:id="m-cf23d4c5-e09d-4106-a504-23d677dec28b">
+                  <scoreDef xml:id="m-6fcb28af-18e5-4b39-a50a-f78dd932838b">
+                     <staffGrp xml:id="m-3fb77425-4422-4885-889b-ac02e8b10fe4">
+                        <staffGrp n="1" symbol="bracket" xml:id="m-57144785-73c4-4367-9b51-7f96ec505994">
+                           <staffDef clef.line="2" clef.shape="G" key.sig="0" lines="5" n="1" xml:id="m-342acb5b-8be5-4fe4-b489-af511a4c938e">
+                              <label>
+                                 Superius
+                              </label>
+                           </staffDef>
+                           <staffDef clef.line="2" clef.shape="C" key.sig="0" lines="5" n="2" xml:id="m-e4cb2324-b4f7-4e10-90d9-2d53ed3a3b98">
+                              <label>
+                                 Contratenor
+                              </label>
+                           </staffDef>
+                           <staffDef clef.line="3" clef.shape="C" key.sig="0" lines="5" n="3" xml:id="m-30983a79-bf94-4d1e-b050-5fadc7dbf743">
+                              <label>
+                                 Tenor
+                              </label>
+                           </staffDef>
+                           <staffDef clef.line="3" clef.shape="F" key.sig="0" lines="5" n="4" xml:id="m-eec17fa9-ee82-4a40-b4ae-653104c0de8a">
+                              <label>
+                                 Bassus
+                              </label>
+                           </staffDef>
+                        </staffGrp>
+                     </staffGrp>
+                  </scoreDef>
+               </score>
+            </incip>
+         </work>
+      </workList>
+   </meiHead>
  <music xml:id="m-beee962a-6e10-4e8f-9bac-e9ad2f427491">
   <body xml:id="m-4b4e927f-75c1-4a75-b721-073b118edb40">
    <mdiv xml:id="m-5f6a4f0e-806e-4300-ac58-16d5070c7a28">
@@ -829,72 +833,6 @@
           <verse n="1" xml:id="m-fbaf4d59-0dde-4ec3-b1a5-32bf3258227d">
            <syl con="d" wordpos="i" xml:id="m-004a74ed-17b8-4324-9d26-720bdedadb29">
             ren
-           </syl>
-          </verse>
-         </note>
-        </layer>
-       </staff>
-      </measure>
-      <measure n="6" xml:id="m-134ac2b1-b079-45ac-9b8d-dd2af1dd075a">
-       <staff n="1" xml:id="m-77443386-1f96-4e19-9073-0be28ff66b38">
-        <layer n="1" xml:id="m-62bfbe64-c5ae-4644-bfc0-ceee5be919bf">
-         <note dur="1" dur.ppq="1024" oct="4" pname="g" xml:id="p1cgd4n0v1b7s1">
-          <verse n="1" xml:id="m-7fe9d017-bb49-460b-9e9c-d32ae7725c7e">
-           <syl wordpos="t" xml:id="m-96583c6c-fcab-44e1-8703-aa944dc7ed7b">
-            dre,
-           </syl>
-          </verse>
-          <verse n="2" xml:id="m-5818e8cf-ef22-4d74-bcbb-f3aecc97c379">
-           <syl wordpos="t" xml:id="m-9dfc4223-b927-43a2-8b8e-58665b9a0a9d">
-            dre.
-           </syl>
-          </verse>
-         </note>
-        </layer>
-       </staff>
-       <staff n="2" xml:id="m-bd3dff40-c740-42be-89cd-00a1a46d1858">
-        <layer n="1" xml:id="m-f66aef3d-aa5a-4718-b9e7-ade48f243cf8">
-         <note dur="1" dur.ppq="1024" oct="4" pname="d" xml:id="p1cdd4n0v1b7s2">
-          <verse n="1" xml:id="m-5c92843a-b9dc-42c8-9e8c-7ce665b87473">
-           <syl wordpos="t" xml:id="m-7b86df89-3bcb-4893-b75d-4b41ac6f58f8">
-            dre,
-           </syl>
-          </verse>
-          <verse n="2" xml:id="m-16278673-b9c9-4a1a-bcc4-2dc2b03e33d7">
-           <syl wordpos="t" xml:id="m-c18b37fc-7ec8-4d29-ab7b-d9da0f6027fc">
-            dre.
-           </syl>
-          </verse>
-         </note>
-        </layer>
-       </staff>
-       <staff n="3" xml:id="m-3a744957-35b5-4da8-be29-b26705b7327d">
-        <layer n="1" xml:id="m-ff5f15a9-edf7-4198-96c6-d4416707d3e9">
-         <note dur="1" dur.ppq="1024" oct="3" pname="g" xml:id="p1cgd3n0v1b7s4">
-          <verse n="1" xml:id="m-5028bfa8-910c-4493-a414-323de0eeca00">
-           <syl wordpos="t" xml:id="m-564830ee-4191-475b-bbc2-8034fa6eb8a5">
-            dre,
-           </syl>
-          </verse>
-          <verse n="2" xml:id="m-54c2f200-8837-43f6-b73c-7d6f62d4d233">
-           <syl wordpos="t" xml:id="m-541a8853-6461-460b-8ff9-9675123cc4a9">
-            dre.
-           </syl>
-          </verse>
-         </note>
-        </layer>
-       </staff>
-       <staff n="4" xml:id="m-86194901-74e2-4b36-9d31-505903b88cf4">
-        <layer n="1" xml:id="m-273e2175-26f4-4f14-b423-7f66de95a252">
-         <note dur="1" dur.ppq="1024" oct="3" pname="g" xml:id="p1cgd3n0v1b7s5">
-          <verse n="1" xml:id="m-b7b9dd48-c088-448d-9c22-3fefa6ddce18">
-           <syl wordpos="t" xml:id="m-14b1b6a8-1d67-4fe0-b8cd-f7897bc988e0">
-            dre,
-           </syl>
-          </verse>
-          <verse n="2" xml:id="m-f623f8df-69c6-421a-89ac-7cda01a2514b">
-           <syl wordpos="t" xml:id="m-1f6fa449-9058-4c00-8aef-36c3adf78a3a">
-            dre.
            </syl>
           </verse>
          </note>
@@ -4599,7 +4537,6 @@
         </layer>
        </staff>
       </measure>
-      
      </section>
     </score>
    </mdiv>
