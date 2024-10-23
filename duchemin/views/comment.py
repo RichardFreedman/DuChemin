@@ -1,4 +1,4 @@
-import urlparse
+from urllib.parse import urlparse
 from rest_framework import generics
 from rest_framework.renderers import JSONRenderer
 from rest_framework import permissions
@@ -6,7 +6,7 @@ from rest_framework import status
 from rest_framework.response import Response
 
 from django.contrib.auth.models import User
-from django.core.urlresolvers import resolve
+from django.urls import resolve
 from django.shortcuts import get_object_or_404
 
 from duchemin.models.comment import DCComment
@@ -37,8 +37,8 @@ class CommentList(generics.ListCreateAPIView):
     max_paginate_by = 200
 
     def get_queryset(self):
-        piece = self.request.QUERY_PARAMS.get('piece')
-        last_update = self.request.QUERY_PARAMS.get('last_update', 0)
+        piece = self.request.query_params.get('piece')
+        last_update = self.request.query_params.get('last_update', 0)
         queryset = DCComment.objects.filter(id__gt=last_update)
 
         if piece:

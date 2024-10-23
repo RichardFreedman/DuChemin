@@ -13,11 +13,14 @@ class DCSolrSearch(object):
         self._parse_request()
         self._prep_q()
 
-    def search(self, **kwargs):
+    def search(self, q=None, **kwargs):
+        if q:
+            self.solr_params['q'] = q
         self.solr_params.update(kwargs)
         res = self._do_query()
         return SolrPaginator(res)
-
+        
+        
     def facets(self, facet_fields=settings.SOLR_FACET_FIELDS, **kwargs):
         facet_params = {
             'facet': 'true',
@@ -197,7 +200,7 @@ class DCSolrSearch(object):
     def _prep_q(self):
         if self.parsed_request:
             arr = []
-            for k, v in self.parsed_request.iteritems():
+            for k, v in self.parsed_request.items():
                 if not v:
                     continue
                 if k == 'q':

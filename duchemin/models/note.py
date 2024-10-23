@@ -4,8 +4,8 @@ from duchemin.models.piece import DCPiece
 
 
 class DCNote(models.Model):
-    piece = models.ForeignKey("duchemin.DCPiece", related_name="notes")
-    author = models.ForeignKey(User, related_name="notes")
+    piece = models.ForeignKey("duchemin.DCPiece", on_delete=models.CASCADE, related_name="notes")
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="notes")
 
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)

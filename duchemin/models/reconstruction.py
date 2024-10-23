@@ -10,8 +10,8 @@ class DCReconstruction(models.Model):
         verbose_name = "Reconstruction"
         verbose_name_plural = "Reconstructions"
 
-    piece = models.ForeignKey(DCPiece, to_field="piece_id")
-    reconstructor = models.ForeignKey(DCPerson, to_field="person_id")
+    piece = models.ForeignKey(DCPiece, on_delete=models.CASCADE, to_field="piece_id")
+    reconstructor = models.ForeignKey(DCPerson, on_delete=models.CASCADE, to_field="person_id")
     attachments = models.ManyToManyField(DCFile)
 
     def __unicode__(self):

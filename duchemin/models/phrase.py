@@ -11,7 +11,7 @@ class DCPhrase(models.Model):
         ordering = ['piece_id', 'phrase_num']
 
     phrase_id = models.IntegerField(unique=True, db_index=True)
-    piece_id = models.ForeignKey(DCPiece, to_field='piece_id', db_index=True)
+    piece_id = models.ForeignKey(DCPiece, on_delete=models.CASCADE, to_field='piece_id', db_index=True)
     phrase_num = models.IntegerField(blank=True, null=True)
     phrase_start = models.CharField(max_length=4, blank=True, null=True)
     phrase_stop = models.CharField(max_length=4, blank=True, null=True)

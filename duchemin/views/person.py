@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import generics
-from rest_framework.renderers import JSONRenderer
+from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer
 from rest_framework import permissions
 
 from duchemin.serializers.person import DCPersonListSerializer, DCPersonDetailSerializer
@@ -19,31 +19,30 @@ class PersonDetailHTMLRenderer(CustomHTMLRenderer):
     template_name = "person/person_detail.html"
 
 
-class PersonList(generics.ListAPIView):
-    model = DCPerson
+class PersonList(generics.ListCreateAPIView):
+    queryset = DCPerson.objects.all()
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     serializer_class = DCPersonListSerializer
     renderer_classes = (JSONRenderer, PersonListHTMLRenderer)
+    #template_name = "person/person_list.html"
 
 
-class PersonDetail(generics.RetrieveAPIView):
-    model = DCPerson
+class PersonDetail(generics.RetrieveUpdateAPIView):
+    queryset = DCPerson.objects.all()
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     serializer_class = DCPersonDetailSerializer
     renderer_classes = (JSONRenderer, PersonDetailHTMLRenderer)
+    #template_name = "person/person_detail.html"
 
     def get_object(self):
-        url_arg = self.kwargs['pk']
-        person = DCPerson.objects.filter(person_id=url_arg)
-        if not person.exists():
-            person = DCPerson.objects.filter(surname__iexact=url_arg)
+       url_arg = self.kwargs['pk']
+       person = get_object_or_404(DCPerson, person_id=url_arg)
+       self.check_object_permissions(self.request, person)
+       return person
 
-        obj = get_object_or_404(person)
-        self.check_object_permissions(self.request, obj)
-        return obj
 
     def post(self, request, *args, **kwargs):
-        remarks_text = request.DATA.get('remarks', None)
+        remarks_text = request.data.get('remarks', None)
         current_user = User.objects.get(pk=request.user.id)
         person = current_user.profile.person
 
@@ -58,32 +57,32 @@ class PersonDetail(generics.RetrieveAPIView):
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
-# def people(request):
-#     people = DCPerson.objects.all().order_by('surname')
-#     paginator = Paginator(people, 20)
-#     page = request.GET.get('page')
-#     try:
-#         all_people = paginator.page(page)
-#     except PageNotAnInteger:
-#         all_people = paginator.page(1)
-#     except EmptyPage:
-#         all_people = paginator.page(paginator.num_pages)
+def people(request):
+    people = DCPerson.objects.all().order_by('surname')
+    paginator = Paginator(people, 20)
+    page = request.GET.get('page')
+    try:
+        all_people = paginator.page(page)
+    except PageNotAnInteger:
+        all_people = paginator.page(1)
+    except EmptyPage:
+        all_people = paginator.page(paginator.num_pages)
 
-#     return render(request, 'main/people.html', {'people': all_people})
+    return render(request, 'main/people.html', {'people': all_people})
 
 
-# def person(request, person_id):
-#     try:
-#         person = DCPerson.objects.get(person_id=person_id)
-#     except DCPerson.DoesNotExist:
-#         raise Http404
+def person(request, person_id):
+    try:
+        person = DCPerson.objects.get(person_id=person_id)
+    except DCPerson.DoesNotExist:
+        raise Http404
 
-#     pieces = DCPiece.objects.filter(composer_id=person.person_id)
-#     analyses = DCAnalysis.objects.filter(analyst=person.person_id)
+    pieces = DCPiece.objects.filter(composer_id=person.person_id)
+    analyses = DCAnalysis.objects.filter(analyst=person.person_id)
 
-#     data = {
-#         'person': person,
-#         'pieces': pieces,
-#         'analyses': analyses
-#     }
-#     return render(request, 'main/person.html', data)
+    data = {
+        'person': person,
+        'pieces': pieces,
+        'analyses': analyses
+    }
+    return render(request, 'main/person.html', data)

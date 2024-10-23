@@ -13,10 +13,10 @@ class DCPiece(models.Model):
         verbose_name_plural = "Pieces"
 
     piece_id = models.CharField(max_length=16, unique=True, db_index=True)
-    book_id = models.ForeignKey(DCBook, to_field='book_id')
-    book_position = models.IntegerField(max_length=16, blank=True, null=True)
+    book_id = models.ForeignKey(DCBook, on_delete=models.CASCADE, to_field='book_id')
+    book_position = models.IntegerField(blank=True, null=True)
     title = models.CharField(max_length=64, blank=True, null=True)
-    composer_id = models.ForeignKey(DCPerson, to_field='person_id')
+    composer_id = models.ForeignKey(DCPerson, on_delete=models.CASCADE, to_field='person_id')
     composer_src = models.CharField(max_length=64, blank=True, null=True)
     forces = models.CharField(max_length=16, blank=True, null=True)
     print_concordances = models.CharField(max_length=128, blank=True, null=True)

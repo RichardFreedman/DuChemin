@@ -12,7 +12,7 @@ class SolrPaginator(object):
     For example:
     >>> from solr import SolrConnection, SolrPaginator
     >>>
-    >>> conn = SolrConnection('http://localhost:8083/solr')
+    >>> conn = SolrConnection('http://localhost:8983/solr')
     >>> response = conn.query('title:huckleberry')
     >>> paginator = SolrPaginator(response)
     >>> print paginator.num_pages
@@ -81,7 +81,7 @@ class SolrPaginator(object):
         # need to convert the keys to strings to pass them as parameters
         new_params = {}
         for k, v in self.params.items():
-            new_params[str(k)] = v.encode('utf-8')
+            new_params[str(k)] = v# .encode('utf-8')
 
         # get the new start index
         new_params['start'] = start
@@ -113,7 +113,7 @@ class SolrGroupedPaginator(object):
     For example:
     >>> from solr import SolrConnection, SolrPaginator
     >>>
-    >>> conn = SolrConnection('http://localhost:8083/solr')
+    >>> conn = SolrConnection('http://localhost:8000/solr')
     >>> response = conn.query('title:huckleberry')
     >>> paginator = SolrPaginator(response)
     >>> print paginator.num_pages

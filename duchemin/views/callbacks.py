@@ -102,11 +102,11 @@ def _fetch_work_results(request):
     work_results.pager_id = 'works'
 
     is_logged_in = False
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         is_logged_in = True
         profile = request.user.profile
         favourite_pieces = [f[0] for f in profile.favourited_piece.all().values_list('piece_id')]
-        print favourite_pieces
+        print(favourite_pieces)
         if favourite_pieces:
             for piece in work_results.object_list:
                 if piece.piece_id in favourite_pieces:
@@ -155,11 +155,11 @@ def _fetch_facet_results(request):
     # filtered_facets = dict([(k, v) for k, v in facets.iteritems() if k in settings.DISPLAY_FACETS])
 
     filtered_facets = []
-    for k, v in facets.iteritems():
+    for k, v in facets.items():
         this_facet = []
         if k not in settings.DISPLAY_FACETS.keys():
             continue
-        for facet_value, num in v.iteritems():
+        for facet_value, num in v.items():
             if k == "book_id_title":
                 facet_info = facet_value.split("_")
                 this_facet.append([facet_info[1], settings.DISPLAY_FACETS[k][0], facet_info[0]])
@@ -171,7 +171,7 @@ def _fetch_facet_results(request):
 
     filtered_facets.sort()
 
-    print filtered_facets
+    print(filtered_facets)
 
     data = {
         'facet_results': filtered_facets
