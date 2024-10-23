@@ -1,32 +1,55 @@
-version: '3'
 services:
   nginx:
     build: ./nginx
+    ports:
+      - "80:80"
+      - "443:443"
     volumes:
       - ./duchemin/static:/app/duchemin/static
+      # - ./ca/http-server.pem:/etc/nginx/server.pem
+      # - ./ca/http-server.key:/etc/nginx/server.key
+      # - ./ca/py-server.pem:/etc/nginx/client.pem
+      # - ./ca/py-server.key:/etc/nginx/client.key
     depends_on:
       - django_app
     networks:
-      - duchemin_network
+      - duchemin_internal
+      - duchemin_external
+
   db:
     image: postgres:15
+    ports:
+      - "5432:5432"
+    # command: >
+    #   -c ssl=on
+    #   -c ssl_cert_file=/var/lib/postgresql/server.pem
+    #   -c ssl_key_file=/var/lib/postgresql/server.key
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
     volumes:
       - postgres_data:/var/lib/postgresql/data/
+      # - ./ca/db-server.pem:/var/lib/postgresql/server.pem
+      # - ./ca/db-server.key:/var/lib/postgresql/server.key
     networks:
-      - duchemin_network
-    environment:
-      - "POSTGRES_HOST_AUTH_METHOD=trust"
-
+      - duchemin_internal
 
   solr:
     build: ./solr
+    ports:
+      - "8080:8080"
     volumes:
       - ./solr/duchemin-solr.war:/usr/local/tomcat/webapps/duchemin-solr.war
     networks:
-      - duchemin_network
+      - duchemin_internal
+      # solr needs to be able to get to maven central for some reason on startup?
+      - duchemin_external
 
   django_app:
     build: .
+    ports:
+      - "8000:8000"
     depends_on:
       - solr
       - db
@@ -35,7 +58,7 @@ services:
       - ./duchemin/static:/app/duchemin/static
     command: /app/entrypoint.sh
     networks:
-      - duchemin_network
+      - duchemin_internal
 
 volumes:
   static:
@@ -44,4 +67,7 @@ volumes:
   data:
 
 networks:
-  duchemin_network:
+  duchemin_internal:
+    internal: true
+    external: false
+  duchemin_external:

@@ -6,10 +6,11 @@ DEBUG = True  # Should be not be True for production
 TEMPLATE_DEBUG = DEBUG
 
 ALLOWED_HOSTS = [
+    'django',
+    'django_app',
     '127.0.0.1',
-    '.haverford.edu',
-    '.digitalduchemin.org',
-    '*'
+    '.localhost',
+    '[::1]',
 ]
 
 PROJECT_DIR = os.path.dirname(__file__)
